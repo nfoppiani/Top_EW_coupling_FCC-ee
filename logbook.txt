@@ -23,9 +23,14 @@ It's also useful to keep the bash library on Python by importin os library.
 ---We understood that there are lot of muons and electrons (also reconstructed) which are not produced in the W decay. They are produced, for instance, by the elctrons which radiate. This effect creates a background to the leptons we want to study.
 
 ---We understood something more about the ntuple produced by Marlin. 
+
 mcpdg contains the ID of the simulated particles.
+
 mcgst contains the status of the particles. There are 4 status possible: 0, 1, 2, 102
 we have understood that the particles in final state (which are revealed by the detectors) have status 1, while particles which decay have status 2. bottom quarks have status 0 and we will check later which particles have status 102.
+
+mcmox,y,z are the three components of the momentum of the particle
+mcvtx,y,z are the vertex coordinates where the particle is produced
 
 ---During next days 
 
