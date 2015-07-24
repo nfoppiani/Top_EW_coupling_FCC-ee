@@ -1,8 +1,0 @@
-##### LOGBOOK #####
-Nicolò Foppiani, Tommaso Pajero
-###################
-
-24/07/2015
-
--We have started writing python macro. To save 
--We have understood that 

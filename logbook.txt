@@ -2,7 +2,30 @@
 Nicolò Foppiani, Tommaso Pajero
 ###################
 
+23/07/2015
+
+---Thanks to Maurizio we understood a lot about Root trees.
+
 24/07/2015
 
--We have started writing python macro. To save 
--We have understood that 
+---We have started writing python scripts. At the end of the script, all the canvas opened are automatically closed, so, to save the histograms and plots the best way is to save them into a Root file.
+Here is an exemple.
+
+file_to_save1 = TFile("./file_to_save1.root","CREATE")
+Part_ID.Write()
+
+where PartID is a TCanvas variable.
+
+---A useful command in Python is Glob, which gives an array of the files in one folder; we could then loop on this array.
+
+It's also useful to keep the bash library on Python by importin os library.
+
+---We understood that there are lot of muons and electrons (also reconstructed) which are not produced in the W decay. They are produced, for instance, by the elctrons which radiate. This effect creates a background to the leptons we want to study.
+
+---We understood something more about the ntuple produced by Marlin. 
+mcpdg contains the ID of the simulated particles.
+mcgst contains the status of the particles. There are 4 status possible: 0, 1, 2, 102
+we have understood that the particles in final state (which are revealed by the detectors) have status 1, while particles which decay have status 2. bottom quarks have status 0 and we will check later which particles have status 102.
+
+---During next days 
+
