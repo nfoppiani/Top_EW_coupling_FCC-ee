@@ -1,0 +1,75 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+%\usepackage{circuitikz}
+\usepackage{epsfig}
+\usepackage[italian]{babel}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{authblk}
+\usepackage{fancyhdr}
+\usepackage{floatflt}
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{chngcntr}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage[a4paper,top=3cm,bottom=3cm,left=1.8cm,right=1.8cm]{geometry}
+
+\usepackage{appendix}    
+\usepackage{pdfpages}
+
+
+\pagestyle{fancy}
+\setlength\headheight{13.6pt}
+\fancyhf{}
+\rhead{Logbook - Nicolò Foppiani, Tommaso Pajero}
+\lhead{\rightmark}
+\rfoot{\thepage}
+\lfoot{Summer stage at CERN 2015}
+
+%opening
+\title{Summer CERN stage Logbook}
+\author{Nicolò Foppiani, Tommaso Pjero}
+\affil{\href{http://www.df.unipi.it}{Università degli studi di Pisa}}+
+\affil{\href{http://www.sns.it}{Scuola Normale Superiore}}
+\date{\today}
+
+%Numerazione reset ogni section
+\counterwithin{figure}{section}
+\counterwithin{equation}{section}
+\counterwithin{table}{section}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\include{00_week01}
+
+
+
+%\part*{Appendici}
+%
+%\appendix
+%\cleardoublepage  
+%\section{Relazione sul trigger di Schmitt}
+%\includepdf[pages={1-10}]{relazione_trigger_di_schimitt.pdf} 
+%
+%\section{Relazione sull'effetto Ramsauer-Townsand}
+%\includepdf[pages={1-5}]{relazione_ramsauer.pdf} 
+%
+%\section{Relazione sull'effetto fotoelettrico}
+%\includepdf[pages={1-4}]{relazione_fotoelettrico.pdf} 
+
+
+%final
+\end{document}
