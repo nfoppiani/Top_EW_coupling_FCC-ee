@@ -81,3 +81,4 @@ In addition the leptons we want to study can radiate and it's difficult to recon
 
 ---We need to ask Patrick and Patrizia if they prefer to import all ROOT librarys (like import ROOT as RT) or only the functions we need in that macro.
 ---We need also to ask them if they prefer to write a logbook with us or by themselves.
+---We produced a few plots of the electrons and muons energy in both reconstructed and simulated events. We need to talk about them with Patrick and Patrizia. We need also to understand how the events were smiulated (for instance if each event is only one collision or a collision between two bunches).
