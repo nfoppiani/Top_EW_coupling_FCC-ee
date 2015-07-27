@@ -82,3 +82,14 @@ In addition the leptons we want to study can radiate and it's difficult to recon
 ---We need to ask Patrick and Patrizia if they prefer to import all ROOT librarys (like import ROOT as RT) or only the functions we need in that macro.
 ---We need also to ask them if they prefer to write a logbook with us or by themselves.
 ---We produced a few plots of the electrons and muons energy in both reconstructed and simulated events. We need to talk about them with Patrick and Patrizia. We need also to understand how the events were smiulated (for instance if each event is only one collision or a collision between two bunches).
+
+27/07/2015
+
+---Patrick have copied all the .slcio files in his directory and processed them with Marlin using two bash scripts. We have copied the ntuples from eos (see the glossary) to our folder, and now we can loop among them. 
+---We have found out something else about our ntuples: 
+
+
+
+---We discovered that all the top quark have status 3, and the bottoms have sometimes status 2 and sometimes status 3.
+
+---By using the parent information we managed to select only the leptons which come from the W decay. Then, with a pyroot macro we filled the 2-D histograms of the number of leptons versus the nergy and the angle.
