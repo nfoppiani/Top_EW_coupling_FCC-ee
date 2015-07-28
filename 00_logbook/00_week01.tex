@@ -1,6 +1,108 @@
+\section{Week 01}
 \subsection{20/07/2015}
-The first day we did a lot of burocracy. It's not necessary to register the car, our badge permits us to pass.
 
+\textbf{Access to Cern}
+
+The first day we did a lot of bureaucracy. It's not necessary to register the car, our badge permits us to pass.
 During the afternoon we have attended to a conference during which our tutors have presented the projects.
 
-I will work with Tommaso in a project about the top electromagnetic coupling.
+
+\subsection{21/07/2015}
+
+\textbf{First use of Castor and Marlin}
+
+\textbf{Kinematics}
+
+The first process we analyze is the $e^+ e^- \to t \bar{t} $ with energy $\sqrt{s}=365$ Gev, where one top decays as $t \to bW \quad W \to l\nu$, and the other top in three jets. This process with two leptons are more rare, while, on the other and, the process with 6 jets are really difficult to study.
+
+By analyzing the kinematics of the process we have found that the lepton has to cut in energy:
+the configuration with the minimum energy is when the W has the maximum energy (emitted in the top direction) and the lepton is emitted back respect to the W fly direction;
+the configuration with the maximum energy is when the W has the maximum energy (emitted in the top direction) and the lepton is emitted front respect to the W fly direction.
+
+With the top energy of 182.5 Gev we obtain a minimum energy of 13.45 Gev and a maximum energy of 120.16 Gev. 
+
+Anyway there will be a lot of background to this process (also with high energy) due to the lepton produced by gamma pair production or pions decays.
+
+\subsection{22/07/2015}
+
+\textbf{PyROOT and Git}
+
+Installing PyRoot and Git, and created a Git repository. You can find some useful files in the utilities folder.
+
+\subsection{23/07/2015}
+
+\textbf{Tree Root}
+
+Thanks to Maurizio we understood a lot about Root trees. They are like tables: the rows represent the events, the columns are the branches and contain the information of the events. 
+
+Trees are contained in a ROOT file, to see the content we could use ROOT as follow:
+root -l myfile.root
+\_file0->ls()
+
+To see a tree we can use the command:
+mytree->Scan()
+and it permits to see it as a table.
+
+To loop on a tree using C++ we have to create the class associated to the tree by using:
+mytree->MakeClass("myclass")
+This command creates the file myclass.h that contains the definition of the class with the basic methods. The class contains some variables and the pointers to the branches.
+The file myclass.C is a ROOT macro, with the function loop, which loops on the events of the tree: you can add your code in this function and make the loop by executing this macro.
+
+In python it's more simple, because one can open the ROOT file and load the tree by using 
+
+myfile = TFile("myfile.root","READ")
+mytree = file.Get("mytree")
+
+and then, to loop on the events of the tree
+
+for event in mytree:
+	my code
+
+\textbf{Grow space in Lxplus}
+
+Thanks to Maurizio we have also increased our free space on Lxplus and adopted the CMSSW\_7\_4\_7 environment to use Root macro on Lxplus. See the file configurazioneLXPlus.txt in utilities to find some useful commands.
+
+\subsection{24/07/2015}
+
+\textbf{Using Pyroot scripts}
+
+We have started writing python scripts. At the end of the script, all the canvas opened are automatically closed, so, to save the histograms and plots the best way is to save them into a Root file.
+Here is an example.
+
+file\_to\_save1 = TFile("./file\_to\_save1.root","CREATE")
+Part\_ID.Write()
+
+where PartID is a TCanvas variable.
+
+We can also launch Python script using
+
+python -i myscript.py 
+
+which don't close the prompt at the end of the macro.
+
+\textbf{Glob}
+
+A useful command in Python is Glob, which gives an array of the files in one folder; we could then loop on this array.
+
+It's also useful to keep the bash library on Python by importin os library.
+
+\textbf{SLCIO Marlin ntuples}
+
+We understood something more about the ntuple produced by Marlin. 
+
+mcpdg contains the ID of the simulated particles.
+
+mcgst contains the status of the particles. There are 4 status possible: 0, 1, 2, 102
+we have understood that the particles in final state (which are revealed by the detectors) have status 1, while particles which decay have status 2. bottom quarks have status 0 and we will check later which particles have status 102.
+
+mcmox,y,z are the three components of the momentum of the particle
+mcvtx,y,z are the vertex coordinates where the particle is produced
+
+We understood that there are lot of muons and electrons (also reconstructed) which are not produced in the W decay. They are produced, for instance, by the electrons which radiate. This effect creates a background to the leptons we want to study.
+In addition the leptons we want to study can radiate and it's difficult to reconstruct these leptons. Maybe, during the study of the montecarlo events, we could analyze the vertex in which the leptons are produced.
+
+We need to ask Patrick and Patrizia if they prefer to import all ROOT library (like import ROOT as RT) or only the functions we need in that macro.
+
+We need also to ask them if they prefer to write a logbook with us or by themselves.
+
+We produced a few plots of the electrons and muons energy in both reconstructed and simulated events. We need to talk about them with Patrick and Patrizia. We need also to understand how the events were smiulated (for instance if each event is only one collision or a collision between two bunches).
