@@ -1,0 +1,19 @@
+# DA FARE UNA VOLTA SOLA
+
+# Su account CERN vai su myprofile, settings, AFSframework, settings
+# Aumenta lo spazio disponibile a 10 Gb
+# Crea un nuovo framework ‘work’ e portalo a 100 Gb
+
+ssh -XY tpajero@lxplus.cern.ch		# accesso
+					# directory base: /afs/cern.ch/user/t/tpajero
+ls /afs/cern.ch/work/t/tpajero		# cartella con i nuovi 100 Gb
+ln -s /afs/cern.ch/work/t/tpajero	# crea un collegamento a tale cartella
+mv tpajero work				# rinomina il collegamento a work
+ls
+firstExample  private  public  work	# cartelle nella tua directory base
+cd work
+scram project CMSSW CMSSW_7_4_7		# installa la versione 7.4.7
+cd CMSSW_7_4_7/src/			
+cmsenv					# setta i link a una piattaforma coerente di app
+
+# QUEST’ULTIMO COMANDO VA RIDATO AD OGNI ACCESSO!!

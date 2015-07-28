@@ -1,0 +1,26 @@
+\section{Week 02}
+
+\subsection{27/07/2015}
+
+\textbf{Stage and copy file from CERN servers}
+
+Patrick have copied all the .slcio files in his directory and processed them with Marlin using two bash scripts. We have copied the ntuples from eos (see the glossary) to our folder, and now we can loop among them. 
+
+He used two files: jobCopy.sh and jobMarlin.sh to process the files.
+
+jobCopy first stage the files from the tape (Castor) to the disk, and then copies the files into EOS folder.
+jobMarlin loops above all the files writing the correct steering.xml file and create all the ntuple.
+
+\textbf{More about the slcio ntuples}
+
+We have found out something else about our ntuples: 
+
+We discovered that all the top quark have status 3, and the bottoms have sometimes status 2 and sometimes status 3.
+
+By using the parent information we managed to select only the leptons which come from the W decay. Then, with a pyroot macro we filled the 2-D histograms of the number of leptons versus the energy and the angle.
+
+\subsection{28/07/2015}
+
+\textbf{Lepton vs energy-angle histogram}
+
+We managed to loop above all the .root files. We use 256 bins (16 for the angle and 16 

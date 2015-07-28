@@ -1,0 +1,110 @@
+###################################################
+###### GIT - SHARING CODE AND FILES PROGRAM #######
+###################################################
+
+
+######################
+### BASIC COMMANDS ###
+######################
+
+# CREATE A REPOSITORY
+mkdir <project>
+cd <project>
+get init
+# creates a .git hidden directory in the <project> directory
+# by default, every repository contains a head called master
+# nb HEAD (uppercase) is the current head (lowercase) of the object
+# HEAD^ identifies the parent of the HEAD commit
+
+# COPY A REPOSITORY IN THE PRESENT FOLDER
+git clone <repositoryURL>
+
+# ADD A NEW FILE IN A REPOSITORY
+copy the file in your PC directory and prompt
+get add <filename>
+# nb you need to add only files that you have added or modified; Git will automatically include in the commit files that have not changed
+# nb Git adds directories recursively (git add == git add -r)
+
+# TO ADD EVERYTHING THAT HAS CHANGED
+git add .
+
+# CREATE THE COMMIT OBJECT
+git commit <objectName>
+# the file will have the current HEAD as its parent
+
+# COMMIT AS OBJECTS ALL MODIFIED FILES
+git commit -a
+
+# UPDATE A REPOSITORY FILE
+go in the repository directories with your terminal and prompt
+git pull
+
+# TO UPDATE YOUR FILE VERSION
+git commit -a
+git push
+
+# SHOW A LOG OF ALL COMMITS STARTING FROM HEAD BACK TO THE INITIAL ONE
+git log
+# you can get the SHA1 name of an object (40 characters name that uniquely identifies it) this way
+
+# SHOW WHICH FILES HAVE CHANGED BETWEEN THE CURRENT PROJECT AND HEAD
+git status
+
+# SHOW THE DIFFERENCES BETWEEN HEAD AND CURRENT PROJECT STATE
+git diff <file>
+git diff —-cached <file>	# for added files
+
+
+# EXAMPLE
+1. 				# do some programming
+2. git status			# see what files you changed
+3. git diff <file>		# see what you modified
+4. git commit -a -m <message>	# to commit
+
+
+
+########################
+###### BRANCHING #######
+########################
+
+# CREATE A BRANCH FROM THE PARENT HEAD
+git branch <branchName> HEAD^
+
+# CHANGE THE HEAD YOU WORK ON
+# before doing it, commit all the changes you made on the HEAD
+git checkout <headName>
+# 1. points HEAD to <headName> object
+# 2. rewrites all the files in the directory to match the files stored in the new HEAD commit
+
+# SOME USEFUL COMMANDS
+git branch			# lists the existing heads (current head with a star)
+git diff <head1> .. <head2>	# shows the differences between the relative commits
+git diff <head1> ... <head2>	# shows the differences between head2 and the common ancestor of the two
+git log <head1> .. <head2>	# shows the change log between head2 and the common ancestor
+
+# GOOD PRACTISES
+1. make a new branch for every developer
+2. the master branch should always reference a releaseable state
+
+
+
+########################
+####### MERGING ########
+########################
+
+# MERGE COMMANDS
+git merge <head>
+git pull . <head>
+# these are equivalent commands (use just one of them!)
+1. identify the common ancestor of current and merge
+
+
+
+
+
+
+
+
+
+
+
