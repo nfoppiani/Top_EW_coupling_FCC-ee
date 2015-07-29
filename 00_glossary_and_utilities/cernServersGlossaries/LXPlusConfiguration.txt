@@ -1,0 +1,27 @@
+#############################################
+### INSTRUCTIONS TO BE FOLLOWED ONLY ONCE ###
+#############################################
+
+# Go on your CERN account -> myprofile -> settings -> AFSframework -> settings
+# Increase available memory to 10 GB
+# Create a new framework (‘work’) and bring its dimension to 100 GB
+
+ssh -XY tpajero@lxplus.cern.ch		# accesses to lxplus
+					# current directory: /afs/cern.ch/user/t/tpajero
+ls					#
+private	public				# tpajero contents
+ls /afs/cern.ch/work/t/tpajero		# new 100 GB directory
+ln -s /afs/cern.ch/work/t/tpajero/work	# makes a symbolic link to this directory	
+ls					#
+private  public  work			# new tpajero contents
+cd work					#
+scram project CMSSW CMSSW_7_4_7		# installa la versione 7.4.7
+
+###################################################
+### INSTRUCTIONS TO BE FOLLOWED AT EVERY ACCESS ###
+###################################################
+
+cd work/CMSSW_7_4_7/src/		#	
+cmsenv					# sets the programs framework according to CMS 7.4.7 standard
+
+# N.B.: CMS standard grants uploaded and compatible versions of the most used programs
