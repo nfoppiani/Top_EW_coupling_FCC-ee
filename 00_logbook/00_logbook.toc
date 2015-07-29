@@ -9,3 +9,4 @@
 \contentsline {section}{\numberline {2}Week 02}{5}{section.2}
 \contentsline {subsection}{\numberline {2.1}27/07/2015}{5}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}28/07/2015}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}29/07/2015}{5}{subsection.2.3}
