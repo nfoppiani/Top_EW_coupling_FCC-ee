@@ -1,0 +1,5 @@
+###############################
+####### PYTHON GLOSSARY #######
+###############################
+
+python -i <macro.py>		# retains last screen

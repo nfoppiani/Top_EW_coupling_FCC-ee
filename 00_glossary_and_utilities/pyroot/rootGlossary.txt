@@ -1,0 +1,9 @@
+###############################
+####### ROOT GLOSSARY #########
+###############################
+
+
+
+# TO READ A TREE IN A .ROOT FILE (to be launched from root)
+_file0->ls()
+nameOfTree->Scan()
