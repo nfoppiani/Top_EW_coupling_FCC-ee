@@ -66,3 +66,62 @@ We decided to use other simulation files made with Wizard (instead that Pythia),
 These simulations are made at 365 GeV and would consider the polarization of the top quarks (we hope so).
 
 By using some scripts bash we have staged all the files, copied and Marlin them.
+
+\subsection{30/07/2015}
+
+\textbf{Whizard ntuples}
+
+We have started to analyze the new ntuples obtained with Whizard simulation. The tree branches have the same name. Though we found out that all the events contains the following particles:
+0,1 : the two incoming electrons
+2,3 : the two incoming electrons after radiating soft photons
+4,5 : the two soft photons
+6,7,8,9,10,11 : the final state of the event with b an $\bar{b}$ quark, a couple quark and anti-quark, the electron (positron) we are looking for with index 10 and the correspondent neutrino.
+
+So we have simply plotted the distribution of the electron with index 10 and we found out that the angular distribution has the asymmetry we are looking for.\\
+Now we are going to run our script on lxplus looping all the data.
+
+In addition we discover that we have not always the resonant state in the simulation, and sometimes we have a top without an antitop (or viceversa); so we don't know very well how the simulation was made. We don't care to this fact very much for the moment. 
+
+\subsection{31/07/2015}
+
+\textbf{Whizard ntuples}
+
+The result of the plot with all date is visible in figure \ref{02_Energy_angle_MC}.
+
+\begin{figure} [ht!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{02_Montecarlo_electron_distribution.pdf}
+ \caption{Energy-angle distribution of the electrons simulated by Whizard}
+ \label{02_Energy_angle_MC}
+\end{figure}
+
+We have then compared this distribution with the one calculated analytically (figure \ref{02_Energy_angle_AN}), and, by making the ratio of the two histograms we obtained something really flat (figure \ref{02_Energy_angle_ratio}), so the two distributions agree. There are some spike in the ratio of the two histograms near the boundary of the allowed energy. This is due to the fact that probably the top mass and the W mass were chosen approximately (we found out that the top mass were chosen to be 174 GeV), and the maximum energy of the electrons depends a lot on the top mass.
+
+\begin{figure} [ht!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{02_Analytic_electron__distribution.pdf}
+ \caption{Energy-angle distribution of the electrons calculated analytically}
+ \label{02_Energy_angle_AN}
+\end{figure}
+
+\begin{figure} [ht!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{02_Electrons+muons.pdf}
+ \caption{Ratio of the distribution simulated and analytic}
+ \label{02_Energy_angle_ratio}
+\end{figure}
+
+If we better analyze the ratio by zooming on the distribution in the flat region, we can see that there are many fluctuations that are due to the little quantity of data. 
+
+\begin{figure} [ht!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{02_Electrons+muons.pdf}
+ \caption{Zoom of the ratio of the distribution simulated and analytic}
+ \label{02_Energy_angle_ratio_zoom}
+\end{figure}
+
+In the end we can say that our work can start, because our data take in account the polarization effect.
+
+\subsection{Other leptons simulations}
+
+We have just started to stage, copy and Marlin also the files containing one muon or tau.

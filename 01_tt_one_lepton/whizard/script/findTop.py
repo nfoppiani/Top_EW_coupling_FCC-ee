@@ -48,7 +48,7 @@ for filename in file_list:
 					#if tree.mcpdg[pa1]!=-24:
 						#print "The parent isn't a W but a ", tree.mcpdg[pa1]
 			ip = ip+1
-		if antitopfound ==2:
+		if antitopfound != topfound:
 				print "strange event", filename, iev
 	iev=iev+1
 
