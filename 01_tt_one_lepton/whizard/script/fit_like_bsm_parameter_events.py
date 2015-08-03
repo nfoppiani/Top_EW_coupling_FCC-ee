@@ -13,11 +13,17 @@ h_f1 = myfile_an.Get("FAzed")
 
 #getting the montecarlo histogram
 
-myfile_mc = TFile("../plot/2dWhizardPositronHisto.root","READ")
+myfile_mc = TFile("../plot/electrons_histo.root","READ")
 
-h_mc=TH2F(" "," ",200,0.112426,1.,200,-1.,1.)
+mc_tree=myfile_mc.Get("MyLCTuple")
 
-h_mc = myfile_mc.Get("electronReducedEnergyAndAngleHisto")
+#loop on the electrons in the tree
+
+for event in mc_tree
+	
+
+
+
 
 #routines which calculate the minimum
 

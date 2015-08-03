@@ -22,7 +22,7 @@ print 'xfMin = ', xfMin
 
 # records the *ntuple.root files list of the present directory
 # this line should stay over electronsTree.root file creation if you replace *ntuple.root with *.root
-fileList = glob.glob('./*ntuple.root')
+fileList = glob.glob("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
 
 # creates the new file and the tree that it will contain
 savingFile = TFile("./electrons_Tree.root", "CREATE")
@@ -45,7 +45,6 @@ electronsTree.Branch('mcMox', mcMox, 'mcMox/D')
 electronsTree.Branch('mcMoy', mcMoy, 'mcMoy/D')
 electronsTree.Branch('mcMoz', mcMoz, 'mcMoz/D')
 electronsTree.Branch('mcCosTheta', mcCosTheta, 'mcCosTheta/D')
-electronsTree.Branch('mcWMas', mcWMas, 'mcWMas/D')
 
 for fileName in fileList:
     # reads the ntuple.root file
