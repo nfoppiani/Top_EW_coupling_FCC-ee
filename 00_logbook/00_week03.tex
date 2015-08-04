@@ -1,0 +1,41 @@
+\section{Week 03}
+
+\subsection{03/08/2015}
+
+\textbf{Other leptons Whizard simulations}
+
+We have copied and Marlin all the other simulations files with one leptons (muons or electrons) in the final state.\\
+We would like to analyze the energy-angle distribution to understand if the boundary effect are due to some diagrams which interferes (only in the electrons case) or if they are due to something else.
+
+\textbf{Likelihood fit}
+
+After a lesson about the likelihood and how to fit an histogram by finding the minimum of the likelihood (thanks to Patrick), we started fitting our energy-angle distribution for the electrons with a model $S_0 + a f_1$, where $S_0$ is the standard model distribution and $f_1$ is a BSM correction.\\
+
+We have started from two histograms of $S_0$ and $f_1$ with 200 bins in each dimension and reduced energy between 0.114246 and 1, and $cos\theta$ between -1 and 1 (obviously).\\ We have then normalized the distribution so we can use them as probability density function. So we have reproduced our distribution with these settings and use the likelihood formula:
+\[L=-\sum_{events} log(S_0+a f_1) = -\sum_{bins} N_{bin} log(S_0+a f_1)\]
+\[L'=-\sum N \frac{f_1}{S_0 + a f_1}  and  L''= \sum N \frac{f_1^2}{(S_0 + a f_1)^2}\]
+
+where N is the number of entries in the selected bin of the montecarlo histogram, and $S_0$ and $f_1$ are the numbers of the entries in the histograms of the probability density function.
+
+Then we could use the tangent method to find iteratively the minimum value (that we expect to be 0).
+\[a_0 = a - \frac{L'(a)}{L''(a)}\]
+
+and after all we can estimate the error with \[\sigma = \sqrt{\frac{1}{L''(a_0)}}\]
+
+We have found some errors while calculating the Likelihood and its derivatives cause to the fact that $S_0$ and $f_1$ became very near to 0 in some points. We don't now how to solve yet.
+
+\subsection{04/08/2015}
+
+\textbf{TChain}
+
+We have just discovered a new method to process a lot of Root files containing tree without using glob.
+We simply need to define a TChain object:\\
+mychain = TChain("MyTreeName")
+where MyTreeName is the name of the trees inside the root files.\\
+Then we can add all the root files to the chain by using:
+mychain.Add("*.root")\\
+and then we can loop on all the events dealing mychain as a tree.
+
+\textbf{Likelihood fit part 2}
+
+We found the problem in the code: strangely, if we look to the $S_0$ and $f_1$, we find that the bins (0,*) and (*,0) contains exactly 0 entries. So during the calculation of the derivatives we find several problems in dividing by zero. We solve the problem by simply don't consider these bins. The result is pretty strange 
