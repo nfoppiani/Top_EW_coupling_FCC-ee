@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.6.19)  4 AUG 2015 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.6.19)  5 AUG 2015 10:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -813,19 +813,19 @@ Package caption Info: End \AtBeginDocument code.
 \openout2 = `00_week02.aux'.
 
  (./00_week02.tex
-<02_Electrons.pdf, id=111, 569.12625pt x 461.725pt>
+<02_Electrons.pdf, id=116, 569.12625pt x 461.725pt>
 File: 02_Electrons.pdf Graphic file (type pdf)
  <use 02_Electrons.pdf>
 Package pdftex.def Info: 02_Electrons.pdf used on input line 35.
 (pdftex.def)             Requested size: 346.55293pt x 281.16571pt.
 
-<02_Muons.pdf, id=112, 569.12625pt x 461.725pt>
+<02_Muons.pdf, id=117, 569.12625pt x 461.725pt>
 File: 02_Muons.pdf Graphic file (type pdf)
  <use 02_Muons.pdf>
 Package pdftex.def Info: 02_Muons.pdf used on input line 42.
 (pdftex.def)             Requested size: 346.55293pt x 281.16571pt.
 
-<02_Electrons+muons.pdf, id=113, 569.12625pt x 461.725pt>
+<02_Electrons+muons.pdf, id=118, 569.12625pt x 461.725pt>
 File: 02_Electrons+muons.pdf Graphic file (type pdf)
 
 <use 02_Electrons+muons.pdf>
@@ -836,7 +836,7 @@ Package pdftex.def Info: 02_Electrons+muons.pdf used on input line 49.
 
 ] [6 <./02_Electrons.pdf, page is rotated 90 degrees> <./02_Muons.pdf, page is 
 rotated 90 degrees>]
-<02_Montecarlo_electron_distribution.pdf, id=216, 569.12625pt x 461.725pt>
+<02_Montecarlo_electron_distribution.pdf, id=221, 569.12625pt x 461.725pt>
 File: 02_Montecarlo_electron_distribution.pdf Graphic file (type pdf)
 
 <use 02_Montecarlo_electron_distribution.pdf>
@@ -844,7 +844,7 @@ Package pdftex.def Info: 02_Montecarlo_electron_distribution.pdf used on input
 line 93.
 (pdftex.def)             Requested size: 346.55293pt x 281.16571pt.
 
-<02_Analytic_electron__distribution.pdf, id=219, 569.12625pt x 461.725pt>
+<02_Analytic_electron__distribution.pdf, id=224, 569.12625pt x 461.725pt>
 File: 02_Analytic_electron__distribution.pdf Graphic file (type pdf)
 
 <use 02_Analytic_electron__distribution.pdf>
@@ -852,13 +852,13 @@ Package pdftex.def Info: 02_Analytic_electron__distribution.pdf used on input l
 ine 102.
 (pdftex.def)             Requested size: 346.55293pt x 281.16571pt.
 
-<02_Ratio_MC_An.pdf, id=220, 569.12625pt x 461.725pt>
+<02_Ratio_MC_An.pdf, id=225, 569.12625pt x 461.725pt>
 File: 02_Ratio_MC_An.pdf Graphic file (type pdf)
  <use 02_Ratio_MC_An.pdf>
 Package pdftex.def Info: 02_Ratio_MC_An.pdf used on input line 109.
 (pdftex.def)             Requested size: 346.55293pt x 281.16571pt.
 
-<02_Ratio_MC_An_zoom.pdf, id=221, 569.12625pt x 461.725pt>
+<02_Ratio_MC_An_zoom.pdf, id=226, 569.12625pt x 461.725pt>
 File: 02_Ratio_MC_An_zoom.pdf Graphic file (type pdf)
 
 <use 02_Ratio_MC_An_zoom.pdf>
@@ -879,26 +879,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 ) [10
 
 
-]
+] [11]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 76.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 76.
- (./00_logbook.aux (./00_week01.aux) (./00_week02.aux) (./00_week03.aux))
+ (./00_logbook.aux (./00_week01.aux) (./00_week02.aux)
+(./00_week03.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 76.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 76.
-
-Package rerunfilecheck Warning: File `00_logbook.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `00_logbook.out':
-(rerunfilecheck)             Before: F08077F901C2EC3FB775C2E9D61B3F78;855
-(rerunfilecheck)             After:  06F965E0F9228C73989C20BE8B22FF9B;915.
+Package rerunfilecheck Info: File `00_logbook.out' has not changed.
+(rerunfilecheck)             Checksum: 06F965E0F9228C73989C20BE8B22FF9B;915.
  ) 
 Here is how much of TeX's memory you used:
- 11354 strings out of 495025
- 163940 string characters out of 6181515
+ 11356 strings out of 495025
+ 163963 string characters out of 6181515
  282295 words of memory out of 5000000
- 14349 multiletter control sequences out of 15000+600000
+ 14350 multiletter control sequences out of 15000+600000
  8870 words of font info for 32 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  37i,13n,43p,796b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -913,10 +908,10 @@ public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy8.pfb>
-Output written on 00_logbook.pdf (10 pages, 323616 bytes).
+Output written on 00_logbook.pdf (11 pages, 324950 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
- 297 compressed objects within 3 object streams
- 35 named destinations out of 1000 (max. 500000)
- 156 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 514 PDF objects out of 1000 (max. 8388607)
+ 304 compressed objects within 4 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 164 words of extra memory for PDF output out of 10000 (max. 10000000)
 

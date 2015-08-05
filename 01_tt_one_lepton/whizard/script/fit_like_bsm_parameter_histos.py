@@ -17,7 +17,6 @@ myfile_mc = TFile("../plot/electrons_histo.root","READ")
 
 h_mc = myfile_mc.Get("mc_electrons")
 
-
 #h_mc.Scale(1/h_mc.Integral())
 
 #routines which calculate the minimum
@@ -31,9 +30,9 @@ f1= numpy.zeros((200,200))
 for i in range(200):
 		for j in range(200):
 			
-			N[i,j]=h_mc.GetBinContent(i,j)
-			S0[i,j]=h_S0.GetBinContent(i,j)
-			f1[i,j]=h_f1.GetBinContent(i,j)
+			N[i,j]=h_mc.GetBinContent(i+1,j+1)
+			S0[i,j]=h_S0.GetBinContent(i+1,j+1)
+			f1[i,j]=h_f1.GetBinContent(i+1,j+1)
 			#if S0[i,j]==0:
 				#print i,j,"S0", S0[i,j]
 				#print
@@ -47,8 +46,8 @@ iter=0
 for iter in range(20):
 	first_der=0
 	second_der=0
-	for i in range(1,200):
-		for j in range(1,200):
+	for i in range(200):
+		for j in range(200):
 			
 			first_der=first_der - N[i,j]*f1[i,j]/(S0[i,j]+a*f1[i,j])
 			#first_der = first_der - N[i,j]/((S0[i,j]/f1[i,j])+a)

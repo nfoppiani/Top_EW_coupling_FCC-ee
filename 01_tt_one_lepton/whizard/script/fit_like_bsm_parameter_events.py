@@ -13,7 +13,7 @@ h_f1 = myfile_an.Get("FAzed")
 
 #getting the montecarlo histogram
 
-myfile_mc = TFile("../plot/electrons_histo.root","READ")
+myfile_mc = TFile("../ntuple/electrons_Tree.root","READ")
 
 mc_tree=myfile_mc.Get("MyLCTuple")
 

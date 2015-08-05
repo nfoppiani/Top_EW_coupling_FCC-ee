@@ -38,4 +38,6 @@ and then we can loop on all the events dealing mychain as a tree.
 
 \textbf{Likelihood fit part 2}
 
-We found the problem in the code: strangely, if we look to the $S_0$ and $f_1$, we find that the bins (0,*) and (*,0) contains exactly 0 entries. So during the calculation of the derivatives we find several problems in dividing by zero. We solve the problem by simply don't consider these bins. The result is pretty strange 
+We found the problem in the code: strangely, if we look to the $S_0$ and $f_1$, we find that the bins (0,*) and (*,0) contains exactly 0 entries. So during the calculation of the derivatives we find several problems in dividing by zero. We solve the problem by simply don't consider these bins. The result is pretty strange because, starting with an initial value of a=0.1 we obtain a result of $a=0.2 \pm 0.01$ with a first derivative very close to zero. This result is only quite reasonable because we expect something close to zero, with 0 into the errorbar.
+
+After a little time we found out that the first bins (*,0) and (0,*) and the last bins (*,201) and (201,*) are the overflow and the underflow of the histograms, so we need to use the method GetBinContent on the bin between 1 and 200 in both directions. The result hasn't changed and we tried to plot the marginal distributions. But this result is not satisfactory.
