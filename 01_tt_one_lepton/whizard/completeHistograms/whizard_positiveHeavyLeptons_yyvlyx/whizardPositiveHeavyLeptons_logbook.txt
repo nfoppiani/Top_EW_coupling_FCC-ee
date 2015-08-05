@@ -1,0 +1,25 @@
+####################################################
+### whizard_negativeHeavyLeptons_yyvlyx LOGBOOK ####
+####################################################
+
+It contains both t decaying in -tau and in -muon. 
+
+In the trees there are some unidentified particles with pdg = 92, 94???
+
+The final tauNeutrino and -tau have always progressive numbers 8 and 9.
+The final muonNeutrino and -muon have always progressive numbers 8 and 9 
+
+
+
+
+
+
+
+
+###############################
+### eosJobCopy.sh problems: ###
+###############################
+
+000
+.slcio 12,107-8,116-8,120-1,123,135,140,141 have 0 dimension
+.root files 7,8,9,80,300,981 are very little

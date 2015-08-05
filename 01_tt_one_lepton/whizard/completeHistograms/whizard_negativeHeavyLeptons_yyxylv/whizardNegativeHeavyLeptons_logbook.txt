@@ -1,0 +1,25 @@
+####################################################
+### whizard_positiveHeavyLeptons_yyxylv LOGBOOK ####
+####################################################
+
+99 events per file.
+
+It contains both t decaying in taus and in muons. 
+
+In the trees there are some unidentified particles with pdg = 92, 94???
+
+The final tau and tauAntiNeutrino have always progressive numbers 10 and 11.
+The final muon and muonAntiNeutrino have always progressive numbers 10 and 11.
+
+
+
+###############################
+### eosJobCopy.sh problems: ###
+###############################
+
+000
+999 files from 1 to 999
+missing files 6-8
+
+001
+411 files from 1000 to 1410

@@ -1,0 +1,21 @@
+#########################################
+### whizard_positrons_yyveyx LOGBOOK ####
+#########################################
+
+In the trees there are some unidentified particles with pdg = 92, 94???
+
+The final positron and neutrino have always progressive numbers 9 and 8.
+
+
+
+
+
+
+
+
+###############################
+### eosJobCopy.sh problems: ###
+###############################
+
+# 672 files (from 1 to 672)
+# 618 and 667 files do not exist!

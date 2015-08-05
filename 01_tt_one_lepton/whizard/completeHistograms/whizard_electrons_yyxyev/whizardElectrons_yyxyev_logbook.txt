@@ -1,0 +1,23 @@
+#########################################
+### whizard_electrons_yyxyev LOGBOOK ####
+#########################################
+
+In the trees there are some unidentified particles with pdg = 92, 94.
+
+The final electron and neutrino have always progressive numbers 10 and 11.
+
+
+
+
+
+
+
+
+###############################
+### eosJobCopy.sh problems: ###
+###############################
+
+# 661 files (from 1 to 661)
+# 42, 98 do not exist!
+
+# but /eos/cms/store/cmst3/user/nfoppian/ttbar365Wizard/yyxyev/yyxyev_o_rec_5248_42.slcio exists!
