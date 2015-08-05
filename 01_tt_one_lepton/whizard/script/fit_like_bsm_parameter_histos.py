@@ -8,8 +8,8 @@ myfile_an = TFile("../analytic/Histo_S0_f1_SM.root","READ")
 h_S0 = myfile_an.Get("smcross")
 h_f1 = myfile_an.Get("FAzed")
 
-h_S0.Scale(1/h_S0.Integral())
-h_f1.Scale(1/h_f1.Integral())
+#h_S0.Scale(1/h_S0.Integral())
+#h_f1.Scale(1/h_f1.Integral())
 
 #getting the montecarlo histogram
 

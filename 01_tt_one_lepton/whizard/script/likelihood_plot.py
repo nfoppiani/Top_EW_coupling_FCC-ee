@@ -9,9 +9,11 @@ myfile_an = TFile("../analytic/Histo_S0_f1_SM.root","READ")
 h_S0 = myfile_an.Get("smcross")
 h_f1 = myfile_an.Get("FAzed")
 
-integral= h_S0.Integral()
-h_S0.Scale(1/integral)
-h_f1.Scale(1/integral)
+#integral= h_S0.Integral()
+#h_S0.Scale(1/integral)
+#h_f1.Scale(1/integral)
+S0integral=h_S0.Integral()
+f1integral=h_f1.Integral()
 
 #getting the montecarlo histogram
 
@@ -44,14 +46,13 @@ def likelihood(a):
 				print a, S0[i,j]+a*f1[i,j]
 				return 0.
 			else:
-				like=like-log(S0[i,j]+a*f1[i,j])
-			
+				like=like-N[i,j]*log((S0[i,j]+a*f1[i,j])/(S0integral+a*f1integral))
 	return like
 
 h_like=TH1F("likelihood","likelihood",100,-1.,1.)
 
 for b in range(100):
-	a=(float(b)+0.5-50)/50
+	a=(float(b)+0.5-50)/500
 	h_like.Fill(a,likelihood(a))
 
 h_like.Draw()
