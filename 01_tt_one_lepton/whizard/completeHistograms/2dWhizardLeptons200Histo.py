@@ -10,7 +10,7 @@ from numpy import sqrt
 
 top = 174.          # top mass
 w = 80.419          # w boson mass
-s = 365.**2         # center of mass squared energy
+s = 365.**2          # center of mass squared energy
 
 beta = sqrt(1-4*top**2/s)               # beta=v/c of the top
 r = w**2/top**2
@@ -27,18 +27,18 @@ print 'xfMin = ', xfMin
 ### HISTOGRAMS DECLARATION ###
 ##############################
 
-hElectron = TH2D("electronReducedEnergyAndAngleHisto", "W-decay electrons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hPositron = TH2D("positronReducedEnergyAndAngleHisto", "W-decay positrons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hLightLeptons = TH2D("lightLeptonsReducedEnergyAndAngleHisto", "W-decay electrons and positrons reduced energy and cosine of polar angle (multiplied per -1 for positrons)", 40, 0., 1.4, 30, -1., 1.)
-hPositiveMuon = TH2D("positiveMuonReducedEnergyAndAngleHisto", "W-decay positive muons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hNegativeMuon = TH2D("negativeMuonReducedEnergyAndAngleHisto", "W-decay negative muons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hMuon = TH2D("muonsReducedEnergyAndAngleHisto", "W-decay muons reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 40, 0., 1.4, 30, -1., 1.)
-hPositiveTau = TH2D("positiveTauReducedEnergyAndAngleHisto", "W-decay positive taus reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hNegativeTau = TH2D("negativeTauReducedEnergyAndAngleHisto", "W-decay negative taus reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hTau = TH2D("tauReducedEnergyAndAngleHisto", "W-decay taus reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 40, 0., 1.4, 30, -1., 1.)
-hPositiveLeptons = TH2D("positiveLeptonsReducedEnergyAndAngleHisto", "W-decay positive leptons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hNegativeLeptons = TH2D("negativeLeptonsReducedEnergyAndAngleHisto", "W-decay negative leptons reduced energy and cosine of polar angle", 40, 0., 1.4, 30, -1., 1.)
-hLeptons = TH2D("leptonsReducedEnergyAndAngleHisto", "W-decay leptons reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 40, 0., 1.4, 30, -1., 1.)
+hElectron = TH2D("electronReducedEnergyAndAngleHisto", "W-decay electrons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hPositron = TH2D("positronReducedEnergyAndAngleHisto", "W-decay positrons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hLightLeptons = TH2D("lightLeptonsReducedEnergyAndAngleHisto", "W-decay electrons and positrons reduced energy and cosine of polar angle (multiplied per -1 for positrons)", 200, 0., 1., 200, -1., 1.)
+hPositiveMuon = TH2D("positiveMuonReducedEnergyAndAngleHisto", "W-decay positive muons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hNegativeMuon = TH2D("negativeMuonReducedEnergyAndAngleHisto", "W-decay negative muons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hMuon = TH2D("muonsReducedEnergyAndAngleHisto", "W-decay muons reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 200, 0., 1., 200, -1., 1.)
+hPositiveTau = TH2D("positiveTauReducedEnergyAndAngleHisto", "W-decay positive taus reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hNegativeTau = TH2D("negativeTauReducedEnergyAndAngleHisto", "W-decay negative taus reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hTau = TH2D("tauReducedEnergyAndAngleHisto", "W-decay taus reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 200, 0., 1., 200, -1., 1.)
+hPositiveLeptons = TH2D("positiveLeptonsReducedEnergyAndAngleHisto", "W-decay positive leptons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hNegativeLeptons = TH2D("negativeLeptonsReducedEnergyAndAngleHisto", "W-decay negative leptons reduced energy and cosine of polar angle", 200, 0., 1., 200, -1., 1.)
+hLeptons = TH2D("leptonsReducedEnergyAndAngleHisto", "W-decay leptons reduced energy and cosine of polar angle (multiplied per -1 for positive muons)", 200, 0., 1., 200, -1., 1.)
 
 #################
 ### POSITRONS ###
@@ -265,7 +265,7 @@ hLeptons.Add(hPositiveLeptons, hNegativeLeptons)
 ### saves the histograms in 2DimAllFilesHisto.root ###
 ######################################################
 
-savingFile = TFile("./2dWhizardLeptonsHisto.root", "CREATE")
+savingFile = TFile("./2dWhizardLeptons200Histo.root", "CREATE")
 hPositron.Write()
 hElectron.Write()
 hLightLeptons.Write()
