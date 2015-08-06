@@ -1,14 +1,12 @@
 # this program reads the ntuple.root files contained in the present directory, selects from the various events the electrons/positrons/+-muons coming from a W-decay, and creates a new tree containg their particlePdgID, energy, reduced energy, momenta, cosine of their polar angle, and the mass of the W they decayed from
 
-from ROOT import TFile, TTree
+from ROOT import TFile, TTree, TChain
 import numpy
-import glob
-
 
 # reduced energy definition
-top = 174         # top mass
+top = 174.         # top mass
 w = 80.419           # w boson mass
-s = 365**2          # center of mass squared energy
+s = 365.**2          # center of mass squared energy
 
 beta = numpy.sqrt(1-4*top**2/s)               # beta=v/c of the top
 r = w**2/top**2
@@ -22,11 +20,14 @@ print 'xfMin = ', xfMin
 
 # records the *ntuple.root files list of the present directory
 # this line should stay over electronsTree.root file creation if you replace *ntuple.root with *.root
-fileList = glob.glob("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
+#fileList = glob.glob("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
+
+chain= TChain("MyLCTuple")
+chain.Add("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
 
 # creates the new file and the tree that it will contain
-savingFile = TFile("./electrons_Tree.root", "CREATE")
-electronsTree = TTree('electrons_Tree', 'reducedInformationTree')
+savingFile = TFile("../tree/electrons_tree.root", "CREATE")
+electronsTree = TTree('electrons_tree', 'reducedInformationTree')
 
 # defines the arrays needed to fill the tree
 mcTyp = numpy.zeros(1, dtype=float,)
@@ -36,6 +37,7 @@ mcMox = numpy.zeros(1, dtype=float,)
 mcMoy = numpy.zeros(1, dtype=float,)
 mcMoz = numpy.zeros(1, dtype=float,)
 mcCosTheta = numpy.zeros(1, dtype=float,)
+mcInvMas = numpy.zeros(1, dtype=float,)
 
 # creates the tree branches
 electronsTree.Branch('mcTyp', mcTyp, 'mcTyp/D')
@@ -45,32 +47,26 @@ electronsTree.Branch('mcMox', mcMox, 'mcMox/D')
 electronsTree.Branch('mcMoy', mcMoy, 'mcMoy/D')
 electronsTree.Branch('mcMoz', mcMoz, 'mcMoz/D')
 electronsTree.Branch('mcCosTheta', mcCosTheta, 'mcCosTheta/D')
+electronsTree.Branch('mcInvMas', mcInvMas, 'mcInvMas/D')
 
-for fileName in fileList:
-    # reads the ntuple.root file
-    file = TFile(fileName,"READ")
-    tree = file.Get("MyLCTuple")
-
-    # loops over the 99 events of the tree
-    for event in tree:
-        # identifies a particle of the event, varies from 1 to numberOfParticles
-        
-        # loops on the particles contained in every event
-        
-		mcTyp[0] = tree.mcpdg[10]        # prepares the variables to fill the tree
-		mcEne[0] = tree.mcene[10]
-		mcRedEne[0] = tree.mcene[10]*red
-		px = tree.mcmox[10]
-		py = tree.mcmoy[10]
-		pz = tree.mcmoz[10]
-		mcMox[0] = px
-		mcMoy[0] = py
-		mcMoz[0] = pz
-		mcCosTheta[0] = pz/numpy.sqrt(px**2+py**2+pz**2)
-		electronsTree.Fill()        
-        
-
-    file.Close()
+for event in chain:
+	# identifies a particle of the event, varies from 1 to numberOfParticles
+	
+	# loops on the particles contained in every event
+	
+	mcTyp[0] = chain.mcpdg[10]        # prepares the variables to fill the tree
+	mcEne[0] = chain.mcene[10]
+	mcRedEne[0] = chain.mcene[10]*red
+	px = chain.mcmox[10]
+	py = chain.mcmoy[10]
+	pz = chain.mcmoz[10]
+	mcMox[0] = px
+	mcMoy[0] = py
+	mcMoz[0] = pz
+	mcCosTheta[0] = pz/numpy.sqrt(px**2+py**2+pz**2)
+	mcInvMas[0] =numpy.sqrt((chain.mcene[2]+chain.mcene[3])**2-(chain.mcmox[2]+chain.mcmox[3])**2-(chain.mcmoy[2]+chain.mcmoy[3])**2-(chain.mcmoz[2]+chain.mcmoz[3])**2)
+	
+	electronsTree.Fill()        
 
 savingFile.cd()
 electronsTree.Write()         # writes the tree in the savingFile
