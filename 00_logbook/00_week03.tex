@@ -41,3 +41,17 @@ and then we can loop on all the events dealing mychain as a tree.
 We found the problem in the code: strangely, if we look to the $S_0$ and $f_1$, we find that the bins (0,*) and (*,0) contains exactly 0 entries. So during the calculation of the derivatives we find several problems in dividing by zero. We solve the problem by simply don't consider these bins. The result is pretty strange because, starting with an initial value of a=0.1 we obtain a result of $a=0.2 \pm 0.01$ with a first derivative very close to zero. This result is only quite reasonable because we expect something close to zero, with 0 into the errorbar.
 
 After a little time we found out that the first bins (*,0) and (0,*) and the last bins (*,201) and (201,*) are the overflow and the underflow of the histograms, so we need to use the method GetBinContent on the bin between 1 and 200 in both directions. The result hasn't changed and we tried to plot the marginal distributions. But this result is not satisfactory.
+
+\subsection{05/08/2015}
+
+\textbf{Physics lesson at Gigi's home}
+
+We have attended a physics lesson at Gigi's home about how to do physics at e+e- colliders.
+
+\subsection{06/08/2015}
+
+
+
+\textbf{Leptons tree and effective invariant mass}
+
+We have created 6 trees (one for each possible lepton in the final state) with only the variables we need. In particular there are the energy (and reduced energy), the three component of the momentum, the polar angle, and the invariant mass of the two electrons after radiating photons. This invariant mass is the effective energy at which the collisions happen, and the mean is 363.7 GeV. 
