@@ -1,7 +1,7 @@
 from ROOT import TFile, TCanvas, TH2F, TH1F
 import numpy
 
-a_min=0.2215
+a_min=-0.75
 
 #getting the analytic histograms
 
@@ -9,7 +9,7 @@ myfile_an = TFile("../analytic/Histo_S0_f1_SM.root","READ")
 saving_file=TFile("../plot/comparing_histo_angle.root","CREATE")
 
 h_S0 = myfile_an.Get("smcross")
-h_f1 = myfile_an.Get("FAzed")
+h_f1 = myfile_an.Get("FBzed")
 
 #h_S0.Scale(1/h_S0.Integral())
 #h_f1.Scale(1/h_f1.Integral())
