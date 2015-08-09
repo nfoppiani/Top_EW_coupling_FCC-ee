@@ -50,8 +50,6 @@ We have attended a physics lesson at Gigi's home about how to do physics at e+e-
 
 \subsection{06/08/2015}
 
-
-
 \textbf{Leptons tree and effective invariant mass}
 
 We have created 6 trees (one for each possible lepton in the final state) with only the variables we need. In particular there are the energy (and reduced energy), the three component of the momentum, the polar angle, and the invariant mass of the two electrons after radiating photons. This invariant mass is the effective energy at which the collisions happen, and the mean is 363.7 GeV. 
@@ -78,3 +76,59 @@ We would like to maximize the likelihood, by minimizing the following quantity:
 &=- \sum_{bin}\log(S_{bin}+af_{bin})+N_{tot}\log(S_{tot}+af_{tot})+\frac{1}{2}\log\Bigl(\frac{S_{tot}+af_{tot}}{S_{tot}}\Bigr)+N_{tot}\frac{(af_{tot})^2}{2S_{tot}(S_{tot}+af_{tot})}
 \end{split}
 \end{equation}
+
+\textbf{Fit 2D}
+
+We have tried to perform the fit with two corrections together. The generalization is simple: \\
+in 1D case we have that 
+\[ L'(a)=(a-a_0)L''(a_0)\]
+that could be rewritten as \[a_0=a- L'(a)/L''(a_0) \simeq a- L'(a)/L''(a) \]
+and could be iterated.
+
+in multidimensional case we have that 
+\[ \frac{\partial L}{\partial a_i} = \frac{\partial^2 L}{\partial a_i \partial a_k} (a_k - a_0_k)\]
+which is a linear system. Then we could solve the system and iterate the process.
+
+The inverse of the $\frac{\partial^2 L}{\partial a_i \partial a_k}$ matrix in the minimum point is the covariance matrix.
+
+We have performed this fit with all the electron/positron data of the montecarlo. The result is:
+\[ 
+a=\left(
+\begin{array}{c}
+0.005\\
+-0.08\\
+\end{array}
+\rigth)
+\]
+
+\[
+cova=\left(
+\begin{array}{cc}
+1.52345639e-05 & 2.06114908e-05\\
+1.52345639e-05   2.06114908e-05\\
+\end{array}
+\right)
+\]
+
+\textbf{Plot a 2D ellipse with a given confidence level}
+
+For likelihood fit with 2 or more dimensions, the area under one sigma for each dimension doesn't represent the 68 \% confidence level. The right way is to find the value of a parameter k for which the area under $k \cdot \sigma$ is the confidence level given (for instance 68 \%).
+
+For 2D gaussian one can use the formula $k^2=-2 ln(1-Pr)$ where Pr is the given probability.
+
+In addition here is a table with some k-factor for multidimensional gaussian: \href{https://people.richland.edu/james/lecture/m170/tbl-chi.html}{"Click here"}
+
+So, we have to plot the ellipse \[(\frac{x}{\sigma_x})^2 + (\frac{y}{\sigma_y})^2 = k^2 \]
+
+In Root is really difficult to plot an ellipse on a canvas with the axis. We have to understand how to do (the TEllipse class it's not very useful...). On Monday we will ask to Patrick and Patrizia to know the most simple way to plot our ellipse.
+
+\subsection{09/08/2015}
+
+\textbf{Particle distance in phase space}
+
+Now we need to find the reconstructed particle that corresponds to "our" lepton. We think that the best way is looping on all the reconstructed charged particle finding the particle that minimize this distance in phase space:
+\[ \sqrt{(E-E_{mc})^2 + (\vec{p}-\vec{p_{mc}})^2}\]
+where $E_{mc}$ and $p_{mc}$ are the energy and momentum of our lepton.
+
+We have just written a script which fills an histogram with the type, the distance and the difference in energy between the reconstructed particle and the montecarlo lepton.
+By trying this script with electron only 99 events I found that the reconstructed particle is mostly an electron, sometimes a photon (5 case) and in a couple of case is a negative pion. I think that the photon are that ones radiated by the electrons, and probably they must be added into the electron energy. A pion could be confused as an electron because it could happen that a charged pion interacting in the electromagnetic calorimeter became a neutral pion that decays immediately in two photons.

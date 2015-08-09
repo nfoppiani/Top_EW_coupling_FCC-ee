@@ -1,6 +1,5 @@
 from ROOT import TFile, TTree, TH2F
 import numpy
-import glob
 
 file = TFile.Open("../ntuple/electrons_Tree.root")
 tree = file.Get("electrons_Tree")

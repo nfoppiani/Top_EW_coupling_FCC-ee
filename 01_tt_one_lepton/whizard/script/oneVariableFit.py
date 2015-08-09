@@ -10,17 +10,17 @@ cosMax = 10     # number of bins to exclude near +-1
 
 # getting the analytic histograms
 
-myfile_an = TFile("SMCrossWhizard365.root","READ")
+myfile_an = TFile("../analytic/SMCrossWhizard364.root","READ")
 
 h_S0 = myfile_an.Get("smcross")
-h_f1 = myfile_an.Get("FAzed")
+h_f1 = myfile_an.Get("FBzed")
 
 # h_S0.Scale(1/h_S0.Integral())       # SM cross section is normalized at 1
 # h_f1.Scale(1/h_f1.Integral())       # SM correction cross section is normalized at 1
 
 #getting the montecarlo histogram
 
-myfile_mc = TFile("2dWhizardLeptons200Histo.root","READ")
+myfile_mc = TFile("../plot/2dWhizardLeptons200Histo.root","READ")
 electronHisto = myfile_mc.Get("electronReducedEnergyAndAngleHisto")
 
 N = numpy.zeros((200,200))
