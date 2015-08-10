@@ -5,9 +5,9 @@ import numpy
 #definition of minimum point and covariance matrix
 #
 
-a=numpy.array([1.,2.])
+a=numpy.array([0.005,-0.08])
 
-cova = numpy.array([[9., 2.4], [2.4, 4.]])
+cova = numpy.array([[1.5e-05, 2.6e-05], [2.6e-05, 1.16e-03]])
 
 #
 #getting the eigenvalues and eigenvectors
@@ -41,24 +41,21 @@ ellipse95.SetFillStyle(0)
 #drawing the ellipse
 #
 
-x=numpy.zeros(100)
-y=numpy.zeros(100)
+x=numpy.array([-0.05,0.05,0.,0.,0.,0.])
+y=numpy.array([0.,0.,0.,-0.3,0.,0.3])
 
-for i in range(100):
-	x[i]=(i-50.)*30./100.
+gr=TGraph(6,x,y)
 
-xaxis=TGraph(100,x,y)
-yaxis=TGraph(100,y,x)
 
 ellipse_canvas = TCanvas("ciao","ciao", 800,800)
-ellipse_canvas.Range(-15.,-15.,15.,15.)
+ellipse_canvas.Range(-0.05,-0.3,0.05,0.3)
 ellipse_canvas.cd()
 
 
-xaxis.Draw()
-yaxis.Draw("same")
-ellipse68.Draw("same")
-ellipse95.Draw("same")
+gr.Draw()
+#yaxis.Draw()
+ellipse68.Draw()
+ellipse95.Draw()
 
-yaxis.GetYaxis().SetLimits(-20.,20.)
-axis->SetLimits(0.,5.);      
+#yaxis.GetYaxis().SetLimits(-20.,20.)
+#axis->SetLimits(0.,5.);      

@@ -86,7 +86,7 @@ that could be rewritten as \[a_0=a- L'(a)/L''(a_0) \simeq a- L'(a)/L''(a) \]
 and could be iterated.
 
 in multidimensional case we have that 
-\[ \frac{\partial L}{\partial a_i} = \frac{\partial^2 L}{\partial a_i \partial a_k} (a_k - a_0_k)\]
+\[ \frac{\partial L}{\partial a_i} = \frac{\partial ^2 L}{\partial a_i \partial a_k} (a_k - a0_k)\]
 which is a linear system. Then we could solve the system and iterate the process.
 
 The inverse of the $\frac{\partial^2 L}{\partial a_i \partial a_k}$ matrix in the minimum point is the covariance matrix.
@@ -97,15 +97,15 @@ a=\left(
 \begin{array}{c}
 0.005\\
 -0.08\\
-\end{array}
-\rigth)
+\end{array} 
+\right)
 \]
 
 \[
 cova=\left(
 \begin{array}{cc}
-1.52345639e-05 & 2.06114908e-05\\
-1.52345639e-05   2.06114908e-05\\
+1.5e-05 & 2.6e-05\\
+2.6e-05 & 1.16e-03\\
 \end{array}
 \right)
 \]
@@ -118,7 +118,7 @@ For 2D gaussian one can use the formula $k^2=-2 ln(1-Pr)$ where Pr is the given 
 
 In addition here is a table with some k-factor for multidimensional gaussian: \href{https://people.richland.edu/james/lecture/m170/tbl-chi.html}{"Click here"}
 
-So, we have to plot the ellipse \[(\frac{x}{\sigma_x})^2 + (\frac{y}{\sigma_y})^2 = k^2 \]
+So, we have to plot the ellipse \[\left(\frac{x}{\sigma_x}\right)^2 + \left(\frac{y}{\sigma_y}\right)^2 = k^2 \]
 
 In Root is really difficult to plot an ellipse on a canvas with the axis. We have to understand how to do (the TEllipse class it's not very useful...). On Monday we will ask to Patrick and Patrizia to know the most simple way to plot our ellipse.
 

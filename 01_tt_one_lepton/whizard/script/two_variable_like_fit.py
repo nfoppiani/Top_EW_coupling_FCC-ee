@@ -64,8 +64,7 @@ alpha=numpy.zeros((2.,2.)) #matrix with the second derivatives
 beta= numpy.array([0.,0.]) #vector with the first derivatives
 a=numpy.array([0.07,0.1]) #vector of a
 
-while (abs(first_der1)> 10**(-11) or  abs(first_der2)> 10**(-11)):
-#while abs(first_der2)> 10**(-11):
+while (abs(first_der1)> 10**(-12) or  abs(first_der2)> 10**(-12)):
     first_der1=0.
     first_der2=0.
     
