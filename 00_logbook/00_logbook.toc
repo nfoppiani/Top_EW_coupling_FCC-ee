@@ -1,5 +1,4 @@
 \select@language {italian}
-\select@language {italian}
 \contentsline {section}{\numberline {1}Week 01}{3}{section.1}
 \contentsline {subsection}{\numberline {1.1}20/07/2015}{3}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}21/07/2015}{3}{subsection.1.2}
@@ -19,4 +18,4 @@
 \contentsline {subsection}{\numberline {3.3}05/08/2015}{11}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}06/08/2015}{11}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}07/08/2015}{11}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}09/08/2015}{12}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.6}09/08/2015}{14}{subsection.3.6}

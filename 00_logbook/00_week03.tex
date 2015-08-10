@@ -63,19 +63,42 @@ Let $S_{tot}$, $f_{tot}$ and $N_{tot}$ be the sum of the contents of the bins in
 \[
 \frac{\mu^Ne^{-\mu}}{N!} \quad\rightarrow\quad \frac{e^{\frac{-(N-\mu)^2}{2\mu}}}{\sqrt{2\pi\mu}}
 \]
-where $N=KS_{tot}$, $\mu = K(S_{tot}+af_{tot})$ and we have used the fact that $\mu \gg 1$.
+where $N=KS_{tot}$, $\mu = K(S_{tot}+af_{tot})$ and we have used the fact that $\mu \gg 1$\footnote{Moreover, we have made the subtle (not true!) assumption that Whizard generates events following our same theoretical renormalization scheme.}.
 Therefore, the likelihood is:
 \[
-L = \Biggl(\prod_{bins}\Bigl(\frac{S_{bin}+af_{bin}}{S_{tot}+af_{tot}}\Bigr)^{N_{bin}}\Biggr)\frac{e^{\frac{-(N-\mu)^2}{2\mu}}}{\sqrt{2\pi\mu}}
+L = \left(\prod_{bins}\left(\frac{S_{bin}+af_{bin}}{S_{tot}+af_{tot}}\right)^{N_{bin}}\right)\frac{e^{\frac{-(N-\mu)^2}{2\mu}}}{\sqrt{2\pi\mu}}
 \]
 We would like to maximize the likelihood, by minimizing the following quantity:
 \begin{equation}
 \begin{split}
 \mathcal{L} &= -\log L -\frac{1}{2}\log(2\pi N_{tot}) =\\
 &=- \sum_{bin}\log(S_{bin}+af_{bin})+N_{tot}\log(S_{tot}+af_{tot})-\frac{1}{2}\log\mu+\frac{(\mu-N)^2}{2\mu} =\\
-&=- \sum_{bin}\log(S_{bin}+af_{bin})+N_{tot}\log(S_{tot}+af_{tot})+\frac{1}{2}\log\Bigl(\frac{S_{tot}+af_{tot}}{S_{tot}}\Bigr)+N_{tot}\frac{(af_{tot})^2}{2S_{tot}(S_{tot}+af_{tot})}
+&=- \sum_{bin}\log(S_{bin}+af_{bin})+N_{tot}\log(S_{tot}+af_{tot})+\frac{1}{2}\log\left(\frac{S_{tot}+af_{tot}}{S_{tot}}\right)+N_{tot}\frac{(af_{tot})^2}{2S_{tot}(S_{tot}+af_{tot})}
 \end{split}
 \end{equation}
+
+We performed the one dimentional fits for both $f_A^Z$ and $f_B^Z$ corrections to SM, using the simulated distribution for the electrons. To avoid the deviations from our expected model, we considered only data with reduced energy lesser than 0.9; taking in account the acceptance of our experimental apparatus, we excluded from our fit the data with $\lvert\cos\theta\rvert > 0.9$. The results are equal to zero within $2\sigma$ for $f_A^Z$ and $3\sigma$ for $f_B^Z$ and they improved by using the 364 GeV theoretical distribution instead of the 365 one (and also if we used as reduced energy cut 0.8 instead of 0.9). For example, the value obtained for the $f_A^Z$ coefficient, with the 364 GeV distribution, is $ a = 0.62 \pm 0.39 \%$. The likelihood as function of $a$, and the projections of the fitted and the simulated distributions are plotted in figures~\ref{03_364likelihood},~\ref{03_364x}~and~\ref{03_364cosTheta}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{364likelihood.pdf}
+\caption{Likelihood as funcion of $a$ for the one-dimentional fit of the electron distribution with $f_A^Z$ BSM correction.}
+\label{03_364likelihood}
+\end{figure}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{364x.pdf}
+\caption{Electrons distribution both simulated and fitted considering the $f_A^Z$ BSM correction, projected on the reduced energy axis.}
+\label{03_364x}
+\end{figure}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{364cosTheta.pdf}
+\caption{Electrons distribution both simulated and fitted considering the $f_A^Z$ BSM correction, projected on the $\cos\theta$ axis.}
+\label{03_364cosTheta}
+\end{figure}
 
 \textbf{Fit 2D}
 
