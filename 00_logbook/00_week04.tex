@@ -1,0 +1,40 @@
+\section{Week 04}
+
+\subsection{10/08/2015}
+
+\textbf{Searching among the reconstructed particles}
+
+We have just started to write some macros and to plot some histograms to understand how to find the electron coming from the primary vertex. The result are described in the next subsection.
+
+\subsection{11/08/2015}
+
+\textbf{Meeting with Patrick and Patrizia}
+
+We have had a meeting in which we have talked about some things:
+
+\begin{itemize}
+\item Acceptance and efficiency: We need to produce some plots to understand what is the efficiency of our algorithm that finds the right electron. In addition we could understand which is the acceptance of the detector (in particular we expect that the acceptance is flat in the energy and have a plateau in cosTheta and two tails near 1 and -1.
+\item Bremsstrahlung correction: We need to correct the bremsstrahlung of the electrons by adding the energy of the photons radiated by the electron. One way is to select the photons in a cone around the electron. A better way is to select the photons radiated parallel to the electron track: we could select the vertex and the end point of the electron and we could add all the photons with angle theta and phi compatible with the electron.
+\item Sensitivity in measuring the energy and the Pt of the electron: we need to produce some plots to take in account the smearing produced by the uncertainty in measuring energy and transverse momentum.
+\item Start writing code with classes and function
+\end{itemize}
+
+\textbf{New organization of the code}
+
+The code is now written using classes and function.
+We have defined a class "Particle" and a class "Jet" which contain the information we want in our object and some useful methods (like a correction which apply a bremsstrahlung correction to the electrons by adding the photons in a cone).
+
+\textbf{Finding the correct electron}
+
+We are searching for the best algorithm to find the correct a electron between the reconstructed particles. There are some ways to find this electron starting from the request that this electron is isolated. To see if the method is good or not we always plot the difference in energy and in angle between the montecarlo electron and the reconstructed electron.
+
+\begin{itemize}
+\item Pt rel: we loop on all the electrons, and, for each electron we select the jet respect to which the electron has the minimum Pt. The correct electron is, then, the electron with the highest "minimum Pt rel".\\
+\item Pt rel to the closest jet: we loop on all the electrons and we search for the the closest jet, and the we calculate the Pt respect to that jet. The correct electron is, then, the electron with the highest Pt rel to the closest Jet.\\
+\item Energy in a cone: we loop on all the electron and we find that one with the minimum energy inside a cone with fixed angle (typically 10 degrees).\\
+\item Particle in a cone: we loop on all the electron and we find that one with the maximum distance from the closest particle (and we can add some cut, for instance we can require the closest charged particle or the closest particle different from a photon or an electron).
+\end{itemize} 
+
+In addition we use the kinematic constrain (Energy lower then 13 GeV) to select only the electrons with an energy lower than 10 GeV (to take in account the experimental uncertainty. This have two effects: improve the efficiency and reduce the computation time.
+
+Results:???

@@ -81,21 +81,21 @@ We performed the one dimentional fits for both $f_A^Z$ and $f_B^Z$ corrections t
 
 \begin{figure} [htp]
 \centering
-\includegraphics[scale=0.7]{364likelihood.pdf}
+\includegraphics[scale=0.7]{03_364likelihood.pdf}
 \caption{Likelihood as funcion of $a$ for the one-dimentional fit of the electron distribution with $f_A^Z$ BSM correction.}
 \label{03_364likelihood}
 \end{figure}
 
 \begin{figure} [htp]
 \centering
-\includegraphics[scale=0.7]{364x.pdf}
+\includegraphics[scale=0.7]{03_364x.pdf}
 \caption{Electrons distribution both simulated and fitted considering the $f_A^Z$ BSM correction, projected on the reduced energy axis.}
 \label{03_364x}
 \end{figure}
 
 \begin{figure} [htp]
 \centering
-\includegraphics[scale=0.7]{364cosTheta.pdf}
+\includegraphics[scale=0.7]{03_364cosTheta.pdf}
 \caption{Electrons distribution both simulated and fitted considering the $f_A^Z$ BSM correction, projected on the $\cos\theta$ axis.}
 \label{03_364cosTheta}
 \end{figure}
@@ -143,7 +143,26 @@ In addition here is a table with some k-factor for multidimensional gaussian: \h
 
 So, we have to plot the ellipse \[\left(\frac{x}{\sigma_x}\right)^2 + \left(\frac{y}{\sigma_y}\right)^2 = k^2 \]
 
-In Root is really difficult to plot an ellipse on a canvas with the axis. We have to understand how to do (the TEllipse class it's not very useful...). On Monday we will ask to Patrick and Patrizia to know the most simple way to plot our ellipse.
+To plot the ellipse in ROOT we used the TEllipse class, which draw an ellipse on the canvas. It's important to set the option "myellipse.SetFillStyle(0)" which draw a transparent ellipse. To add the axis we draw two lines by using a TGraph, which automatically add the axis to the canvas. A TGraph is a set of two (or more) arrays of coordinates of points and can be constructed in this way: mygraph=TGraph(numberOfPoints,x[i],y[i]). The final result is plotted in figure \ref{03_ellipse_3_cl}, in which you can see the three ellipse corresponding to the 68\% CL, 95\% CL, 99\% CL. As we can see our result agrees with 0 with 99\% CL.
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{03_ellipse_3_cl.pdf}
+\caption{Electrons distribution both simulated and fitted considering the $f_A^Z$ BSM correction, projected on the $\cos\theta$ axis.}
+\label{03_ellipse_3_cl}
+\end{figure}
+
+This distance from 0 is a theoretical problem due to the different theoretical re-normalization scheme used for calculating Feynman Diagrams in the two cases: Whizard simulation and our theoretical distribution.
+
+\textbf{Fit in ROOT}
+
+To fit an histogram we can use the method called Fit which performs the fit with some options (like maximizing the likelihood) but we need the analytic formula (we cannot fit an histogram with another histogram).
+
+There are also other tools to perform fit like Roofit.
+
+\textbf{NB: To do during the next weeks}
+
+It could be interesting to reproduce the likelihood fit and the ellipse plot adding the muons. In addition we could newly draw the ellipse using the variable g\_l and g\_r. They are defined in Patrick's slides.
 
 \subsection{09/08/2015}
 
@@ -155,3 +174,12 @@ where $E_{mc}$ and $p_{mc}$ are the energy and momentum of our lepton.
 
 We have just written a script which fills an histogram with the type, the distance and the difference in energy between the reconstructed particle and the montecarlo lepton.
 By trying this script with electron only 99 events I found that the reconstructed particle is mostly an electron, sometimes a photon (5 case) and in a couple of case is a negative pion. I think that the photon are that ones radiated by the electrons, and probably they must be added into the electron energy. A pion could be confused as an electron because it could happen that a charged pion interacting in the electromagnetic calorimeter became a neutral pion that decays immediately in two photons.
+
+\textbf{Screen and running processes in background}
+
+If you want to launch a command from a LxPlus shell and you don't want the command to be stopped when you close the connection you can use two ways:
+
+\begin{itemize}
+\item run in background: if you run the command by adding \& at the end it will run in background. When this will finish you will get a string "[process number] Done".
+\item using Screen: if you use screen (see the glossary) you can in parallel a lot of processes. If you disconnect you won't have these screens available unless you reconnect to the same computer (the number of the computer is written near lxplus in the shell). So you need to reconnect by using ssh -XY myname@lxplus1234.cern.ch 
+\end{itemize}
