@@ -5,7 +5,7 @@ import numpy
 # -0.75
 
 # MAXIMUM VALUES SETTING
-xMax = 180      # number of bins
+xMax = 177      # number of bins
 cosMax = 10     # number of bins to exclude near +-1
 
 # getting the analytic histograms
@@ -60,11 +60,11 @@ first_der1 = 10.
 first_der2 = 10.
 iter = 0
 
-alpha=numpy.zeros((2.,2.)) #matrix with the second derivatives
+alpha=numpy.zeros((2,2)) #matrix with the second derivatives
 beta= numpy.array([0.,0.]) #vector with the first derivatives
 a=numpy.array([0.07,0.1]) #vector of a
 
-while (abs(first_der1)> 10**(-12) or  abs(first_der2)> 10**(-12)):
+while (abs(first_der1)> 10**(-11) or  abs(first_der2)> 10**(-11)):
     first_der1=0.
     first_der2=0.
     
