@@ -1,9 +1,0 @@
-##########################
-### WHIZARD PARAMETERS ###
-##########################
-
-Particles masses used in whizard simulations are:
-
-top_mass = 174
-W_mass = 80.419
-Z_mass = 91.1882

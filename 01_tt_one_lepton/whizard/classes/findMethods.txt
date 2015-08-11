@@ -1,0 +1,3 @@
+findElectrons
+
+pt method is far better than cosTheta one for jets approach
