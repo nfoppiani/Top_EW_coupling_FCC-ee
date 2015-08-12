@@ -4,7 +4,6 @@ import glob
 from particleClass import *
 from findElectrons import *
 
-#file = TFile('./../ntuple/electrons_ntuple/yyxyev_o_*.root',"READ")
 fileList = glob.glob('./../whizard_electron_yyxyev/yyxyev*1.root')
 
 rightCos = 0.95

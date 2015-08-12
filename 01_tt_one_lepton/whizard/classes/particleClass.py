@@ -10,8 +10,6 @@ degreeDTheta = 4.0
 dtheta = numpy.radians(degreeDTheta)
 cosPhiMin = 0.995
 
-print 'dtheta = ', degreeDTheta
-
 photonConeDegreeAngle = 7
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
 
