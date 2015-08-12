@@ -4,10 +4,9 @@ import numpy
 # PARAMETERS CHOICE
 
 matchMuonMaxAngle = 0.04
-matchMuonMaxDist = 4
 
 
-#matchMinEnergy = 8
+#matchelectronMinEnergy = 8
 matchMinCos = 0.98
 
 degreeDTheta = 4.0
@@ -30,19 +29,56 @@ class Particle:
     def cosTheta(self):
         return self.p.CosTheta()
     
-    def angle(self,part2):
-        return self.p.Angle(part2.p.Vect())
-    
-    def cos(self,part2):
-        ang = self.p.Angle(part2.p.Vect())
-        return numpy.cos(ang)
-    
     def theta(self):
         return self.p.Theta()
     
     def phi(self):
         return self.p.Phi()
     
+    def angle(self,part2):
+        return self.p.Angle(part2.p.Vect())
+    
+    def cos(self,part2):
+        ang = self.p.Angle(part2.p.Vect())
+        return numpy.cos(ang)
+
+    def ptToClosestJet(self,jetList):
+        angMin = numpy.pi
+        pt = -1
+        for jet in jetList:
+            ang = self.angle(jet)
+            if ang <= angMin:
+                angMin = ang
+                pt = self.p.Pt(jet.p.Vect())
+        return pt
+                
+    def angleToClosestCharge(self,rcPartList):
+        minAng = -1
+        for part in rcPartList:
+            if part.cha != 0 and part.num != self.num:
+                ang = self.angle(part)
+                if ang < minAng or minAng == -1:
+                    minAng = ang
+        return minAng
+
+    def matchMuon(self, listRcPart):
+        minAngle = -1.
+        rcMuonNumber = -1
+        for part in listRcPart:
+            if part.type == 13:
+                ang = self.angle(part)
+                if ang < minAngle or minAngle == -1.:
+                    minAngle = ang
+                    rcMuonNumber = part.num
+        if minAngle < matchMuonMaxAngle:
+            return rcMuonNumber
+        else:
+            return -1
+
+
+
+####### PHOTONS SUMMING ##########
+
     def sumPhotonsCone(self,listRcPart):
         if self.type == 11:
             #print self.p.E()
@@ -87,21 +123,6 @@ class Particle:
                             #print 'minimum distance is: ', minDist
             return [rcNumber, minDist]
         return [-1, 0]
-
-    def matchMuon(self, listRcPart):
-        minAngle = -1.
-        rcMuonNumber = -1
-        for part in listRcPart:
-            if part.type == 13:
-                ang = self.angle(part)
-                if ang < minAngle or minAngle == -1.:
-                    minAngle = ang
-                    rcMuonNumber = part.num
-        #if Distance(listRcPart[rcMuonNumber], self) < matchMuonMaxDist:
-        if minAngle < matchMuonMaxAngle:
-            return rcMuonNumber
-        else:
-            return -1
 
 
 

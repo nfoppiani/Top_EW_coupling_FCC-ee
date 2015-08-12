@@ -44,7 +44,7 @@ def findElectronPtMaxClosestJet(rcList,jetList):
             for jet in jetList:
                 ang = part.angle(jet)
                 if ang <= angMin:
-                    angMix = ang
+                    angMin = ang
                     pt = part.p.Pt(jet.p.Vect())
             if pt > ptMax:
                 ptMax = pt
