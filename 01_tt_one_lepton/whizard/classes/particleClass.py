@@ -3,6 +3,9 @@ import numpy
 
 # PARAMETERS CHOICE
 
+muonMatchMaxAngle =
+
+
 #matchMinEnergy = 8
 matchMinCos = 0.98
 
@@ -96,8 +99,10 @@ class Particle:
                 if ang < minAngle or minAngle == -1.:
                     minAngle = ang
                     rcMuonNumber = part.num
-        print Distance(self, listRcPart[rcMuonNumber])
-        return rcMuonNumber
+        if Distance(listRcPart[rcMuonNumber], self) < matchMuonMaxDist:
+            return rcMuonNumber
+        else:
+            return -1
 
 
 
