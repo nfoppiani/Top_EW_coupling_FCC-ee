@@ -90,4 +90,4 @@ hPtJetAngleCharPartial2.SetLineColor(3) #set the green fill color
 
 
 hPtJetAngleCharPartial1.Draw("Lego")
-hPtJetAngleCharPartial2.Draw("same")
+hPtJetAngleCharPartial2.Draw("Lego","same")

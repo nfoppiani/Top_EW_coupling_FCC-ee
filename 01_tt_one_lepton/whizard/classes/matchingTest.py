@@ -23,7 +23,11 @@ for event in tree:
 		for i in range(len(tree.rctyp)):
 			p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
 			rcParticles.append(p)
-	
+
+                rcJets = []
+		for i in range(len(tree.jene)):
+			p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+			rcJets.append(p)
 
 		#rcJets = []
 		#for i in range(len(tree.jene)):
@@ -32,7 +36,8 @@ for event in tree:
 	
 	
 		MatchNum=mcMuon.matchMuon(rcParticles)
-		
+
+                print mcMuon.ptToClosestJet(rcJets)
 		hEnergyDifference.Fill(rcParticles[MatchNum].p.E()-mcMuon.p.E())
 		hTheta.Fill(mcMuon.angle(rcParticles[MatchNum]))
 		hDistance.Fill(Distance(mcMuon,rcParticles[MatchNum]))
