@@ -1,3 +1,6 @@
 findElectrons
 
-pt method is far better than cosTheta one for jets approach
+JET APPROACH
+
+The idea to use the minimum angle with respect to the six jets is far worse than using pt.
+Also using only the electron whose minimum pt with respect to a jet is maximum works worse than using the electron whose pt from the nearest jet is maximum (it might be theta = pi)

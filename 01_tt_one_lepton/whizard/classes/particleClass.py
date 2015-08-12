@@ -5,8 +5,8 @@ import numpy
 
 photonConeDegreeAngle = 10
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
-print 'The angle is ', photonConeDegreeAngle, 'degrees'
-print 'The angle is ', photonConeAngle, 'radians'
+print
+print 'The photon-acceptance angle is ', photonConeDegreeAngle, 'degrees'
 
 # CLASSES DEFINITION
 
