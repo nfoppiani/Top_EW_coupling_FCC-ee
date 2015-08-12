@@ -5,6 +5,7 @@ import numpy
 
 matchMuonMaxAngle = 0.02
 
+matchMuonMinEnergy= 10.
 
 #matchelectronMinEnergy = 8
 matchMinCos = 0.98
@@ -65,7 +66,7 @@ class Particle:
         minAngle = -1.
         rcMuonNumber = -1
         for part in listRcPart:
-            if part.type == 13:
+            if part.type == 13 and part.p.E()>matchMuonMinEnergy:
                 ang = self.angle(part)
                 if ang < minAngle or minAngle == -1.:
                     minAngle = ang
