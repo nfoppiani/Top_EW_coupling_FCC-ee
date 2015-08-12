@@ -3,14 +3,15 @@ import numpy
 
 # PARAMETERS CHOICE
 
+muonMatchMaxAngle =
+
+
 #matchMinEnergy = 8
 matchMinCos = 0.98
 
 degreeDTheta = 4.0
 dtheta = numpy.radians(degreeDTheta)
 cosPhiMin = 0.995
-
-print 'dtheta = ', degreeDTheta
 
 photonConeDegreeAngle = 7
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
@@ -82,20 +83,23 @@ class Particle:
                         if cos > matchMinCos:
                             minDist = dist
                             rcNumber = part.num
-                                   #print 'minimum distance is: ', minDist
+                            #print 'minimum distance is: ', minDist
             return [rcNumber, minDist]
         return [-1, 0]
 
     def matchMuon(self, listRcPart):
         minAngle = -1.
-        rcMuonNumber=-1
+        rcMuonNumber = -1
         for part in listRcPart:
             if part.type == 13:
-				ang = self.angle(part)
-				if ang < minAngle or minAngle == -1.:
-					minAngle = ang
-					rcMuonNumber = part.num
-        return rcMuonNumber
+                ang = self.angle(part)
+                if ang < minAngle or minAngle == -1.:
+                    minAngle = ang
+                    rcMuonNumber = part.num
+        if Distance(listRcPart[rcMuonNumber], self) < matchMuonMaxDist:
+            return rcMuonNumber
+        else:
+            return -1
 
 
 
