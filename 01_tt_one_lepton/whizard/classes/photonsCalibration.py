@@ -5,34 +5,30 @@ from particleClass import *
 from findElectrons import *
 
 #file = TFile('./../ntuple/electrons_ntuple/yyxyev_o_*.root',"READ")
-fileList = glob.glob('./yyxyev*.root')
+fileList = glob.glob('./yyxyev_o_1.root')
 
-energyDeltaHisto = TH1F("energyDelta", "Difference between RC-isolated and MC electron", 80, -30., 30.)
+#energyDeltaHisto = TH1F("energyDelta", "Difference between RC-isolated and MC electron", 80, -30., 30.)
 
-err = 0
+#err = 0
 
 for fileName in fileList:
     file = TFile(fileName,"READ")
     tree = file.Get("MyLCTuple")
-
     k = 0
 
     for event in tree:
-        
+        print 'EVENT', k
         rcParticles = []
         for i in range(len(tree.rctyp)):
             p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
             rcParticles.append(p)
         
         for i in range(len(rcParticles)):
-            rcParticles[i].sumPhotons(rcParticles)
-
-        rcJets = []
-        for i in range(len(tree.jene)):
-            p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
-            rcJets.append(p)
+            rcParticles[i].sumPhotonsRectangle(rcParticles)
+        k = k+1
 
 
+'''
         mcElectron = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
 
         electronNumber = findElectronConeChargedNotElectronParticle(rcParticles)
@@ -51,3 +47,4 @@ print err
 savingFile = TFile("./photonsCalibration.root", "CREATE")
 energyDeltaHisto.Write()
 savingFile.Close()
+'''

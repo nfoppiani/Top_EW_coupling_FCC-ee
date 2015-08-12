@@ -3,8 +3,9 @@ import numpy
 
 # PARAMETERS CHOICE
 
-dtheta = 0.04
-dphi = 0.04
+degreeDTheta = 1.
+dtheta = numpy.radians(degreeDTheta)
+cosPhiMin = 0.995
 
 photonConeDegreeAngle = 10
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
@@ -39,22 +40,28 @@ class Particle:
     
     def sumPhotonsCone(self,listRcPart):
         if self.type == 11:
+            print self.p.E()
             for partToAdd in listRcPart:
                 if partToAdd.type == 22:
                     angle = self.angle(partToAdd)
                     if angle < photonConeAngle:
                         self.p += partToAdd.p
-            return
+                        print self.p.E()
+            print
+        return
 
     def sumPhotonsRectangle(self, listRcPart):
         if self.type == 11:
-            theta = self.theta()
-            phi = self.phi()
+            print self.p.E()
+            elTheta = self.theta()
+            elPhi = self.phi()
             for partToAdd in listRcPart:
-                if partToAdd == 22:
-                    if abs(partToAdd.theta-theta) < dtheta:
-                        if partToAdd.phi > phi-dphi:
+                if partToAdd.type == 22:
+                    if abs(partToAdd.theta()-elTheta) < dtheta:
+                        if numpy.cos(partToAdd.phi() - elPhi) > cosPhiMin and numpy.sin(partToAdd.phi() - elPhi)>0:
                             self.p += partToAdd.p
+                            print self.p.E()
+            print
         return
 
 
