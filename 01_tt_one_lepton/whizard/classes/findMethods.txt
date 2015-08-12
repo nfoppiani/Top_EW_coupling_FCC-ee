@@ -4,3 +4,54 @@ JET APPROACH
 
 The idea to use the minimum angle with respect to the six jets is far worse than using pt.
 Also using only the electron whose minimum pt with respect to a jet is maximum works worse than using the electron whose pt from the nearest jet is maximum (it might be theta = pi)
+
+
+
+
+
+
+
+
+
+photonsCalibration, always 34,3 errors
+
+1. without	6000, 682
+
+2. cone, 10°	4780, 228
+
+	8°	4720, 224
+	
+	6°	4756, 252
+
+3. rectangle, sin > 0	4783, 326
+
+4. rectangle, sin < 0	5995, 670
+
+Optimization of rectangle angle, cos = 0.995
+4.0	4723, 283
+3.0	4730, 283
+2.0	4718, 283
+1.3	4780, 298
+1	4783, 326
+0.8	4749, 323
+
+
+
+
+CALIBRATION ON 20 .root
+
+matchCosMin = 0.98
+not found = 1285
+not found decays = 143
+
+rectangle, sin > 0
+
+cos = 0.995
+4.0	
+2.0	
+1.5	10.11, 3.14
+1.0	
+0.5	
+
+
+

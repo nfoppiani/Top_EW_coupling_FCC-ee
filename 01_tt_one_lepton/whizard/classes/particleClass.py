@@ -3,17 +3,17 @@ import numpy
 
 # PARAMETERS CHOICE
 
-matchMinEnergy = 8
-matchMinCos = 0.9
+#matchMinEnergy = 8
+matchMinCos = 0.98
 
-degreeDTheta = 1.
+degreeDTheta = 4.0
 dtheta = numpy.radians(degreeDTheta)
 cosPhiMin = 0.995
 
-photonConeDegreeAngle = 10
+print 'dtheta = ', degreeDTheta
+
+photonConeDegreeAngle = 7
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
-print
-print 'The photon-acceptance angle is ', photonConeDegreeAngle, 'degrees'
 
 # CLASSES DEFINITION
 
@@ -50,12 +50,12 @@ class Particle:
                     if angle < photonConeAngle:
                         self.p += partToAdd.p
                         #print self.p.E()
-            print
+            #print
         return
 
     def sumPhotonsRectangle(self, listRcPart):
         if self.type == 11:
-            print self.p.E()
+            #print self.p.E()
             elTheta = self.theta()
             elPhi = self.phi()
             for partToAdd in listRcPart:
@@ -63,16 +63,22 @@ class Particle:
                     if abs(partToAdd.theta()-elTheta) < dtheta:
                         if numpy.cos(partToAdd.phi() - elPhi) > cosPhiMin and numpy.sin(partToAdd.phi() - elPhi)>0:
                             self.p += partToAdd.p
-                            print self.p.E()
-            print
+                            #print self.p.E()
+            #print
         return
 
+
+###### DOES NOT WORK WELL #######
     def matchElectron(self, listRcPart):
         if self.type == 11:
             minDist = 0
             rcNumber = -1
             for part in listRcPart:
+<<<<<<< HEAD
                 if part.type == 11 and part.p.E() > matchMinEnergy:
+=======
+                if part.type == 11: #and part.p.E() > matchMinEnergy:
+>>>>>>> a508048fe329317abd7ca07e879da998987d79fc
                     dist = Distance(self,part)
                     cos = self.cos(part)
                     print cos
@@ -80,12 +86,29 @@ class Particle:
                         if cos > matchMinCos:
                             minDist = dist
                             rcNumber = part.num
+<<<<<<< HEAD
                             print cos, matchMinCos
                             print
                        
                                    #print 'minimum distance is: ', minDist
+=======
+>>>>>>> a508048fe329317abd7ca07e879da998987d79fc
             return [rcNumber, minDist]
-        return
+        return [-1, 0]
+
+    def matchMuon(self, listRcPart):
+        minAngle = -1.
+        rcMuonNumber
+        for part in listRcPart:
+            if part.type == 13:
+                ang = self.angle(part)
+                if ang < minAngle or minAngle == -1.:
+                    minAngle = ang
+                    rcMuonNumber = part.num
+        print Distance(self, listRcPart[rcMuonNumber])
+        return rcMuonNumber
+
+
 
 
 class Jet:
