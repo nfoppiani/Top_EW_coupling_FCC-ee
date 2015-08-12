@@ -3,6 +3,9 @@ import numpy
 
 # PARAMETERS CHOICE
 
+matchMinEnergy = 8
+matchMinCos = 0.9
+
 degreeDTheta = 1.
 dtheta = numpy.radians(degreeDTheta)
 cosPhiMin = 0.995
@@ -40,13 +43,13 @@ class Particle:
     
     def sumPhotonsCone(self,listRcPart):
         if self.type == 11:
-            print self.p.E()
+            #print self.p.E()
             for partToAdd in listRcPart:
                 if partToAdd.type == 22:
                     angle = self.angle(partToAdd)
                     if angle < photonConeAngle:
                         self.p += partToAdd.p
-                        print self.p.E()
+                        #print self.p.E()
             print
         return
 
@@ -64,7 +67,21 @@ class Particle:
             print
         return
 
-
+    def matchElectron(self, listRcPart):
+        if self.type == 11:
+            minDist = 0
+            rcNumber = -1
+            for part in listRcPart:
+                if part.type == 11: # and part.p.E() > matchMinEnergy:
+                    dist = Distance(self,part)
+                    cos = self.cos(part)
+                    if dist < minDist or minDist == 0:
+                        if cos > matchMinCos:
+                            minDist = dist
+                            rcNumber = part.num
+            print 'minimum distance is: ', minDist
+            return [rcNumber, minDist]
+        return
 
 
 class Jet:
