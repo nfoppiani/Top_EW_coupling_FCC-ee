@@ -3,7 +3,7 @@ import numpy
 
 # PARAMETERS CHOICE
 
-matchMuonMaxAngle = 0.04
+matchMuonMaxAngle = 0.02
 
 
 #matchelectronMinEnergy = 8
