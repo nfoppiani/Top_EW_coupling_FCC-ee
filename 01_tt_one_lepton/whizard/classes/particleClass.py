@@ -74,11 +74,7 @@ class Particle:
             minDist = 0
             rcNumber = -1
             for part in listRcPart:
-<<<<<<< HEAD
-                if part.type == 11 and part.p.E() > matchMinEnergy:
-=======
                 if part.type == 11: #and part.p.E() > matchMinEnergy:
->>>>>>> a508048fe329317abd7ca07e879da998987d79fc
                     dist = Distance(self,part)
                     cos = self.cos(part)
                     print cos
@@ -86,26 +82,19 @@ class Particle:
                         if cos > matchMinCos:
                             minDist = dist
                             rcNumber = part.num
-<<<<<<< HEAD
-                            print cos, matchMinCos
-                            print
-                       
                                    #print 'minimum distance is: ', minDist
-=======
->>>>>>> a508048fe329317abd7ca07e879da998987d79fc
             return [rcNumber, minDist]
         return [-1, 0]
 
     def matchMuon(self, listRcPart):
         minAngle = -1.
-        rcMuonNumber
+        rcMuonNumber=-1
         for part in listRcPart:
             if part.type == 13:
-                ang = self.angle(part)
-                if ang < minAngle or minAngle == -1.:
-                    minAngle = ang
-                    rcMuonNumber = part.num
-        print Distance(self, listRcPart[rcMuonNumber])
+				ang = self.angle(part)
+				if ang < minAngle or minAngle == -1.:
+					minAngle = ang
+					rcMuonNumber = part.num
         return rcMuonNumber
 
 
