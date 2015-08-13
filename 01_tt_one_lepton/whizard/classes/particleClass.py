@@ -164,9 +164,10 @@ class Particle:
 
 class Jet:
     
-    def __init__ (self,num,mass,px,py,pz,e):
+    def __init__ (self,num,mass,cha,px,py,pz,e):
         self.num = num
         self.mass = mass
+        self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
 
     def cosTheta(self):
