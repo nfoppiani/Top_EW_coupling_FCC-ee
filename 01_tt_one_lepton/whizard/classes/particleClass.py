@@ -29,7 +29,6 @@ photonConeDegreeAngle = 7
 ##########################
 
 matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
-
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
 dtheta = numpy.radians(degreeDTheta)
 energyInConeAngle = numpy.radians(energyInConeAngleDegree)
