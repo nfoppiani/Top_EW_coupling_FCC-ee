@@ -1,5 +1,6 @@
 # 1. counts the number of reconstructed muons per event and fills the relative histogram
 # 2. plots the angle (in degrees) between the rc muons and the mc muons for the events with three or more muons
+# 3. remakes the last plot using red colour for the nearest rc muon and green colour for the others
 
 from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, THStack
 from numpy import degrees
@@ -12,7 +13,7 @@ tree.Add('./../whizard_negMuTau_yyxylv/001/yyxylv_o_*.root')
 hMuonsPerEvent = TH1F("muonsPerEvent","Number of RC muons per event",10,0.,9.)
 hMoreThan3Angle = TH1F("moreThan3Angle","Angle between RC muons and MC W-decay one for events with three RC muons or more",360,0.,180)
 hMoreThan3NearestAngle = TH1F("moreThan3NearestAngle","Angle between MC W-decay muon and nearest RC one for events with three RC muons or more",360,0.,180)
-hMoreThan3NotNearestAngle = TH1F("moreThan3NearestAngle","Angle between MC W-decay muon and not-nearest RC ones for events with three RC muons or more",360,0.,180)
+hMoreThan3NotNearestAngle = TH1F("moreThan3NotNearestAngle","Angle between MC W-decay muon and not-nearest RC ones for events with three RC muons or more",360,0.,180)
 
 sMoreThan3Angle = THStack("moreThan3Angle","Angle between RC muons and MC W-decay one for events with three RC muons or more")
 
@@ -34,19 +35,32 @@ for event in tree:
         if count >= 3:
             minAngle = numpy.pi
             minAngleNumber = -1
-            for i in len(rcMuons):
+            for i in range(len(rcMuons)):
                 angle = rcMuons[i].angle(mcMuon)
                 if angle < minAngle:
                     minAngle = angle
                     minAngleNumber = i
-                hMoreThan3Angle.Fill(degrees(angle))
+            hMoreThan3NearestAngle.Fill(degrees(minAngle))
+            for i in range(len(rcMuons)):
+                if i != minAngleNumber:
+                    ang = rcMuons[i].angle(mcMuon)
+                    hMoreThan3NotNearestAngle.Fill(degrees(ang))
 
+hMoreThan3Angle.Add(hMoreThan3NearestAngle)
+hMoreThan3Angle.Add(hMoreThan3NotNearestAngle)
 
 savingFile=TFile('./muonsPerEvent.root',"RECREATE")
 savingFile.cd()
 hMuonsPerEvent.Write()
 hMoreThan3Angle.Write()
+hMoreThan3NearestAngle.Write()
+hMoreThan3NotNearestAngle.Write()
 
-hMoreThan3NearestAngle.
+hMoreThan3NearestAngle.SetFillColor(2)
+hMoreThan3NotNearestAngle.SetFillColor(3)
+sMoreThan3Angle.Add(hMoreThan3NearestAngle)
+sMoreThan3Angle.Add(hMoreThan3NotNearestAngle)
+
+sMoreThan3Angle.Write()
 
 savingFile.Close()

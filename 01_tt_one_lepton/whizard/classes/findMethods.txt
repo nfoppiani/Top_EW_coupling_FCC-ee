@@ -7,8 +7,7 @@
 #############
 
 1. Plotted the number of rc muons per event (countMuonsPerEvent.py)
-2. Plotted the angle (in degrees) between the rc muons and the mc muons for the events with three or more muons (countMuonsPerEvent.py). Decided the cut for matching to be 7°.
-3. 
+2. Plotted the angle (in degrees) between the rc muons and the mc W-decay-muon for the events with three or more muons. Closest muon is plotted in red, others in green  (countMuonsPerEvent.py). Decided the maximum angle to match to be 5.5°.
 
 
 

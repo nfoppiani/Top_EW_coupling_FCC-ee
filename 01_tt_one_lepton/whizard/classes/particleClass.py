@@ -1,28 +1,39 @@
 from ROOT import TLorentzVector
 import numpy
 
-# PARAMETERS CHOICE
+#########################
+### PARAMETERS CHOICE ###
+#########################
 
-matchMuonMaxAngleDegrees = 7
-matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
-
-matchMuonMinEnergy= 10.
-
-closestChargeMinEnergy= 2.
-
-closestJetMinEnergy=5.
+# MATCH PARAMETERS
+matchMuonMaxAngleDegrees = 5.5
+#matchMuonMinEnergy= 10.
 
 #matchelectronMinEnergy = 8
 matchMinCos = 0.98
 
+# SEARCH PARAMETERS
+closestChargeMinEnergy = 2.
+closestJetMinEnergy = 5.
+
+# PHOTON ADDING PARAMETERS
+
 degreeDTheta = 4.0
-dtheta = numpy.radians(degreeDTheta)
 cosPhiMin = 0.995
-
 photonConeDegreeAngle = 7
-photonConeAngle = numpy.radians(photonConeDegreeAngle)
 
-# CLASSES DEFINITION
+##########################
+### RADIANS CONVERTION ###
+##########################
+
+matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
+coneEnergyAngle = numpy.radians(coneEnergyAngleDegree)
+photonConeAngle = numpy.radians(photonConeDegreeAngle)
+dtheta = numpy.radians(degreeDTheta)
+
+##########################
+### CLASSES DEFINITION ###
+##########################
 
 class Particle:
 
