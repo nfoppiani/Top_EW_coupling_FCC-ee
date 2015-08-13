@@ -92,7 +92,7 @@ class Particle:
     def energyInCone(self,rcList):
         energy = 0
         for part in rcList:
-            if self.angle(part) < energyInConeAngle:
+            if self.angle(part) < energyInConeAngle and self.num!=part.num:
                 energy += part.p.E()
         return energy
 
