@@ -13,9 +13,12 @@ matchMuonMinEnergy= 10.
 matchMinCos = 0.98
 
 # SEARCH PARAMETERS
+
 closestChargeMinEnergy = 2.
 closestJetMinEnergy = 5.
 PtJetMin=1.
+energyInConeAngleDegree = 5.
+
 # PHOTON ADDING PARAMETERS
 
 degreeDTheta = 4.0
@@ -23,13 +26,14 @@ cosPhiMin = 0.995
 photonConeDegreeAngle = 7
 
 ##########################
-### RADIANS CONVERTION ###
+### RADIANS CONVERSION ###
 ##########################
 
 matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
 
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
 dtheta = numpy.radians(degreeDTheta)
+energyInConeAngle = numpy.radians(energyInConeAngleDegree)
 
 ##########################
 ### CLASSES DEFINITION ###
@@ -51,6 +55,11 @@ class Particle:
     
     def phi(self):
         return self.p.Phi()
+    
+    def dtheta(self, part):
+        return self.p.Theta() - part.p.Theta()
+
+    
     
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
@@ -79,12 +88,19 @@ class Particle:
                 if ang < minAng or minAng == -1:
                     minAng = ang
         return minAng
+    
+    def energyInCone(self,rcList):
+        energy = 0
+        for part in rcList:
+            if self.angle(part) < energyInConeAngle:
+                energy += part.p.E()
+        return energy
 
     def matchMuon(self, listRcPart):
         minAngle = -1.
         rcMuonNumber = -1
         for part in listRcPart:
-            if part.type == 13 and part.p.E()>matchMuonMinEnergy:
+            if part.type == 13: #and part.p.E()>matchMuonMinEnergy:
                 ang = self.angle(part)
                 if ang < minAngle or minAngle == -1.:
                     minAngle = ang
