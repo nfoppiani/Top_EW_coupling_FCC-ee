@@ -56,16 +56,15 @@ for event in tree:
             hAnglePartial1.Fill(Angle)
             
             hPtJetAngleCharPartial1.Fill(Pt,Angle)
-            
-            for part in rcParticles:
-                if part.type ==13 and part.num!=MatchNum:
-                    Pt=part.ptToClosestJet(rcJets)
-                    hPtPartial2.Fill(Pt)
+        for part in rcParticles:
+            if part.type ==13 and part.num!=MatchNum:
+                Pt=part.ptToClosestJet(rcJets)
+                hPtPartial2.Fill(Pt)
                     
-                    Angle=part.angleToClosestCharge(rcParticles)
-                    hAnglePartial2.Fill(Angle)
+                Angle=part.angleToClosestCharge(rcParticles)
+                hAnglePartial2.Fill(Angle)
                     
-                    hPtJetAngleCharPartial2.Fill(Pt,Angle)
+                hPtJetAngleCharPartial2.Fill(Pt,Angle)
 
 hPtPartial1.SetFillColor(2) #set the red fill color				
 hPtClosestJet.Add(hPtPartial1)
@@ -82,12 +81,21 @@ hAnglePartial2.SetFillColor(3) #set the green fill color
 hAngleClosestCharge.Add(hPtPartial2)
 
 
-
-hPtJetAngleCharPartial1.SetFillColor(2) #set the red fill color				
-hPtJetAngleChar.Add(hPtJetAngleCharPartial1)
-
 hPtJetAngleCharPartial2.SetFillColor(3) #set the green fill color
 hPtJetAngleChar.Add(hPtJetAngleCharPartial2)
 
 
+hPtJetAngleCharPartial1.SetFillColor(2) #set the red fill color				
+hPtJetAngleChar.Add(hPtJetAngleCharPartial1)
+
+
+
+
 hPtJetAngleChar.Draw()
+
+
+savingFile=TFile("../plot/pTAngleMuon.root","RECREATE")
+savingFile.cd()
+hPtClosestJet.Write()
+hAngleClosestCharge.Write()
+hPtJetAngleChar.Write()

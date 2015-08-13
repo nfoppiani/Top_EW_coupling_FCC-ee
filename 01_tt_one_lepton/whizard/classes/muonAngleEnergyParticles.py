@@ -6,11 +6,18 @@ from findElectrons import *
 tree = TChain("MyLCTuple")
 tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 
+
+PtMax=2.
+
+coneCutAngle=numpy.deg2rad(5)
+
 #declaration of histograms
 
 hAngleEnergyJet=TH1F("Angle to the Jet weight with energy","Angle to the Jet weight with energy",100,0.,1.)
 
 hEnergy=TH1F("Energy to the closest Jet signal","Energy the closest Jet signal",100,0.,100.)
+
+hType=TH1F("Type of the closest Jet components","Type of the closest Jet components",10000,-2000,2500)
 
 Pt=0.
 Angle=0.
@@ -31,15 +38,14 @@ for event in tree:
 			p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
 			rcJets.append(p)
 	
-		EneJet=0.
+		matchNum=mcMuon.matchMuon(rcParticles)
+                
                 for jet in rcJets:
-                        minJet=0.
-                        EneJet=0.
-                        if mcMuon.p.Pt(jet.p.Vect())<minJet or minJet==0.:
-                                minJet=mcMuon.p.Pt(jet.p.Vect())
-                                EneJet=jet.p.E()
-                        hAngleEnergyJet.Fill(jet.angle(mcMuon),jet.p.E())
+                        if mcMuon.p.Pt(jet.p.Vect())<PtMax:
+                                for part in rcParticles:
+                                        if part.angle(mcMuon)<coneCutAngle and part.num!=matchNum:
+                                                hType.Fill(part.type)
 
 
-hEnergy.Draw()
+hType.Draw()
 

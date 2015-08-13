@@ -7,7 +7,7 @@ import numpy
 
 # MATCH PARAMETERS
 matchMuonMaxAngleDegrees = 5.5
-#matchMuonMinEnergy= 10.
+matchMuonMinEnergy= 10.
 
 #matchelectronMinEnergy = 8
 matchMinCos = 0.98
@@ -15,7 +15,7 @@ matchMinCos = 0.98
 # SEARCH PARAMETERS
 closestChargeMinEnergy = 2.
 closestJetMinEnergy = 5.
-
+PtJetMin=1.
 # PHOTON ADDING PARAMETERS
 
 degreeDTheta = 4.0
@@ -27,7 +27,7 @@ photonConeDegreeAngle = 7
 ##########################
 
 matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
-coneEnergyAngle = numpy.radians(coneEnergyAngleDegree)
+
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
 dtheta = numpy.radians(degreeDTheta)
 
@@ -65,9 +65,10 @@ class Particle:
         for jet in jetList:
             if jet.p.E()>closestJetMinEnergy:
                 ang = self.angle(jet)
-                if ang <= angMin:
+                PtJet = self.p.Pt(jet.p.Vect())
+                if ang <= angMin and PtJet>PtJetMin:
                     angMin = ang
-                    pt = self.p.Pt(jet.p.Vect())
+                    pt = PtJet
         return pt
                 
     def angleToClosestCharge(self,rcPartList):
