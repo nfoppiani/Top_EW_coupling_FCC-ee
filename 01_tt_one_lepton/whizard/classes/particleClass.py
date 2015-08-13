@@ -16,7 +16,6 @@ matchMinCos = 0.98
 
 closestChargeMinEnergy = 2.
 closestJetMinEnergy = 5.
-PtJetMin=1.
 energyInConeAngleDegree = 5.
 
 # PHOTON ADDING PARAMETERS
@@ -59,7 +58,14 @@ class Particle:
     def dtheta(self, part):
         return self.p.Theta() - part.p.Theta()
 
-    
+    def dphi(self, part):
+        phiDifference = self.phi()-part.phi()
+        if phiDifference > numpy.pi:
+            phiDifference -= 2*numpy.pi
+        else:
+            if phiDifference < -numpy.pi:
+                phiDifference += 2*numpy.pi
+        return phiDifference
     
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
@@ -75,7 +81,7 @@ class Particle:
             if jet.p.E()>closestJetMinEnergy:
                 ang = self.angle(jet)
                 ptJet = self.p.Pt(jet.p.Vect())
-                if ang <= angMin:# and ptJet>PtJetMin:
+                if ang <= angMin:
                     angMin = ang
                     pt = ptJet
         return pt
