@@ -3,7 +3,7 @@ import numpy
 from particleClass import *
 
 tree = TChain("MyLCTuple")
-tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_10.root')
+tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 
 #declaration of histograms
 
@@ -24,44 +24,37 @@ for event in tree:
     if tree.mcpdg[10]==13:
         mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
         rcParticles = []
-        rcMuons = []
         for i in range(len(tree.rctyp)):
             p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
             rcParticles.append(p)
-            if tree.rctyp[i] == 13:
-                rcMuons.append(p)
         rcJets = []
         for i in range(len(tree.jene)):
 			p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
 			rcJets.append(p)
 
-        rcMatchNum = mcMuon.matchMuon(rcMuons)      # RC matched muon progressive number in rcParticle
-        muMatchNum = -1                             # RC matched muon progressive number in rcMuon
-        for i in range(len(rcMuons)):
-            if rcMuons[i].num == rcMatchNum:
-                muMatchNum = i
+        rcMatchNum = mcMuon.matchMuon(rcParticles)      # RC matched muon progressive number in rcParticles
         
-        if muMatchNum != -1:
+        if rcMatchNum != -1:
     
-            pt = rcMuons[muMatchNum].ptToClosestJet(rcJets)
+            pt = rcParticles[rcMatchNum].ptToClosestJet(rcJets)
             hPtSignal.Fill(pt)
             
-            angle = rcMuons[muMatchNum].angleToClosestCharge(rcParticles)
+            angle = rcParticles[rcMatchNum].angleToClosestCharge(rcParticles)
             hAngleChargeSignal.Fill(numpy.degrees(angle))
         
-            energy = rcMuons[muMatchNum].energyInCone(rcParticles)
+            energy = rcParticles[rcMatchNum].energyInCone(rcParticles)
             hEnergyInConeSignal.Fill(energy)
             
-        for mu in rcMuons:
-            if mu.num != muMatchNum:
+        for part in rcParticles:
+            if part.type == 13 and part.num != rcMatchNum:
                 
-                pt = mu.ptToClosestJet(rcJets)
+                pt = part.ptToClosestJet(rcJets)
                 hPtBackground.Fill(pt)
                     
-                angle = mu.angleToClosestCharge(rcParticles)
+                angle = part.angleToClosestCharge(rcParticles)
                 hAngleChargeBackground.Fill(numpy.degrees(angle))
 
-                energy = mu.energyInCone(rcParticles)
+                energy = part.energyInCone(rcParticles)
                 hEnergyInConeBackground.Fill(energy)
 
 savingFile=TFile('./backgroundToSignalMuon2.root',"RECREATE")

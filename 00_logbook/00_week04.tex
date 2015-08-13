@@ -44,4 +44,22 @@ Results:???
 We changed our approach, restarting our study considering the muons sample. This makes our work simpler, because muons have less background than electrons and usually loose less energy before their detection. Besides, there are far fewer muons than electrons in every event.
 
 \textbf{Matching algorithm calibration}
-We would like to find an algorithm to decide wether a reconstructed (RC) muon matches the W-decay Monte Carlo (W-MC) one. We decided to use, as discriminant variable, the angle between the relative momenta. To set the threshold value, we considered the events with three or more RC muons\footnote{Which are about 2\% of the events, whereas there are two RC muons in 20\% of the events and no RC muons in 1\% of cases.} (where is more probable that there is a muon that matches the W-MC one).
+We would like to find an algorithm to decide wether a reconstructed (RC) muon matches the W-decay Monte Carlo (W-MC) one. We decided to use, as discriminant variable, the angle between the relative momenta. To set the threshold value, we considered the events with three or more RC muons\footnote{Which are about 2\% of the events, whereas there are two RC muons in 20\% of the events and no RC muons in 1\% of cases.}, where is more probable that there is a muon that matches the W-MC one. Using only these events, we filled the histogram of the angle of the RC muons from the W-MC 	muon. For each event, we used red colour for the nearest RC muon, and green colour for the others. The results are plotted in figures~\ref{04_muonsMatchAngleCut}~and~\ref{04_muonsMatchAngleCutLog}.
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_muonsMatchAngleCutLog.pdf}
+\caption{YLogscale is used for a better visualisation.}
+\label{04_muonsMatchAngleCutLog}
+\end{figure}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_muonsMatchAngleCut.pdf}
+\caption{Zoom near the cut.}
+\label{04_muonsMatchAngleCut}
+\end{figure}
+
+Looking at figure~\ref{04_muonsMatchAngleCut}, we decided to use $5.5^o$ as the maximum angle between two muons to say that they can match.
+
+To sum up, we will say that a RC muon matches the W-MC muon if it is its closest RC muon and the angle between the two is smaller than $5.5^o$.
