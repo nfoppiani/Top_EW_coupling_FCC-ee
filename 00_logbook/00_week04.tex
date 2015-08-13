@@ -38,3 +38,10 @@ We are searching for the best algorithm to find the correct a electron between t
 In addition we use the kinematic constrain (Energy lower then 13 GeV) to select only the electrons with an energy lower than 10 GeV (to take in account the experimental uncertainty. This have two effects: improve the efficiency and reduce the computation time.
 
 Results:???
+
+\subsection{13/08/15}
+
+We changed our approach, restarting our study considering the muons sample. This makes our work simpler, because muons have less background than electrons and usually loose less energy before their detection. Besides, there are far fewer muons than electrons in every event.
+
+\textbf{Matching algorithm calibration}
+We would like to find an algorithm to decide wether a reconstructed (RC) muon matches the W-decay Monte Carlo (W-MC) one. We decided to use, as discriminant variable, the angle between the relative momenta. To set the threshold value, we considered the events with three or more RC muons\footnote{Which are about 2\% of the events, whereas there are two RC muons in 20\% of the events and no RC muons in 1\% of cases.} (where is more probable that there is a muon that matches the W-MC one).
