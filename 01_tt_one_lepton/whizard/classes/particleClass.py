@@ -41,9 +41,9 @@ energyInConeAngle = numpy.radians(energyInConeAngleDegree)
 
 class Particle:
 
-    def __init__ (self,num,type,cha,px,py,pz,e):
+    def __init__ (self,num,typ,cha,px,py,pz,e):
         self.num = num
-        self.type = type
+        self.typ = typ
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
     
@@ -74,10 +74,10 @@ class Particle:
         for jet in jetList:
             if jet.p.E()>closestJetMinEnergy:
                 ang = self.angle(jet)
-                PtJet = self.p.Pt(jet.p.Vect())
-                if ang <= angMin and PtJet>PtJetMin:
+                ptJet = self.p.Pt(jet.p.Vect())
+                if ang <= angMin:# and ptJet>PtJetMin:
                     angMin = ang
-                    pt = PtJet
+                    pt = ptJet
         return pt
                 
     def angleToClosestCharge(self,rcPartList):
@@ -100,7 +100,7 @@ class Particle:
         minAngle = -1.
         rcMuonNumber = -1
         for part in listRcPart:
-            if part.type == 13: #and part.p.E()>matchMuonMinEnergy:
+            if part.typ == 13: #and part.p.E()>matchMuonMinEnergy:
                 ang = self.angle(part)
                 if ang < minAngle or minAngle == -1.:
                     minAngle = ang
@@ -115,10 +115,10 @@ class Particle:
 ####### PHOTONS SUMMING ##########
 
     def sumPhotonsCone(self,listRcPart):
-        if self.type == 11:
+        if self.typ == 11:
             #print self.p.E()
             for partToAdd in listRcPart:
-                if partToAdd.type == 22:
+                if partToAdd.typ == 22:
                     angle = self.angle(partToAdd)
                     if angle < photonConeAngle:
                         self.p += partToAdd.p
@@ -127,12 +127,12 @@ class Particle:
         return
 
     def sumPhotonsRectangle(self, listRcPart):
-        if self.type == 11:
+        if self.typ == 11:
             #print self.p.E()
             elTheta = self.theta()
             elPhi = self.phi()
             for partToAdd in listRcPart:
-                if partToAdd.type == 22:
+                if partToAdd.typ == 22:
                     if abs(partToAdd.theta()-elTheta) < dtheta:
                         if numpy.cos(partToAdd.phi() - elPhi) > cosPhiMin and numpy.sin(partToAdd.phi() - elPhi)>0:
                             self.p += partToAdd.p
@@ -143,11 +143,11 @@ class Particle:
 
 ###### DOES NOT WORK WELL #######
     def matchElectron(self, listRcPart):
-        if self.type == 11:
+        if self.typ == 11:
             minDist = 0
             rcNumber = -1
             for part in listRcPart:
-                if part.type == 11: #and part.p.E() > matchMinEnergy:
+                if part.typ == 11: #and part.p.E() > matchMinEnergy:
                     dist = Distance(self,part)
                     cos = self.cos(part)
                     print cos

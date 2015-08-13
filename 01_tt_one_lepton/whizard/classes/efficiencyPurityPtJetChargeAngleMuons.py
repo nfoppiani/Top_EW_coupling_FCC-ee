@@ -11,13 +11,9 @@ tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 
 #definition of area
 
-angleMax=0.5
-pTMax=45.
+pTMax=4.
 
-#angleMin=numpy.array([0.01,0.05,0.08,0.10,0.12,0.15,0.18,0.20,0.25,0.3])
-angleMin=0.08
-
-pTMin=numpy.array([0.5,6.,7.,8.,9.,10.,11.,12.,13.,140.])
+angleMax=numpy.array([0.2,0.25,0.03,0.35,0.40,0.45,0.50,0.55,0.60,0.65])
 
 
 generatedMuons=0
@@ -38,7 +34,7 @@ for event in tree:
 
         rcJets = []
         for i in range(len(tree.jene)):
-                        p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+                        p = Jet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i])
                         rcJets.append(p)
 
         MatchNum = mcMuon.matchMuon(rcParticles)
@@ -47,32 +43,32 @@ for event in tree:
             Pt=rcParticles[MatchNum].ptToClosestJet(rcJets)
             Angle=rcParticles[MatchNum].angleToClosestCharge(rcParticles)
 
-            for i in range(len(pTMin)):
-                if (Angle>angleMax) or (Pt>=pTMin[i] and Pt<=pTMax and Angle>angleMin) or (Pt>=pTMax):
+            for i in range(len(angleMax)):
+                if (Angle>=angleMax[i]) or (Pt>=pTMax):
                     matched[i] += 1
 
         for part in rcParticles:
-            if part.type ==13 and part.num!=MatchNum:
+            if part.typ ==13 and part.num!=MatchNum:
                 Pt=part.ptToClosestJet(rcJets)                
                 Angle=part.angleToClosestCharge(rcParticles)
 
-                for i in range(len(pTMin)):
-                    if (Angle>angleMax) or (Pt>=pTMin[i] and Pt<=pTMax and Angle>angleMin) or (Pt>=pTMax):
+                for i in range(len(angleMax)):
+                    if (Angle>=angleMax[i]) or (Pt>=pTMax):
                         nonMatched[i] += 1
                         
 
         generatedMuons += 1
 
-for i in range(len(pTMin)):
-    print "ptmin",i, pTMin[i]
+for i in range(len(angleMax)):
+    print "angleMax",i, angleMax[i]
     efficiency[i] = matched[i]/generatedMuons
     print "efficiency",i, efficiency[i]
     if (matched[i]+nonMatched[i])>0:
         purity[i]=1-(nonMatched[i]/(matched[i]+nonMatched[i]))
         print "purity",i, purity[i]
 
-Eff=TGraph(len(pTMin),pTMin,efficiency)
-Pur=TGraph(len(pTMin),pTMin,purity)
+Eff=TGraph(len(angleMax),angleMax,efficiency)
+Pur=TGraph(len(angleMax),angleMax,purity)
 
 Eff.Draw()
 Pur.Draw("same")

@@ -30,11 +30,11 @@ hPtJetAngleCharPartial2=TH2F("Pt to the closest Jet, Angle to the closest charge
 
 
 #2d histograms Pt + Cone energy
-hPtCone=THStack("Pt to the closest Jet,Energy in a cone","Pt to the closest Jet,Energy in a cone")
+#hPtCone=THStack("Pt to the closest Jet,Energy in a cone","Pt to the closest Jet,Energy in a cone")
 
-hPtCone1=TH2F("Pt to the closest Jet,Energy in a cone SIGNAL","Pt to the closest Jet,Energy in a cone SIGNAL",100,0.,100.,100,0.,80.)
+#hPtCone1=TH2F("Pt to the closest Jet,Energy in a cone SIGNAL","Pt to the closest Jet,Energy in a cone SIGNAL",100,0.,100.,100,0.,80.)
 
-hPtCone2=TH2F("Pt to the closest Jet,Energy in a cone BG","Pt to the closest Jet,Energy in a con BG",100,0.,100.,100,0.,80.)
+#hPtCone2=TH2F("Pt to the closest Jet,Energy in a cone BG","Pt to the closest Jet,Energy in a con BG",100,0.,100.,100,0.,80.)
 
 #2d histograms charge + Cone energy
 #hChargeCone=THStack(",Energy in a cone","Pt to the closest Jet,Energy in a cone")
@@ -58,7 +58,7 @@ for event in tree:
         rcJets = []
         
         for i in range(len(tree.jene)):
-			p = Jet(i,tree.jmas[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i])
+			p = Jet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i])
 			rcJets.append(p)
 
         MatchNum = mcMuon.matchMuon(rcParticles)
@@ -73,12 +73,12 @@ for event in tree:
             
             hPtJetAngleCharPartial1.Fill(Pt,Angle)
 
-            Energy=rcParticles[MatchNum].energyInCone(rcParticles)
+            #Energy=rcParticles[MatchNum].energyInCone(rcParticles)
 
-            hPtCone1.Fill(Energy,Pt)
+            #hPtCone1.Fill(Energy,Pt)
             
         for part in rcParticles:
-            if part.type ==13 and part.num!=MatchNum:
+            if part.typ ==13 and part.num!=MatchNum:
                 Pt=part.ptToClosestJet(rcJets)
                 hPtPartial2.Fill(Pt)
                     
@@ -87,9 +87,9 @@ for event in tree:
                     
                 hPtJetAngleCharPartial2.Fill(Pt,Angle)
 
-                Energy=part.energyInCone(rcParticles)
+                #Energy=part.energyInCone(rcParticles)
 
-                hPtCone2.Fill(Energy,Pt)
+                #hPtCone2.Fill(Energy,Pt)
 
 hPtPartial1.SetFillColor(2) #set the red fill color				
 hPtClosestJet.Add(hPtPartial1)
@@ -116,19 +116,19 @@ hPtJetAngleCharPartial2.SetFillColor(3) #set the green fill color
 hPtJetAngleChar.Add(hPtJetAngleCharPartial2)
 
 #pt energy in a cone
-hPtCone1.SetFillColor(2) #set the green fill color
-hPtCone.Add(hPtCone1)
+#hPtCone1.SetFillColor(2) #set the green fill color
+#hPtCone.Add(hPtCone1)
 
 
-hPtCone2.SetFillColor(3) #set the red fill color				
-hPtCone.Add(hPtCone2)
-
-
-
+#hPtCone2.SetFillColor(3) #set the red fill color				
+#hPtCone.Add(hPtCone2)
 
 
 
-hPtCone.Draw()
+
+
+
+hPtJetAngleChar.Draw()
 
 
 savingFile=TFile("../plot/pTAngleMuon.root","RECREATE")
@@ -137,4 +137,6 @@ hPtClosestJet.Write()
 hAngleClosestCharge.Write()
 hPtJetAngleChar.Write()
 
-hPtCone.Write()
+#hPtCone.Write()
+
+savingFile.Close()
