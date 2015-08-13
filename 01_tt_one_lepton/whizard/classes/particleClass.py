@@ -3,7 +3,8 @@ import numpy
 
 # PARAMETERS CHOICE
 
-matchMuonMaxAngle = 0.02
+matchMuonMaxAngleDegrees = 7
+matchMuonMaxAngle = numpy.degrees(matchMuonMaxAngleDegrees)
 
 matchMuonMinEnergy= 10.
 

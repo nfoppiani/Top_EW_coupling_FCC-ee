@@ -33,38 +33,39 @@ Angle=0.
 
 #loop on the events
 for event in tree:
-	if tree.mcpdg[10]==13:
-		mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
-	
-		rcParticles = []
-		for i in range(len(tree.rctyp)):
-			p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
-			rcParticles.append(p)
-	
-		rcJets = []
-		for i in range(len(tree.jene)):
+    if tree.mcpdg[10]==13:
+        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
+        rcParticles = []
+        for i in range(len(tree.rctyp)):
+            p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+            rcParticles.append(p)
+
+        rcJets = []
+        for i in range(len(tree.jene)):
 			p = Jet(i,tree.jmas[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
 			rcJets.append(p)
-	
-		MatchNum=mcMuon.matchMuon(rcParticles)
-		
-		Pt=rcParticles[MatchNum].ptToClosestJet(rcJets)
-		hPtPartial1.Fill(Pt)
-		
-		Angle=rcParticles[MatchNum].angleToClosestCharge(rcParticles)
-		hAnglePartial1.Fill(Angle)
-		
-		hPtJetAngleCharPartial1.Fill(Pt,Angle)
-		
-		for part in rcParticles:
-			if part.type ==13 and part.num!=MatchNum:
-				Pt=part.ptToClosestJet(rcJets)
-				hPtPartial2.Fill(Pt)
-				
-				Angle=part.angleToClosestCharge(rcParticles)
-				hAnglePartial2.Fill(Angle)
-				
-				hPtJetAngleCharPartial2.Fill(Pt,Angle)
+
+        MatchNum = mcMuon.matchMuon(rcParticles)
+
+        if MatchNum != -1:
+    
+            Pt=rcParticles[MatchNum].ptToClosestJet(rcJets)
+            hPtPartial1.Fill(Pt)
+            
+            Angle=rcParticles[MatchNum].angleToClosestCharge(rcParticles)
+            hAnglePartial1.Fill(Angle)
+            
+            hPtJetAngleCharPartial1.Fill(Pt,Angle)
+            
+            for part in rcParticles:
+                if part.type ==13 and part.num!=MatchNum:
+                    Pt=part.ptToClosestJet(rcJets)
+                    hPtPartial2.Fill(Pt)
+                    
+                    Angle=part.angleToClosestCharge(rcParticles)
+                    hAnglePartial2.Fill(Angle)
+                    
+                    hPtJetAngleCharPartial2.Fill(Pt,Angle)
 
 hPtPartial1.SetLineColor(2) #set the red fill color				
 #hPtClosestJet.Add(hPtPartial1)
