@@ -8,6 +8,10 @@ matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
 
 matchMuonMinEnergy= 10.
 
+closestChargeMinEnergy= 2.
+
+closestJetMinEnergy=5.
+
 #matchelectronMinEnergy = 8
 matchMinCos = 0.98
 
@@ -48,16 +52,17 @@ class Particle:
         angMin = numpy.pi
         pt = -1
         for jet in jetList:
-            ang = self.angle(jet)
-            if ang <= angMin:
-                angMin = ang
-                pt = self.p.Pt(jet.p.Vect())
+            if jet.p.E()>closestJetMinEnergy:
+                ang = self.angle(jet)
+                if ang <= angMin:
+                    angMin = ang
+                    pt = self.p.Pt(jet.p.Vect())
         return pt
                 
     def angleToClosestCharge(self,rcPartList):
         minAng = -1
         for part in rcPartList:
-            if part.cha != 0 and part.num != self.num:
+            if part.cha != 0 and part.num != self.num and part.p.E()>closestChargeMinEnergy:
                 ang = self.angle(part)
                 if ang < minAng or minAng == -1:
                     minAng = ang

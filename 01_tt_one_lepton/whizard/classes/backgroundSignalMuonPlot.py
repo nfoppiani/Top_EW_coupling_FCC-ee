@@ -1,4 +1,4 @@
-from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain
+from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, THStack
 import numpy
 from particleClass import *
 from findElectrons import *
@@ -8,21 +8,21 @@ tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 
 #declaration of histograms
 
-hPtClosestJet=TH1F("Pt to the closest Jet","Pt to the closest Jet",100,0.,100.)
+hPtClosestJet=THStack("Pt to the closest Jet","Pt to the closest Jet")
 
 hPtPartial1=TH1F("Pt to the closest Jet signal","Pt to the closest Jet signal",100,0.,100.)
 
 hPtPartial2=TH1F("Pt to the closest Jet bg","Pt to the closest Jet bg",100,0.,100.)
 
 
-hAngleClosestCharge=TH1F("Angle to the closest charged particle","Angle to the closest charged particle",100,0.,1.)
+hAngleClosestCharge=THStack("Angle to the closest charged particle","Angle to the closest charged particle")
 
 hAnglePartial1=TH1F("Angle to the closest charged particle signal","Angle to the closest charged particle signal",100,0.,1.)
 
 hAnglePartial2=TH1F("Angle to the closest charged particle bg","Angle to the closest charged particle bg",100,0.,1.)
 
 
-hPtJetAngleChar=TH2F("Pt to the closest Jet, Angle to the closest charged particle","Pt to the closest Jet, Angle to the closest charged particle",100,0.,100.,100,0.,1.)
+hPtJetAngleChar=THStack("Pt to the closest Jet, Angle to the closest charged particle","Pt to the closest Jet, Angle to the closest charged particle")
 
 hPtJetAngleCharPartial1=TH2F("Pt to the closest Jet, Angle to the closest charged particle SIGNAL","Pt to the closest Jet, Angle to the closest charged particle SIGNAL",100,0.,100.,100,0.,1.)
 
@@ -67,28 +67,27 @@ for event in tree:
                     
                     hPtJetAngleCharPartial2.Fill(Pt,Angle)
 
-hPtPartial1.SetLineColor(2) #set the red fill color				
-#hPtClosestJet.Add(hPtPartial1)
+hPtPartial1.SetFillColor(2) #set the red fill color				
+hPtClosestJet.Add(hPtPartial1)
 
-hPtPartial2.SetLineColor(3) #set the green fill color
-#hPtClosestJet.Add(hPtPartial2)
-
-
-
-hAnglePartial1.SetLineColor(2) #set the red fill color				
-#hAngleClosestCharge.Add(hPtPartial1)
-
-hAnglePartial2.SetLineColor(3) #set the green fill color
-#hAngleClosestCharge.Add(hPtPartial2)
+hPtPartial2.SetFillColor(3) #set the green fill color
+hPtClosestJet.Add(hPtPartial2)
 
 
 
-hPtJetAngleCharPartial1.SetLineColor(2) #set the red fill color				
-#hPtJetAngleChar.Add(hPtJetAngleCharPartial1)
+hAnglePartial1.SetFillColor(2) #set the red fill color				
+hAngleClosestCharge.Add(hPtPartial1)
 
-hPtJetAngleCharPartial2.SetLineColor(3) #set the green fill color
-#hPtJetAngleChar.Add(hPtJetAngleCharPartial2)
+hAnglePartial2.SetFillColor(3) #set the green fill color
+hAngleClosestCharge.Add(hPtPartial2)
 
 
-hPtJetAngleCharPartial1.Draw("Lego")
-hPtJetAngleCharPartial2.Draw("same")
+
+hPtJetAngleCharPartial1.SetFillColor(2) #set the red fill color				
+hPtJetAngleChar.Add(hPtJetAngleCharPartial1)
+
+hPtJetAngleCharPartial2.SetFillColor(3) #set the green fill color
+hPtJetAngleChar.Add(hPtJetAngleCharPartial2)
+
+
+hPtJetAngleChar.Draw()
