@@ -124,10 +124,6 @@ hPtCone2.SetFillColor(3) #set the red fill color
 hPtCone.Add(hPtCone2)
 
 
-
-
-
-
 hPtCone.Draw()
 
 
