@@ -1,7 +1,7 @@
 # 1. counts the number of reconstructed muons per event and fills the relative histogram
 # 2. plots the angle (in degrees) between the rc muons and the mc muons for the events with three or more muons
 
-from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, T
+from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, THStack
 from numpy import degrees
 from particleClass import *
 
@@ -14,7 +14,7 @@ hMoreThan3Angle = TH1F("moreThan3Angle","Angle between RC muons and MC W-decay o
 hMoreThan3NearestAngle = TH1F("moreThan3NearestAngle","Angle between MC W-decay muon and nearest RC one for events with three RC muons or more",360,0.,180)
 hMoreThan3NotNearestAngle = TH1F("moreThan3NearestAngle","Angle between MC W-decay muon and not-nearest RC ones for events with three RC muons or more",360,0.,180)
 
-
+sMoreThan3Angle = THStack("moreThan3Angle","Angle between RC muons and MC W-decay one for events with three RC muons or more")
 
 
 for event in tree:
@@ -46,4 +46,7 @@ savingFile=TFile('./muonsPerEvent.root',"RECREATE")
 savingFile.cd()
 hMuonsPerEvent.Write()
 hMoreThan3Angle.Write()
+
+hMoreThan3NearestAngle.
+
 savingFile.Close()
