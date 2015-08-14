@@ -8,3 +8,6 @@ mytree=myfile.Get("negative_muons_tree")
 mcMuonEnAngleDistribution=TH2F("Mc muons energy-angle distribution","Mc muons energy-angle distribution", 30,0.,1.,30,-1.,1.)
 
 for event in mytree:
+    mcMuonEnAngleDistribution.Fill(mcRedEne,mcCosTheta)
+
+savingFile=TFile(../plot/)
