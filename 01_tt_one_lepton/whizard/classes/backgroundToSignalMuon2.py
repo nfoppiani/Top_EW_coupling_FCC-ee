@@ -29,7 +29,7 @@ for event in tree:
             rcParticles.append(p)
         rcJets = []
         for i in range(len(tree.jene)):
-			p = Jet(i,tree.jmas[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i])
+			p = Jet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i])
 			rcJets.append(p)
 
         rcMatchNum = mcMuon.matchMuon(rcParticles)      # RC matched muon progressive number in rcParticles
