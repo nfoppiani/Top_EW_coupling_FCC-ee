@@ -17,11 +17,13 @@ matchMinCos = 0.98
 closestChargeMinEnergy = 2.
 energyInConeAngleDegree = 10.
 
-# PHOTON ADDING PARAMETERS
+# PHOTON RECOVERY PARAMETERS
 
-degreeDTheta = 4.0
-cosPhiMin = 0.995
-photonConeDegreeAngle = 7
+dtheta1Degrees = 0.4
+dphi1Degrees = 0.2
+dtheta2Degrees = 0.27
+dphi2DegreesMax = 2.7
+dphi2DegreesMin = -0.2
 
 ##########################
 ### RADIANS CONVERSION ###
@@ -31,6 +33,11 @@ matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
 photonConeAngle = numpy.radians(photonConeDegreeAngle)
 dtheta = numpy.radians(degreeDTheta)
 energyInConeAngle = numpy.radians(energyInConeAngleDegree)
+dtheta1 = numpy.radians(dtheta1Degrees)
+dphi1 = numpy.radians(dphi1Degrees)
+dtheta2 = numpy.radians(dtheta2Degrees)
+dphi2Max = numpy.radians(dphi2DegreesMax)
+dphi2Min = numpy.radians(dphi2DegreesMin)
 
 ##########################
 ### CLASSES DEFINITION ###
@@ -84,23 +91,13 @@ class Particle:
         ang = self.p.Angle(part2.p.Vect())
         return numpy.cos(ang)
 
-    # def ptToClosestJet(self,jetList):
-    #     angMin = numpy.pi
-    #     pt = -1
-    #     for jet in jetList:
-    #         if jet.p.E()>closestJetMinEnergy:
-    #             ang = self.angle(jet)
-    #             ptJet = self.p.Pt(jet.p.Vect())
-    #             if ang <= angMin:
-    #                 angMin = ang
-    #                 pt = ptJet
-    #     return pt
+### ISOLATION VARIABLES ###
 
     def ptToClosestJet(self,jetList):
         angMin = numpy.pi
         pt = -1
         for jet in jetList:
-            if jet.cha!=-1 or InvariantMass(self,jet)>10:
+            if jet.cha!=-1 or InvariantMass(self,jet)>11:
                 ang = self.angle(jet)
                 ptJet = self.p.Pt(jet.p.Vect())
                 if ang <= angMin:
@@ -120,7 +117,16 @@ class Particle:
     def angleToClosestChargeOrNetruon(self,rcPartList):
         minAng = -1
         for part in rcPartList:
-            if (part.cha != 0 or part.typ==2112) and part.num != self.num and part.p.E()>closestChargeMinEnergy:
+            if (part.cha != 0 or part.typ==2112) and part.p.E()>closestChargeMinEnergy and part.num != self.num:
+                ang = self.angle(part)
+                if ang < minAng or minAng == -1:
+                    minAng = ang
+        return minAng
+
+    def angleToClosestChargeNotPhoton(self,rcPartList):
+        minAng = -1
+        for part in rcPartList:
+            if part.p.E()>closestChargeMinEnergy and part.typ != 22 and part.num != self.num:
                 ang = self.angle(part)
                 if ang < minAng or minAng == -1:
                     minAng = ang
@@ -133,12 +139,28 @@ class Particle:
                 energy += part.p.E()
         return energy
 
+    def energyChargeInCone(self,rcList):
+        energy = 0
+            for part in rcList:
+                if part.cha != 0 and self.angle(part) < energyInConeAngle and self.num!=part.num:
+                    energy += part.p.E()
+        return energy
+
+    def energyInConeWithoutPhotons(self,rcList):
+        energy = 0
+        for part in rcList:
+            if part.typ != 22 and self.angle(part) < energyInConeAngle and self.num != part.num:
+                energy += part.p.E()
+        return energy
+
     def energyChargeInConeNorm(self,rcList):
         energy = 0
         for part in rcList:
             if self.angle(part) < energyInConeAngle and self.num!=part.num and part.cha!=0:
                 energy += part.p.E()
         return energy/self.p.E()
+
+### MATCHING AND RECOVERING ###
 
     def matchMuon(self, listRcPart):
         minAngle = -1.
@@ -154,6 +176,20 @@ class Particle:
         else:
             return -1
 
+    def photonRecovery(self, listRcPart):
+        for photon in rcParticles:
+            if photon.typ == 22:
+                thetaDifference = photon.dtheta(self)
+                phiDifference = photon.dphi(self)
+                    if abs(thetaDifference) < dtheta1:
+                        if abs(phiDifference) < dphi1:
+                            self.p += photon.p
+                        else:
+                            if abs(thetaDifference) < dtheta2:
+                                if phiDifference > dphi2Min and phiDifference < dphi2Max:
+                                    self.p += photon.p
+
+### JET CLASS ###
 
 class Jet:
 
@@ -183,7 +219,7 @@ class Jet:
 
 
 
-### WORK IN PROGRESS!!!! ###
+### TAGGED JET CLASS ###
 
 class TaggedJet:
     
