@@ -1,4 +1,4 @@
-from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, THStack
+from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain, THStack, TCanvas
 import numpy
 from particleClass import *
 from findElectrons import *
@@ -24,24 +24,24 @@ hAnglePartial2=TH1F("Angle to the closest charged particle bg","Angle to the clo
 
 hPtJetAngleChar=THStack("Pt to the closest Jet, Angle to the closest charged particle","Pt to the closest Jet, Angle to the closest charged particle")
 
-hPtJetAngleCharPartial1=TH2F("Pt to the closest Jet, Angle to the closest charged particle SIGNAL","Pt to the closest Jet, Angle to the closest charged particle SIGNAL",100,0.,100.,100,0.,1.)
+hPtJetAngleCharPartial1=TH2F("Pt to the closest Jet, Angle to the closest charged particle SIGNAL","Pt to the closest Jet, Angle to the closest charged particle SIGNAL",200,0.,50.,200,0.,1.)
 
-hPtJetAngleCharPartial2=TH2F("Pt to the closest Jet, Angle to the closest charged particle BG","Pt to the closest Jet, Angle to the closest charged particle BG",100,0.,100.,100,0.,1.)
+hPtJetAngleCharPartial2=TH2F("Pt to the closest Jet, Angle to the closest charged particle BG","Pt to the closest Jet, Angle to the closest charged particle BG",200,0.,50.,200,0.,1.)
 
 
 #2d histograms Pt + Cone energy
-#hPtCone=THStack("Pt to the closest Jet,Energy in a cone","Pt to the closest Jet,Energy in a cone")
+hPtCone=THStack("Pt to the closest Jet, Energy in a cone","Pt to the closest Jet, Energy in a cone")
 
-#hPtCone1=TH2F("Pt to the closest Jet,Energy in a cone SIGNAL","Pt to the closest Jet,Energy in a cone SIGNAL",100,0.,100.,100,0.,80.)
+hPtCone1=TH2F("Pt to the closest Jet, Energy in a cone SIGNAL","Pt to the closest Jet, Energy in a cone SIGNAL",200,0.,50.,200,0.,50.)
 
-#hPtCone2=TH2F("Pt to the closest Jet,Energy in a cone BG","Pt to the closest Jet,Energy in a con BG",100,0.,100.,100,0.,80.)
+hPtCone2=TH2F("Pt to the closest Jet, Energy in a cone BG","Pt to the closest Jet, Energy in a con BG",200,0.,50.,200,0.,50.)
 
 #2d histograms charge + Cone energy
-#hChargeCone=THStack(",Energy in a cone","Pt to the closest Jet,Energy in a cone")
+hChargeCone=THStack("Angle to the closest charged particle, Energy in a cone","Angle to the closest charged particle, Energy in a cone")
 
-#hChargeCone1=TH2F("Pt to the closest Jet,Energy in a cone SIGNAL","Pt to the closest Jet,Energy in a cone SIGNAL",100,0.,100.,100,0.,100.)
+hChargeCone1=TH2F("Angle to the closest charged particle, Energy in a cone SIGNAL","Angle to the closest charged particle, Energy in a cone SIGNAL",200,0.,1.,200,0.,50.)
 
-#hChargeCone2=TH2F("Pt to the closest Jet,Energy in a cone BG","Pt to the closest Jet,Energy in a con BG",100,0.,100.,100,0.,100.)
+hChargeCone2=TH2F("Angle to the closest charged particle, Energy in a cone BG","Angle to the closest charged particle, Energy in a cone BG",200,0.,1.,200,0.,50.)
 
 Pt=0.
 Angle=0.
@@ -73,9 +73,10 @@ for event in tree:
             
             hPtJetAngleCharPartial1.Fill(Pt,Angle)
 
-            #Energy=rcParticles[MatchNum].energyInCone(rcParticles)
+            Energy=rcParticles[MatchNum].energyInCone(rcParticles)
 
-            #hPtCone1.Fill(Energy,Pt)
+            hPtCone1.Fill(Pt,Energy)
+            hChargeCone1.Fill(Angle,Energy)
             
         for part in rcParticles:
             if part.typ ==13 and part.num!=MatchNum:
@@ -87,17 +88,16 @@ for event in tree:
                     
                 hPtJetAngleCharPartial2.Fill(Pt,Angle)
 
-                #Energy=part.energyInCone(rcParticles)
+                Energy=part.energyInCone(rcParticles)
 
-                #hPtCone2.Fill(Energy,Pt)
+                hPtCone2.Fill(Energy,Pt)
+                hChargeCone2.Fill(Angle,Energy)
 
 hPtPartial1.SetFillColor(2) #set the red fill color				
 hPtClosestJet.Add(hPtPartial1)
 
 hPtPartial2.SetFillColor(3) #set the green fill color
 hPtClosestJet.Add(hPtPartial2)
-
-
 
 hAnglePartial1.SetFillColor(2) #set the red fill color				
 hAngleClosestCharge.Add(hAnglePartial1)
@@ -106,29 +106,45 @@ hAnglePartial2.SetFillColor(3) #set the green fill color
 hAngleClosestCharge.Add(hAnglePartial2)
 
 
-
-
-
 hPtJetAngleCharPartial1.SetFillColor(2) #set the red fill color				
 hPtJetAngleChar.Add(hPtJetAngleCharPartial1)
 
 hPtJetAngleCharPartial2.SetFillColor(3) #set the green fill color
 hPtJetAngleChar.Add(hPtJetAngleCharPartial2)
 
-#pt energy in a cone
-#hPtCone1.SetFillColor(2) #set the green fill color
-#hPtCone.Add(hPtCone1)
-
-
-#hPtCone2.SetFillColor(3) #set the red fill color				
-#hPtCone.Add(hPtCone2)
-
-
-
-
-
-
+cPtJetAngleChar=TCanvas("Pt to the closest Jet, Angle to the closest charged particle ","Pt to the closest Jet, Angle to the closest charged particle ",800,800)
+cPtJetAngleChar.cd()
 hPtJetAngleChar.Draw()
+
+
+
+#pt energy in a cone
+hPtCone1.SetFillColor(2) #set the green fill color
+hPtCone.Add(hPtCone1)
+
+
+hPtCone2.SetFillColor(3) #set the red fill color				
+hPtCone.Add(hPtCone2)
+
+cPtCone=TCanvas("Pt to the closest Jet, Energy in a cone","Pt to the closest Jet, Energy in a cone",800,800)
+cPtCone.cd()
+hPtCone.Draw()
+
+
+                
+#angle charge, energy in a cone
+hChargeCone1.SetFillColor(2) #set the green fill color
+hChargeCone.Add(hChargeCone1)
+
+
+hChargeCone2.SetFillColor(3) #set the red fill color				
+hChargeCone.Add(hChargeCone2)
+
+cChargeCone=TCanvas("Angle to the closest charged particle, Energy in a cone","Angle to the closest charged particle, Energy in a cone",800,800)
+cChargeCone.cd()
+hChargeCone.Draw()
+
+
 
 
 savingFile=TFile("../plot/pTAngleMuon.root","RECREATE")
@@ -136,7 +152,7 @@ savingFile.cd()
 hPtClosestJet.Write()
 hAngleClosestCharge.Write()
 hPtJetAngleChar.Write()
-
-#hPtCone.Write()
+hPtCone.Write()
+hChargeCone.Write()
 
 savingFile.Close()

@@ -13,7 +13,7 @@ tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 
 pTMax=4.
 
-angleMax=numpy.array([0.2,0.25,0.03,0.35,0.40,0.45,0.50,0.55,0.60,0.65])
+angleMax=numpy.array([0.2,0.25,0.3,0.35,0.40,0.45,0.50,0.55,0.60,0.65])
 
 
 generatedMuons=0
