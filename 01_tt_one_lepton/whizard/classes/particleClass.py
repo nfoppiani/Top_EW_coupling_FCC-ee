@@ -48,6 +48,18 @@ class Particle:
     def cosTheta(self):
         return self.p.CosTheta()
     
+    def energy(self):
+        return self.p.E()
+    
+    def px(self):
+        return self.p.Px()
+    
+    def py(self):
+        return self.p.Py()
+    
+    def pz(self):
+        return self.p.Pz()
+    
     def theta(self):
         return self.p.Theta()
     
@@ -184,6 +196,26 @@ class Jet:
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
 
+    def cosTheta(self):
+        return self.p.CosTheta()
+    
+    def angle(self,part2):
+        return self.p.Angle(part2.p.Vect())
+
+
+
+### WORK IN PROGRESS!!!! ###
+
+class TaggedJet:
+    
+    def __init__ (self,num,mass,cha,px,py,pz,e,btag,ctag):
+        self.num = num
+        self.mass = mass
+        self.cha = cha
+        self.p = TLorentzVector(px,py,pz,e)
+        self.btag = btag
+        self.ctag = ctag
+    
     def cosTheta(self):
         return self.p.CosTheta()
     
