@@ -26,7 +26,7 @@ chain= TChain("MyLCTuple")
 chain.Add("../ntuple/negMuTau_ntuple/yy*.root")
 
 # creates the new file and the tree that it will contain
-savingFile = TFile("../tree/negMuonsRcTree1.root", "RECREATE")
+savingFile = TFile("../tree/negMuonsRcTree.root", "RECREATE")
 muonsRcTree = TTree('negMuonsRC', 'reducedInformationTree')
 
 # defines the arrays needed to fill the tree
@@ -152,14 +152,15 @@ for event in chain:
 
 		#find the matched muon
 
+		for part in rcParticles:
+			if part.typ==13:
+				part.photonRecovery(rcParticles)
+
 		matchNum=mcMuon.matchMuon(rcParticles)
 
 		for part in rcParticles:
 			if part.typ==13:
-
 				rcMuNum[0]=part.num
-				
-				part.photonRecovery(rcParticles)
 
 				if part.num==matchNum:
 					rcMuMatch[0]=1

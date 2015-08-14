@@ -15,7 +15,7 @@ matchMinCos = 0.98
 # SEARCH PARAMETERS
 
 closestChargeMinEnergy = 0.
-energyInConeAngleDegree = 15.
+energyInConeAngleDegree = 20.
 
 # PHOTON RECOVERY PARAMETERS
 
@@ -164,7 +164,7 @@ class Particle:
         minAngle = -1.
         rcMuonNumber = -1
         for part in listRcPart:
-            if part.typ == 13: #and part.p.E()>matchMuonMinEnergy:
+            if part.typ == 13 and part.p.E()>matchMuonMinEnergy:
                 ang = self.angle(part)
                 if ang < minAngle or minAngle == -1.:
                     minAngle = ang
