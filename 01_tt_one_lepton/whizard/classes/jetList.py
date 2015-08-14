@@ -1,3 +1,6 @@
+# lists the W-decay mc muon, followed by the jets (and their angle with MC muon), for each event
+
+
 from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain
 import numpy
 from particleClass import *
@@ -12,14 +15,14 @@ for event in tree:
         print 'EVENT ', j
         mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
         
-        rcMuons = []
-        k = 0
-        for i in range(len(tree.rctyp)):
-            if tree.rctyp[i] == 13:
-                p = Particle(k, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
-                rcMuons.append(p)
-                k = k+1
-    
+#        rcMuons = []
+#        k = 0
+#        for i in range(len(tree.rctyp)):
+#            if tree.rctyp[i] == 13:
+#                p = Particle(k, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+#                rcMuons.append(p)
+#                k = k+1
+
         rcJets = []
         for i in range(len(tree.jene)):
             p = TaggedJet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i], tree.btag[i], tree.ctag[i])

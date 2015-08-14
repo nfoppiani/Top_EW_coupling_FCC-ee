@@ -19,11 +19,11 @@ energyInConeAngleDegree = 20.
 
 # PHOTON RECOVERY PARAMETERS
 
-dtheta1Degrees = 0.4
-dphi1Degrees = 0.2
-dtheta2Degrees = 0.27
-dphi2DegreesMax = 2.7
-dphi2DegreesMin = -0.2
+dtheta1Degrees = 0.8
+dphi1Degrees = 0.8
+dtheta2Degrees = 0.4
+dphi2DegreesMax = 4.0
+dphi2DegreesMin = -0.4
 
 ##########################
 ### RADIANS CONVERSION ###
@@ -51,19 +51,19 @@ class Particle:
 
     def cosTheta(self):
         return self.p.CosTheta()
-
+    
     def energy(self):
         return self.p.E()
-
+    
     def px(self):
         return self.p.Px()
-
+    
     def py(self):
         return self.p.Py()
-
+    
     def pz(self):
         return self.p.Pz()
-
+    
     def theta(self):
         return self.p.Theta()
 
@@ -121,7 +121,7 @@ class Particle:
                     minAng = ang
         return minAng
 
-    def angleToClosestParticleNotPhoton(self,rcPartList):
+    def angleToClosestChargeNotPhoton(self,rcPartList):
         minAng = -1
         for part in rcPartList:
             if part.p.E()>closestChargeMinEnergy and part.typ != 22 and part.num != self.num:
@@ -205,13 +205,13 @@ class Jet:
 
     def energy(self):
         return self.p.E()
-
+    
     def px(self):
         return self.p.Px()
-
+    
     def py(self):
         return self.p.Py()
-
+    
     def pz(self):
         return self.p.Pz()
 
@@ -220,7 +220,7 @@ class Jet:
 ### TAGGED JET CLASS ###
 
 class TaggedJet:
-
+    
     def __init__ (self,num,mass,cha,px,py,pz,e,btag,ctag):
         self.num = num
         self.mass = mass
@@ -228,22 +228,22 @@ class TaggedJet:
         self.p = TLorentzVector(px,py,pz,e)
         self.btag = btag
         self.ctag = ctag
-
+    
     def cosTheta(self):
         return self.p.CosTheta()
-
+    
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
 
     def energy(self):
         return self.p.E()
-
+    
     def px(self):
         return self.p.Px()
-
+    
     def py(self):
         return self.p.Py()
-
+    
     def pz(self):
         return self.p.Pz()
 
