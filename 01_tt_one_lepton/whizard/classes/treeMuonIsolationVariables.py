@@ -21,42 +21,16 @@ xfMin = r*(1-beta)/(1+beta)             # minimum xf value (maximum is 1)
 # this line should stay over electronsTree.root file creation if you replace *ntuple.root with *.root
 #fileList = glob.glob("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
 
-# chain= TChain("MyLCTuple")
+chain= TChain("MyLCTuple")
 # chain.Add("/afs/cern.ch/user/t/tpajero/work/public/whizard_electron_yyxyev/yy*.root")
+chain.Add("../ntuple/negMuTau_ntuple/yy*.root")
 
 # creates the new file and the tree that it will contain
-savingFile = TFile("../tree/negMuonsRcTree.root", "CREATE")
-muonsRcTree = TTree('negMuons_tree', 'reducedInformationTree')
+savingFile = TFile("../tree/negMuonsRcTree.root", "RECREATE")
+muonsRcTree = TTree('negMuonsRC', 'reducedInformationTree')
 
 # defines the arrays needed to fill the tree
 
-<<<<<<< HEAD
-#mc muon branch
-mcMuEne = numpy.zeros(1, dtype=float,)
-mcMuRedEne = numpy.zeros(1, dtype=float,)
-mcMuMox = numpy.zeros(1, dtype=float,)
-mcMuMoy = numpy.zeros(1, dtype=float,)
-mcMuMoz = numpy.zeros(1, dtype=float,)
-mcMuCosTheta = numpy.zeros(1, dtype=float,)
-mcMuPt = numpy.zeros(1, dtype=float,)
-
-#rc muon branch
-rcMuNum = numpy.zeros(6, dtype=float,)
-rcMuEne = numpy.zeros(6, dtype=float,)
-rcMuRedEne = numpy.zeros(6, dtype=float,)
-rcMuMox = numpy.zeros(6, dtype=float,)
-rcMuMoy = numpy.zeros(6, dtype=float,)
-rcMuMoz = numpy.zeros(6, dtype=float,)
-rcMuCosTheta = numpy.zeros(6, dtype=float,)
-rcMuPt = numpy.zeros(6, dtype=float,)
-rcMuDeltaOneOverPt = numpy.zeros(6, dtype=float,)
-rcMuMatch = numpy.zeros(6, dtype=float,)
-rcPtToClosestJet = numpy.zeros(6, dtype=float,)
-rcAngleClosestCharge = numpy.zeros(6, dtype=float,)
-rcenergyInCone = numpy.zeros(6, dtype=float,)
-
-# creates the tree branches
-=======
 # mc muon branch
 # mcMuEne = numpy.zeros(1, dtype=float,)
 # mcMuRedEne = numpy.zeros(1, dtype=float,)
@@ -149,26 +123,7 @@ muonsRcTree.Branch('rcEnergyChargeInConeNorm',rcEnergyChargeInConeNorm, 'mcTyp/D
 for event in chain:
 	if chain.mcpdg[10]==13:
 		# prepares the variables to fill the tree
->>>>>>> origin/master
-
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuRedEne',mcMuRedEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuMox',mcMuMox, 'mcTyp/D')
-muonsRcTree.Branch('mcMuMoy',mcMuMoy, 'mcTyp/D')
-muonsRcTree.Branch('mcMuMoz',mcMuMoz, 'mcTyp/D')
-muonsRcTree.Branch('mcMuCosTheta',mcMuCosTheta, 'mcTyp/D')
-muonsRcTree.Branch('mcMuPt',mcMuPt, 'mcTyp/D')
-
-<<<<<<< HEAD
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
-=======
+		mcMuon=Particle(10, 13,chain.mccha[10],chain.mcmox[10],chain.mcmoy[10],chain.mcmoz[10],chain.mcene[10])
 		# mcMuEne[0] = mcMuon.p.E()
 		# mcMuRedEne[0] = mcMuon.p.E()*red
 		# mcMuMox[0] = mcMuon.p.Px()
@@ -233,27 +188,8 @@ muonsRcTree.Branch('mcMuEne',mcMuEne, 'mcTyp/D')
 				rcEnergyChargeInConeNorm[0]=(part.energyChargeInConeNorm(rcParticles))
 
 				muonsRcTree.Fill()
->>>>>>> origin/master
 
-
-for event in chain:
-    if tree.mcpdg[10]==13:
-        # loops on the particles contained in every event
-	
-	mcTyp[0] = chain.mcpdg[10]        # prepares the variables to fill the tree
-	mcEne[0] = chain.mcene[10]
-	mcRedEne[0] = chain.mcene[10]*red
-	px = chain.mcmox[10]
-	py = chain.mcmoy[10]
-	pz = chain.mcmoz[10]
-	mcMox[0] = px
-	mcMoy[0] = py
-	mcMoz[0] = pz
-	mcCosTheta[0] = pz/numpy.sqrt(px**2+py**2+pz**2)
-	mcInvMas[0] =numpy.sqrt((chain.mcene[2]+chain.mcene[3])**2-(chain.mcmox[2]+chain.mcmox[3])**2-(chain.mcmoy[2]+chain.mcmoy[3])**2-(chain.mcmoz[2]+chain.mcmoz[3])**2)
-	
-	electronsTree.Fill()        
 
 savingFile.cd()
-electronsTree.Write()         # writes the tree in the savingFile
+muonsRcTree.Write()         # writes the tree in the savingFile
 savingFile.Close()
