@@ -222,6 +222,18 @@ class TaggedJet:
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
 
+    def energy(self):
+        return self.p.E()
+    
+    def px(self):
+        return self.p.Px()
+    
+    def py(self):
+        return self.p.Py()
+    
+    def pz(self):
+        return self.p.Pz()
+
 
 
 def Distance(a,b):

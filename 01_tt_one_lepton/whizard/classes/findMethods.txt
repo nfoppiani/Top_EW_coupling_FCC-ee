@@ -9,6 +9,28 @@
 1. Plotted the number of rc muons per event (countMuonsPerEvent.py)
 2. Plotted the angle (in degrees) between the rc muons and the mc W-decay-muon for the events with three or more muons. Closest muon is plotted in red, others in green  (countMuonsPerEvent.py). Decided the maximum angle to match to be 5.5°.
 
+### PHOTONS RECOVERY ###
+
+dtheta1Degrees = 0.4		photonsRecovery.root
+dphi1Degrees = 0.2
+dtheta2Degrees = 0.27
+dphi2DegreesMax = 2.7
+dphi2DegreesMin = -0.2
+
+dtheta1Degrees = 0.5		photonsRecovery1.root		BETTER!
+dphi1Degrees = 0.5
+dtheta2Degrees = 0.28
+dphi2DegreesMax = 2.7
+dphi2DegreesMin = -0.2
+
+dtheta1Degrees = 0.8		photonsRecovery1.root		BEST!
+dphi1Degrees = 0.8
+dtheta2Degrees = 0.4
+dphi2DegreesMax = 4.0
+dphi2DegreesMin = -0.4
+
+### JETS SELECTION ###
+
 
 
 
