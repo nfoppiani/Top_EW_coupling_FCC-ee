@@ -26,7 +26,7 @@ chain= TChain("MyLCTuple")
 chain.Add("../ntuple/negMuTau_ntuple/yy*.root")
 
 # creates the new file and the tree that it will contain
-savingFile = TFile("../tree/negMuonsRcTree.root", "RECREATE")
+savingFile = TFile("../tree/negMuonsRcTree1.root", "RECREATE")
 muonsRcTree = TTree('negMuonsRC', 'reducedInformationTree')
 
 # defines the arrays needed to fill the tree
@@ -70,10 +70,14 @@ rcMuCosDeltaAlpha = numpy.zeros(1, dtype=float,)
 
 
 rcPtToClosestJet = numpy.zeros(1, dtype=float,)
-rcEnergyInCone = numpy.zeros(1, dtype=float,)
 rcAngleClosestCharge = numpy.zeros(1, dtype=float,)
 rcAngleClosestChargeOrNeutron = numpy.zeros(1, dtype=float,)
+rcAngleToClosestParticleNotPhoton = numpy.zeros(1, dtype=float,)
+rcEnergyInCone = numpy.zeros(1, dtype=float,)
+rcEnergyChargeInCone = numpy.zeros(1, dtype=float,)
+rcEnergyInConeWithoutPhotons = numpy.zeros(1, dtype=float,)
 rcEnergyChargeInConeNorm = numpy.zeros(1, dtype=float,)
+
 
 # creates the tree branches
 # muonsRcTree.Branch('mcMuEne', mcMuEne, 'mcTyp/D')
@@ -113,11 +117,13 @@ muonsRcTree.Branch('rcMuDeltaAlpha',rcMuDeltaAlpha, 'mcTyp/D')
 muonsRcTree.Branch('rcMuCosDeltaAlpha',rcMuCosDeltaAlpha, 'mcTyp/D')
 
 muonsRcTree.Branch('rcPtToClosestJet',rcPtToClosestJet, 'mcTyp/D')
-muonsRcTree.Branch('rcEnergyInCone',rcEnergyInCone, 'mcTyp/D')
 muonsRcTree.Branch('rcAngleClosestCharge',rcAngleClosestCharge, 'mcTyp/D')
 muonsRcTree.Branch('rcAngleClosestChargeOrNeutron',rcAngleClosestChargeOrNeutron, 'mcTyp/D')
+muonsRcTree.Branch('rcAngleToClosestParticleNotPhoton',rcAngleToClosestParticleNotPhoton, 'mcTyp/D')
+muonsRcTree.Branch('rcEnergyInCone',rcEnergyInCone, 'mcTyp/D')
+muonsRcTree.Branch('rcEnergyChargeInCone',rcEnergyChargeInCone, 'mcTyp/D')
+muonsRcTree.Branch('rcEnergyInConeWithoutPhotons',rcEnergyInConeWithoutPhotons, 'mcTyp/D')
 muonsRcTree.Branch('rcEnergyChargeInConeNorm',rcEnergyChargeInConeNorm, 'mcTyp/D')
-
 
 # loops on the particles contained in every event
 for event in chain:
@@ -152,6 +158,8 @@ for event in chain:
 			if part.typ==13:
 
 				rcMuNum[0]=part.num
+				
+				part.photonRecovery(rcParticles)
 
 				if part.num==matchNum:
 					rcMuMatch[0]=1
@@ -181,10 +189,13 @@ for event in chain:
 				rcMuDeltaAlpha[0]=part.angle(mcMuon)
 				rcMuCosDeltaAlpha[0]=part.cos(mcMuon)
 
-				rcPtToClosestJet[0]=(part.ptToClosestJet(rcParticles))
-				rcEnergyInCone[0]=(part.energyInCone(rcParticles))
+				rcPtToClosestJet[0]=(part.ptToClosestJet(rcJets))
 				rcAngleClosestCharge[0]=(part.angleToClosestCharge(rcParticles))
 				rcAngleClosestChargeOrNeutron[0]=(part.angleToClosestChargeOrNetruon(rcParticles))
+				rcAngleToClosestParticleNotPhoton[0]=part.angleToClosestParticleNotPhoton(rcParticles)
+				rcEnergyInCone[0]=(part.energyInCone(rcParticles))
+				rcEnergyChargeInCone[0]=(part.energyChargeInCone(rcParticles))
+				rcEnergyInConeWithoutPhotons[0]=(part.energyInConeWithoutPhotons(rcParticles))
 				rcEnergyChargeInConeNorm[0]=(part.energyChargeInConeNorm(rcParticles))
 
 				muonsRcTree.Fill()
