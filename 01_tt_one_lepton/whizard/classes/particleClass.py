@@ -16,7 +16,7 @@ matchMinCos = 0.98
 
 closestChargeMinEnergy = 2.
 closestJetMinEnergy = 5.
-energyInConeAngleDegree = 5.
+energyInConeAngleDegree = 10.
 
 # PHOTON ADDING PARAMETERS
 
@@ -44,9 +44,10 @@ class Particle:
         self.typ = typ
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
-    
+
     def cosTheta(self):
         return self.p.CosTheta()
+<<<<<<< HEAD
     
     def energy(self):
         return self.p.E()
@@ -60,12 +61,15 @@ class Particle:
     def pz(self):
         return self.p.Pz()
     
+=======
+
+>>>>>>> origin/master
     def theta(self):
         return self.p.Theta()
-    
+
     def phi(self):
         return self.p.Phi()
-    
+
     def dtheta(self, part):
         return self.p.Theta() - part.p.Theta()
 
@@ -77,26 +81,39 @@ class Particle:
             if phiDifference < -numpy.pi:
                 phiDifference += 2*numpy.pi
         return phiDifference
-    
+
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
-    
+
     def cos(self,part2):
         ang = self.p.Angle(part2.p.Vect())
         return numpy.cos(ang)
+
+    # def ptToClosestJet(self,jetList):
+    #     angMin = numpy.pi
+    #     pt = -1
+    #     for jet in jetList:
+    #         if jet.p.E()>closestJetMinEnergy:
+    #             ang = self.angle(jet)
+    #             ptJet = self.p.Pt(jet.p.Vect())
+    #             if ang <= angMin:
+    #                 angMin = ang
+    #                 pt = ptJet
+    #     return pt
 
     def ptToClosestJet(self,jetList):
         angMin = numpy.pi
         pt = -1
         for jet in jetList:
             if jet.p.E()>closestJetMinEnergy:
-                ang = self.angle(jet)
-                ptJet = self.p.Pt(jet.p.Vect())
-                if ang <= angMin:
-                    angMin = ang
-                    pt = ptJet
+                if jet.cha!=-1 or self.p.Pt(jet.p.Vect())<2:
+                    ang = self.angle(jet)
+                    ptJet = self.p.Pt(jet.p.Vect())
+                    if ang <= angMin:
+                        angMin = ang
+                        pt = ptJet
         return pt
-                
+
     def angleToClosestCharge(self,rcPartList):
         minAng = -1
         for part in rcPartList:
@@ -114,13 +131,20 @@ class Particle:
                 if ang < minAng or minAng == -1:
                     minAng = ang
         return minAng
-    
+
     def energyInCone(self,rcList):
         energy = 0
         for part in rcList:
             if self.angle(part) < energyInConeAngle and self.num!=part.num:
                 energy += part.p.E()
         return energy
+
+    def energyChargeInConeNorm(self,rcList):
+        energy = 0
+        for part in rcList:
+            if self.angle(part) < energyInConeAngle and self.num!=part.num and part.cha!=0:
+                energy += part.p.E()
+        return energy/self.p.E()
 
     def matchMuon(self, listRcPart):
         minAngle = -1.
@@ -189,7 +213,7 @@ class Particle:
 
 
 class Jet:
-    
+
     def __init__ (self,num,mass,cha,px,py,pz,e):
         self.num = num
         self.mass = mass
@@ -198,7 +222,7 @@ class Jet:
 
     def cosTheta(self):
         return self.p.CosTheta()
-    
+
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
 
