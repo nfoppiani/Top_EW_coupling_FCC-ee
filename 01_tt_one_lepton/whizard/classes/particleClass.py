@@ -202,6 +202,18 @@ class Jet:
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
 
+    def energy(self):
+        return self.p.E()
+    
+    def px(self):
+        return self.p.Px()
+    
+    def py(self):
+        return self.p.Py()
+    
+    def pz(self):
+        return self.p.Pz()
+
 
 
 ### WORK IN PROGRESS!!!! ###
@@ -239,3 +251,6 @@ class TaggedJet:
 def Distance(a,b):
     dist = numpy.sqrt((a.p.E()-b.p.E())**2 + (a.p.Px()-b.p.Px())**2 + (a.p.Py()-b.p.Py())**2 + (a.p.Pz()-b.p.Pz())**2)
     return dist
+
+def InvariantMass(a,b):
+    return numpy.sqrt((a.energy()-b.energy())**2+(a.px()-b.px())**2+(a.py()-b.py())**2+(a.pz()-b.pz())**2)
