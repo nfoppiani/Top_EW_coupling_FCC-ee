@@ -15,7 +15,6 @@ matchMinCos = 0.98
 # SEARCH PARAMETERS
 
 closestChargeMinEnergy = 2.
-closestJetMinEnergy = 5.
 energyInConeAngleDegree = 10.
 
 # PHOTON ADDING PARAMETERS
@@ -47,7 +46,6 @@ class Particle:
 
     def cosTheta(self):
         return self.p.CosTheta()
-<<<<<<< HEAD
     
     def energy(self):
         return self.p.E()
@@ -61,9 +59,6 @@ class Particle:
     def pz(self):
         return self.p.Pz()
     
-=======
-
->>>>>>> origin/master
     def theta(self):
         return self.p.Theta()
 
@@ -105,13 +100,12 @@ class Particle:
         angMin = numpy.pi
         pt = -1
         for jet in jetList:
-            if jet.p.E()>closestJetMinEnergy:
-                if jet.cha!=-1 or self.p.Pt(jet.p.Vect())<2:
-                    ang = self.angle(jet)
-                    ptJet = self.p.Pt(jet.p.Vect())
-                    if ang <= angMin:
-                        angMin = ang
-                        pt = ptJet
+            if jet.cha!=-1 or InvariantMass(self,jet)>10:
+                ang = self.angle(jet)
+                ptJet = self.p.Pt(jet.p.Vect())
+                if ang <= angMin:
+                    angMin = ang
+                    pt = ptJet
         return pt
 
     def angleToClosestCharge(self,rcPartList):
@@ -159,57 +153,6 @@ class Particle:
             return rcMuonNumber
         else:
             return -1
-
-
-
-####### PHOTONS SUMMING ##########
-
-    def sumPhotonsCone(self,listRcPart):
-        if self.typ == 11:
-            #print self.p.E()
-            for partToAdd in listRcPart:
-                if partToAdd.typ == 22:
-                    angle = self.angle(partToAdd)
-                    if angle < photonConeAngle:
-                        self.p += partToAdd.p
-                        #print self.p.E()
-            #print
-        return
-
-    def sumPhotonsRectangle(self, listRcPart):
-        if self.typ == 11:
-            #print self.p.E()
-            elTheta = self.theta()
-            elPhi = self.phi()
-            for partToAdd in listRcPart:
-                if partToAdd.typ == 22:
-                    if abs(partToAdd.theta()-elTheta) < dtheta:
-                        if numpy.cos(partToAdd.phi() - elPhi) > cosPhiMin and numpy.sin(partToAdd.phi() - elPhi)>0:
-                            self.p += partToAdd.p
-                            #print self.p.E()
-            #print
-        return
-
-
-###### DOES NOT WORK WELL #######
-    def matchElectron(self, listRcPart):
-        if self.typ == 11:
-            minDist = 0
-            rcNumber = -1
-            for part in listRcPart:
-                if part.typ == 11: #and part.p.E() > matchMinEnergy:
-                    dist = Distance(self,part)
-                    cos = self.cos(part)
-                    print cos
-                    if dist < minDist or minDist == 0:
-                        if cos > matchMinCos:
-                            minDist = dist
-                            rcNumber = part.num
-                            #print 'minimum distance is: ', minDist
-            return [rcNumber, minDist]
-        return [-1, 0]
-
-
 
 
 class Jet:
