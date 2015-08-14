@@ -93,6 +93,15 @@ class Particle:
                 if ang < minAng or minAng == -1:
                     minAng = ang
         return minAng
+
+    def angleToClosestChargeOrNetruon(self,rcPartList):
+        minAng = -1
+        for part in rcPartList:
+            if (part.cha != 0 or part.typ==2112) and part.num != self.num and part.p.E()>closestChargeMinEnergy:
+                ang = self.angle(part)
+                if ang < minAng or minAng == -1:
+                    minAng = ang
+        return minAng
     
     def energyInCone(self,rcList):
         energy = 0
