@@ -19,7 +19,7 @@ tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 #tree.Add('./../whizard_negMuTau_yyxylv/000/yyxylv_o_*.root')
 #tree.Add('./../whizard_negMuTau_yyxylv/001/yyxylv_o_*.root')
 
-def invariantMass(a,b):
+def InvariantMass(a,b):
     return numpy.sqrt((a.energy()-b.energy())**2+(a.px()-b.px())**2+(a.py()-b.py())**2+(a.pz()-b.pz())**2)
 
 hDistanceToClosestJet = TH1F("distanceClosestJet","Distance to muon closest jet",300,0.,300.)
@@ -67,7 +67,7 @@ for event in tree:
                 if angle < minAngle:
                     minAngle = angle
                     distance = Distance(muon,rcJets[i])
-                    invMass = invariantMass(muon, rcJets[i])
+                    invMass = InvariantMass(muon, rcJets[i])
             hDistanceToClosestJet.Fill(distance)
             hMassWithClosestJet.Fill(invMass)
 
