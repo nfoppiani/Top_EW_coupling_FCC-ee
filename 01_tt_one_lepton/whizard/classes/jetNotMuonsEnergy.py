@@ -24,10 +24,12 @@ hNotMuonJetEnergy = TH1F("notMuonJetEnergy","Energy of non muon-tagged jets",300
 for event in tree:
     if tree.mcpdg[10]==13:
         
+        rcParticles = []
         rcMuons = []
         for i in range(len(tree.rctyp)):
+            p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+            rcParticles.append(p)
             if tree.rctyp[i] == 13:
-                p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
                 rcMuons.append(p)
     
         rcJets = []

@@ -30,8 +30,6 @@ dphi2DegreesMin = -0.2
 ##########################
 
 matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
-photonConeAngle = numpy.radians(photonConeDegreeAngle)
-dtheta = numpy.radians(degreeDTheta)
 energyInConeAngle = numpy.radians(energyInConeAngleDegree)
 dtheta1 = numpy.radians(dtheta1Degrees)
 dphi1 = numpy.radians(dphi1Degrees)
@@ -141,9 +139,9 @@ class Particle:
 
     def energyChargeInCone(self,rcList):
         energy = 0
-            for part in rcList:
-                if part.cha != 0 and self.angle(part) < energyInConeAngle and self.num!=part.num:
-                    energy += part.p.E()
+        for part in rcList:
+            if part.cha != 0 and self.angle(part) < energyInConeAngle and self.num!=part.num:
+                energy += part.p.E()
         return energy
 
     def energyInConeWithoutPhotons(self,rcList):
@@ -177,17 +175,17 @@ class Particle:
             return -1
 
     def photonRecovery(self, listRcPart):
-        for photon in rcParticles:
+        for photon in listRcPart:
             if photon.typ == 22:
                 thetaDifference = photon.dtheta(self)
                 phiDifference = photon.dphi(self)
-                    if abs(thetaDifference) < dtheta1:
-                        if abs(phiDifference) < dphi1:
-                            self.p += photon.p
-                        else:
-                            if abs(thetaDifference) < dtheta2:
-                                if phiDifference > dphi2Min and phiDifference < dphi2Max:
-                                    self.p += photon.p
+                if abs(thetaDifference) < dtheta1:
+                    if abs(phiDifference) < dphi1:
+                        self.p += photon.p
+                    else:
+                        if abs(thetaDifference) < dtheta2:
+                            if phiDifference > dphi2Min and phiDifference < dphi2Max:
+                                self.p += photon.p
 
 ### JET CLASS ###
 
