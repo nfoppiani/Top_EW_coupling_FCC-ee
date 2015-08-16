@@ -63,3 +63,52 @@ We would like to find an algorithm to decide wether a reconstructed (RC) muon ma
 Looking at figure~\ref{04_muonsMatchAngleCut}, we decided to use $5.5^o$ as the maximum angle between two muons to say that they can match.
 
 To sum up, we will say that a RC muon matches the W-MC muon if it is its closest RC muon and the angle between the two is smaller than $5.5^o$.
+
+\subsection{14/08/15}
+
+\textbf{Photons recovery}
+We studied the phenomenon of photons emission by muons. This is nearly negligibile, but will increase its dimension in the electrons case, where it will be more difficult to study. We plotted the angular distribution of the photons with respect to the muons, separately for the muons that match the W-MC one and for the others. The results are plotted in figures~\ref{04_matchedMuonsPhotons}~and~\ref{04_notMatchedMuonsPhotons}.
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_matchedMuonsPhotons.pdf}
+\caption{Angular distribution in $\theta$ and $\phi$ (degrees) of the photons with respect to the matched with W-MC muons.}
+\label{04_matchedMuonsPhotons}
+\end{figure}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_notMatchedMuonsPhotons.pdf}
+\caption{Angular distribution in $\theta$ and $\phi$ (degrees) of the photons with respect to the unmatched muons.}
+\label{04_notMatchedMuonsPhotons}
+\end{figure}
+
+You can note the anisotropy of the distribution of the photons in $\phi$, due to the fact that the magnetic field present in the detection area makes the muons clockwise, so that they emit photons with $\phi > 0$. On the other hand, the muons that do not match the W-MC one are usually in a quark-jet, so that their photon distribution is nearly isotrope.
+Our choice for the photons recovery, which is the first thing we make with our simulated data, is to sum to all the muons momenta the momenta of all the photons in the two rectangles $(\lvert\theta\rvert < 0.7, \lvert\phi\rvert < 0.8)$ and $(\lvert\theta\rvert < 0.35, -0.4<\phi < 3.5)$ around the muons.
+
+The energy difference between RC and MC matched muons are plotted in figures~\ref{04_muonsBeforePhotonsRecovery}~and~\ref{04_muonsAfterPhotonsRecovery}, respectively before and after the photons recovery.
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_muonsBeforePhotonsRecovery.pdf}
+\caption{Energy differece between RC and MC matched muons before the photons recovery.}
+\label{04_muonsBeforePhotonsRecovery}
+\end{figure}
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_muonsAfterPhotonsRecovery.pdf}
+\caption{Energy differece between RC and MC matched muons after the photons recovery.}
+\label{04_muonsAfterPhotonsRecovery}
+\end{figure}
+
+\textbf{Muon-jets exclusion}
+
+We noticed that in the Tree producted by the Marlin program sometimes identifies muons as jets. In contrast, in our W-decay muon isolation algorithm we would like to consider as jets only those deriving from a quark. Therefore, we plotted the invariant mass of every muon with its closest jet, obtaining the results in figure~\ref{04_muonJetInvariantMass}. Looking at this histogram, we decided to exclude from our algorithms the jets which have an invariant mass (toghether with the muon in consideration) smaller than 11 GeV.
+
+\begin{figure} [htp]
+\centering
+\includegraphics[scale=0.7]{04_muonJetInvariantMass.pdf}
+\caption{Invariant mass of the muons with their closest jet (GeV).}
+\label{04_muonJetInvariantMass}
+\end{figure}
