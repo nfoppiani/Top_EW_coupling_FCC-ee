@@ -62,7 +62,7 @@ We would like to find an algorithm to decide wether a reconstructed (RC) muon ma
 
 Looking at figure~\ref{04_muonsMatchAngleCut}, we decided to use $5.5^o$ as the maximum angle between two muons to say that they can match.
 
-To sum up, we will say that a RC muon matches the W-MC muon if it is its closest RC muon and the angle between the two is smaller than $5.5^o$.
+To sum up, we will say that a RC muon matches the W-MC muon if it is its closest RC muon and the angle between the two is smaller than \unit{5.5}{\degree}.
 
 \subsection{14/08/15}
 
@@ -104,7 +104,7 @@ The energy difference between RC and MC matched muons are plotted in figures~\re
 
 \textbf{Muon-jets exclusion}
 
-We noticed that in the Tree producted by the Marlin program sometimes identifies muons as jets. In contrast, in our W-decay muon isolation algorithm we would like to consider as jets only those deriving from a quark. Therefore, we plotted the invariant mass of every muon with its closest jet, obtaining the results in figure~\ref{04_muonJetInvariantMass}. Looking at this histogram, we decided to exclude from our algorithms the jets which have an invariant mass (toghether with the muon in consideration) smaller than 11 GeV.
+We noticed that in the Tree producted by the Marlin program sometimes identifies muons as jets. In contrast, in our W-decay muon isolation algorithm we would like to consider as jets only those deriving from a quark. Therefore, we plotted the invariant mass of every muon with its closest jet, obtaining the results in figure~\ref{04_muonJetInvariantMass}. Looking at this histogram, we decided to tag as muons jets which have an invariant mass (toghether with the muon in consideration) smaller than 11 GeV.
 
 \begin{figure} [htp]
 \centering
@@ -112,3 +112,13 @@ We noticed that in the Tree producted by the Marlin program sometimes identifies
 \caption{Invariant mass of the muons with their closest jet (GeV).}
 \label{04_muonJetInvariantMass}
 \end{figure}
+
+\textbf{Isolation algorithms}
+
+We used three variables to check the muons isolation:
+
+\begin{enumerate}
+\item The transverse momentum from the closest\footnote{In angle.} jet, excluding the jets tagged as muons. 
+\item The angle from the closest charge.
+\item The energy in a cone of
+\end{enumerate}
