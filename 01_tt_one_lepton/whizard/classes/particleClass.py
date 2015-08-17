@@ -6,7 +6,7 @@ import numpy
 #########################
 
 # MATCH PARAMETERS
-matchMuonMaxAngleDegrees = 5.5
+matchMuonMaxAngleDegrees = 4.5
 matchMuonMinEnergy= 10.
 
 #matchelectronMinEnergy = 8
