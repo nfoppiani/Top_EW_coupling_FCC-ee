@@ -13,7 +13,7 @@ matchMuonMinEnergy= 10.
 
 closestChargeMinEnergy = 0.
 energyInConeAngleDegree = 20.
-
+energyMinPtClosestJet = 0.2
 # PHOTON RECOVERY PARAMETERS
 
 anglularRadiusDegrees = 1.5
@@ -58,7 +58,7 @@ class Particle:
 
     def theta(self):
         return self.p.Theta()
-    
+
     def cosTheta(self):
         return self.p.CosTheta()
 
@@ -125,12 +125,20 @@ class Particle:
                 if ang <= angMin:
                     angMin = ang
                     pt = ptJet
+            else:
+                if jet.p.E()-self.p.E()>energyMinPtClosestJet:
+                    ang = self.angle(jet)
+                    ptJet = self.p.Pt(jet.p.Vect())
+                    if ang <= angMin:
+                        angMin = ang
+                        pt = ptJet
+
         return pt
 
     def angleToClosestCharge(self,rcPartList):
         minAng = -1
         for part in rcPartList:
-            if part.cha != 0 and part.num != self.num and part.p.E()>closestChargeMinEnergy:
+            if part.cha != 0 and part.num != self.num and part.p.E()>closestChargeMinEnergy and part.status:
                 ang = self.angle(part)
                 if ang < minAng or minAng == -1:
                     minAng = ang
@@ -139,7 +147,7 @@ class Particle:
     def angleToClosestChargeOrNetruon(self,rcPartList):
         minAng = -1
         for part in rcPartList:
-            if (part.cha != 0 or part.typ==2112) and part.p.E()>closestChargeMinEnergy and part.num != self.num:
+            if (part.cha != 0 or part.typ==2112) and part.p.E()>closestChargeMinEnergy and part.num != self.num and part.status:
                 ang = self.angle(part)
                 if ang < minAng or minAng == -1:
                     minAng = ang
@@ -148,7 +156,7 @@ class Particle:
     def angleToClosestParticleNotPhoton(self,rcPartList):
         minAng = -1
         for part in rcPartList:
-            if part.p.E()>closestChargeMinEnergy and part.typ != 22 and part.num != self.num:
+            if part.p.E()>closestChargeMinEnergy and part.typ != 22 and part.num != self.num and part.status:
                 ang = self.angle(part)
                 if ang < minAng or minAng == -1:
                     minAng = ang
@@ -157,28 +165,28 @@ class Particle:
     def energyInCone(self,rcList):
         energy = 0
         for part in rcList:
-            if self.angle(part) < energyInConeAngle and self.num!=part.num:
+            if self.angle(part) < energyInConeAngle and self.num!=part.num and part.status:
                 energy += part.p.E()
         return energy
 
     def energyChargeInCone(self,rcList):
         energy = 0
         for part in rcList:
-            if part.cha != 0 and self.angle(part) < energyInConeAngle and self.num!=part.num:
+            if part.cha != 0 and self.angle(part) < energyInConeAngle and self.num!=part.num and part.status:
                 energy += part.p.E()
         return energy
 
     def energyInConeWithoutPhotons(self,rcList):
         energy = 0
         for part in rcList:
-            if part.typ != 22 and self.angle(part) < energyInConeAngle and self.num != part.num:
+            if part.typ != 22 and self.angle(part) < energyInConeAngle and self.num != part.num and part.status:
                 energy += part.p.E()
         return energy
 
     def energyChargeInConeNorm(self,rcList):
         energy = 0
         for part in rcList:
-            if self.angle(part) < energyInConeAngle and self.num!=part.num and part.cha!=0:
+            if self.angle(part) < energyInConeAngle and self.num!=part.num and part.cha!=0 and part.status:
                 energy += part.p.E()
         return energy/self.p.E()
 
@@ -195,28 +203,28 @@ class Jet:
 
     def energy(self):
         return self.p.E()
-    
+
     def px(self):
         return self.p.Px()
-    
+
     def py(self):
         return self.p.Py()
-    
+
     def pz(self):
         return self.p.Pz()
-    
+
     def theta(self):
         return self.p.Theta()
-    
+
     def cosTheta(self):
         return self.p.CosTheta()
-    
+
     def phi(self):
         return self.p.Phi()
-    
+
     def dtheta(self, part):
         return self.p.Theta() - part.p.Theta()
-    
+
     def dphi(self, part):
         phiDifference = self.phi()-part.phi()
         if phiDifference > numpy.pi:
@@ -225,10 +233,10 @@ class Jet:
             if phiDifference < -numpy.pi:
                 phiDifference += 2*numpy.pi
         return phiDifference
-    
+
     def angle(self,part2):
         return self.p.Angle(part2.p.Vect())
-    
+
     def cos(self,part2):
         ang = self.p.Angle(part2.p.Vect())
         return numpy.cos(ang)
@@ -250,28 +258,28 @@ class TaggedJet:
 
     def energy(self):
         return self.p.E()
-    
+
     def px(self):
         return self.p.Px()
-    
+
     def py(self):
         return self.p.Py()
-    
+
     def pz(self):
         return self.p.Pz()
-    
+
     def theta(self):
         return self.p.Theta()
-    
+
     def cosTheta(self):
         return self.p.CosTheta()
-    
+
     def phi(self):
         return self.p.Phi()
-    
+
     def dtheta(self, part):
         return self.p.Theta() - part.p.Theta()
-    
+
     def dphi(self, part):
         phiDifference = self.phi()-part.phi()
         if phiDifference > numpy.pi:
@@ -280,10 +288,10 @@ class TaggedJet:
             if phiDifference < -numpy.pi:
                 phiDifference += 2*numpy.pi
         return phiDifference
-    
+
     def angle(self,part):
         return self.p.Angle(part.p.Vect())
-    
+
     def cos(self,part):
         ang = self.p.Angle(part.p.Vect())
         return numpy.cos(ang)

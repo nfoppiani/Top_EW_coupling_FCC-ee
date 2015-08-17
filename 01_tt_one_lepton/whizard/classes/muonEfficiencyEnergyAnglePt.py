@@ -1,6 +1,42 @@
-from ROOT import TFile, TTree, TLorentzVector, TH1F, TH2F, TChain, THStack, TGraph, TCanvas, TProfile
+from ROOT import TFile, TTree, TLorentzVector, TH1F, TH2F, TChain, THStack, TGraph, TCanvas, TProfile, TGraphErrors, TF1
 import numpy
 from particleClass import *
+
+
+def fitSliceGaus(h2,nBin,max,title,save):
+
+    means=numpy.zeros(nBin)
+    sigmas=numpy.zeros(nBin)
+
+    x=numpy.zeros(nBin)
+    ex=numpy.zeros(nBin)
+
+    binWidth=h2.GetXaxis().GetBinWidth(1)
+
+    for i in range(nBin):
+
+        h1=h2.ProjectionY("projection {i}".format(i=i+1),i+1,i+1)
+        h1.Fit("gaus")
+        gaus = TF1(h1.GetFunction("gaus"))
+        h1.Fit("gaus","","",(gaus.GetParameter(1))-2.*(gaus.GetParameter(2)),max)
+        gaus = h1.GetFunction("gaus")
+        h1.Fit("gaus","","",(gaus.GetParameter(1))-2.*(gaus.GetParameter(2)),max)
+        gaus = h1.GetFunction("gaus")
+        h1.Fit("gaus","","",(gaus.GetParameter(1))-2.*(gaus.GetParameter(2)),max)
+        gaus = h1.GetFunction("gaus")
+
+        means[i]=gaus.GetParameter(1)
+        sigmas[i]=gaus.GetParameter(2)/(1.+min(0.,gaus.GetParameter(1)))
+        x[i]=binWidth*(i+0.5)
+        ex[i]=0.
+
+    graph= TGraphErrors(len(means),x,means,ex,sigmas)
+    graph.SetTitle(title)
+
+    save.cd()
+    graph.Write()
+
+    return
 
 #saving file
 savingFile=TFile("./../plot/negMuonsRcEfficiencyEnergyAnglePt.root","RECREATE")
@@ -127,6 +163,14 @@ rcMuonTree.Project("rcDeltaOneOverPtVSEnergy","rcMuDeltaOneOverPt:rcMuRedEne",cu
 savingFile.cd()
 rcDeltaOneOverPtVSEnergy.Write()
 
+
+rcDeltaOneOverPtVSEnergy=TH2F("rcDeltaOneOverPtVSEnergy","Delta 1/pt in function of Energy",15,0.,1.,500,-0.01,0.01)
+cutString="rcEnergyInCone<{energyMin} || rcPtToClosestJet>{pTMax} || rcAngleClosestCharge>{angleMax}"
+rcMuonTree.Project("rcDeltaOneOverPtVSEnergy","rcMuDeltaOneOverPt:rcMuRedEne",cutString.format(pTMax=pTMax,angleMax=angleMax,energyMin=energyMin))
+
+fitSliceGaus(rcDeltaOneOverPtVSEnergy,15,0.01,"rcDeltaOneOverPtVSEnergy",savingFile)
+
+
 #delta Theta vs cosTheta
 
 rcDeltaThetaVSCosTheta=TProfile("rcDeltaThetaVSCosTheta","Delta Theta in function of cosTheta",25,-1.,1.,"s")
@@ -136,8 +180,6 @@ rcMuonTree.Project("rcDeltaThetaVSCosTheta","rcMuDeltaTheta:rcMuCosTheta",cutStr
 savingFile.cd()
 rcDeltaThetaVSCosTheta.Write()
 
-
-
 #delta Theta vs PT
 rcDeltaThetaVSPt=TProfile("rcDeltaThetaVSPt","Delta Theta in function of Pt",25,10,120,"s")
 cutString="rcEnergyInCone<{energyMin} || rcPtToClosestJet>{pTMax} || rcAngleClosestCharge>{angleMax}"
@@ -145,7 +187,6 @@ rcMuonTree.Project("rcDeltaThetaVSPt","rcMuDeltaTheta:rcMuPt",cutString.format(p
 
 savingFile.cd()
 rcDeltaThetaVSPt.Write()
-
 
 #delta Phi vs cosTheta
 
@@ -156,8 +197,6 @@ rcMuonTree.Project("rcDeltaPhiVSCosTheta","rcMuDeltaPhi:rcMuCosTheta",cutString.
 savingFile.cd()
 rcDeltaPhiVSCosTheta.Write()
 
-
-
 #delta Phi vs PT
 rcDeltaPhiVSPt=TProfile("rcDeltaPhiVSPt","Delta Phi in function of Pt",25,10,120,"s")
 cutString="rcEnergyInCone<{energyMin} || rcPtToClosestJet>{pTMax} || rcAngleClosestCharge>{angleMax}"
@@ -165,6 +204,8 @@ rcMuonTree.Project("rcDeltaPhiVSPt","rcMuDeltaPhi:rcMuPt",cutString.format(pTMax
 
 savingFile.cd()
 rcDeltaPhiVSPt.Write()
+
+
 
 
 savingFile.Close()
