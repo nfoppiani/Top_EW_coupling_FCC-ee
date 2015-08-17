@@ -121,7 +121,7 @@ muonsRcTree.Branch('rcEnergyInCone',rcEnergyInCone, 'mcTyp/D')
 for event in chain:
 	if chain.mcpdg[10]==13:
 		# prepares the variables to fill the tree
-		mcMuon=Particle(10, 13,chain.mccha[10],chain.mcmox[10],chain.mcmoy[10],chain.mcmoz[10],chain.mcene[10])
+		mcMuon=Particle(10, 13,chain.mccha[10],chain.mcmox[10],chain.mcmoy[10],chain.mcmoz[10],chain.mcene[10],1)
 		# mcMuEne[0] = mcMuon.p.E()
 		# mcMuRedEne[0] = mcMuon.p.E()*red
 		# mcMuMox[0] = mcMuon.p.Px()
@@ -134,19 +134,19 @@ for event in chain:
 
 		rcParticles=[]
 		for i in range(len(chain.rctyp)):
-			p = Particle(i, chain.rctyp[i],chain.rccha[i],chain.rcmox[i],chain.rcmoy[i],chain.rcmoz[i],chain.rcene[i])
+			p = Particle(i, chain.rctyp[i],chain.rccha[i],chain.rcmox[i],chain.rcmoy[i],chain.rcmoz[i],chain.rcene[i],1)
 			rcParticles.append(p)
 
 		rcJets=[]
 		for i in range(len(chain.jene)):
-			p = Jet(i,chain.jmas[i],chain.jcha[i],chain.jmox[i],chain.jmoy[i],chain.jmoz[i],chain.jene[i])
+			p = Jet(i,chain.jmas[i],chain.jcha[i],chain.jmox[i],chain.jmoy[i],chain.jmoz[i],chain.jene[i],1)
 			rcJets.append(p)
 
 		#find the matched muon
 
 		for part in rcParticles:
 			if part.typ==13:
-				part.photonRecovery(rcParticles)
+				part.photonsRecovery(rcParticles)
 
 		matchNum=mcMuon.matchMuon(rcParticles)
 
