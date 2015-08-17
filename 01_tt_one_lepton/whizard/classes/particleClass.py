@@ -9,9 +9,6 @@ import numpy
 matchMuonMaxAngleDegrees = 4.5
 matchMuonMinEnergy= 10.
 
-#matchelectronMinEnergy = 8
-matchMinCos = 0.98
-
 # SEARCH PARAMETERS
 
 closestChargeMinEnergy = 0.
@@ -19,11 +16,9 @@ energyInConeAngleDegree = 20.
 
 # PHOTON RECOVERY PARAMETERS
 
-dtheta1Degrees = 0.8
-dphi1Degrees = 0.8
-dtheta2Degrees = 0.4
-dphi2DegreesMax = 4.0
-dphi2DegreesMin = -0.4
+anglularRadiusDegrees = 1.5
+dthetaDegrees = 0.4
+dphiDegrees = 5.5
 
 ##########################
 ### RADIANS CONVERSION ###
@@ -31,11 +26,10 @@ dphi2DegreesMin = -0.4
 
 matchMuonMaxAngle = numpy.radians(matchMuonMaxAngleDegrees)
 energyInConeAngle = numpy.radians(energyInConeAngleDegree)
-dtheta1 = numpy.radians(dtheta1Degrees)
-dphi1 = numpy.radians(dphi1Degrees)
-dtheta2 = numpy.radians(dtheta2Degrees)
-dphi2Max = numpy.radians(dphi2DegreesMax)
-dphi2Min = numpy.radians(dphi2DegreesMin)
+
+angularRadius = numpy.radians(anglularRadiusDegrees)
+dtheta = numpy.radians(dthetaDegrees)
+dphi = numpy.radians(dphiDegrees)
 
 ##########################
 ### CLASSES DEFINITION ###
@@ -43,14 +37,12 @@ dphi2Min = numpy.radians(dphi2DegreesMin)
 
 class Particle:
 
-    def __init__ (self,num,typ,cha,px,py,pz,e):
+    def __init__ (self,num,typ,cha,px,py,pz,e,status):
         self.num = num
         self.typ = typ
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
-
-    def cosTheta(self):
-        return self.p.CosTheta()
+        self.status = status
 
     def energy(self):
         return self.p.E()
@@ -66,6 +58,9 @@ class Particle:
 
     def theta(self):
         return self.p.Theta()
+    
+    def cosTheta(self):
+        return self.p.CosTheta()
 
     def phi(self):
         return self.p.Phi()
@@ -88,6 +83,35 @@ class Particle:
     def cos(self,part2):
         ang = self.p.Angle(part2.p.Vect())
         return numpy.cos(ang)
+
+### MATCHING AND RECOVERING ###
+
+    def matchMuon(self, listRcPart):
+        minAngle = -1.
+        rcMuonNumber = -1
+        for part in listRcPart:
+            if part.typ == 13 and part.p.E()>matchMuonMinEnergy:
+                ang = self.angle(part)
+                if ang < minAngle or minAngle == -1.:
+                    minAngle = ang
+                    rcMuonNumber = part.num
+        if minAngle < matchMuonMaxAngle:
+            return rcMuonNumber
+        else:
+            return -1
+
+    def photonsRecovery(self, listRcPart):
+        for photon in listRcPart:
+            if photon.typ == 22 and photon.status:
+                thetaDifference = photon.dtheta(self)
+                phiDifference = photon.dphi(self)
+                if thetaDifference**2+phiDifference**2 < angularRadius**2 or ( abs(thetaDifference)<dtheta and 0<phiDifference<dphi ):
+                    #print self.energy()#
+                    self.p += photon.p
+                    photon.status = 0
+                    #print self.energy(), 'recovered2'#
+        return
+
 
 ### ISOLATION VARIABLES ###
 
@@ -158,62 +182,56 @@ class Particle:
                 energy += part.p.E()
         return energy/self.p.E()
 
-### MATCHING AND RECOVERING ###
-
-    def matchMuon(self, listRcPart):
-        minAngle = -1.
-        rcMuonNumber = -1
-        for part in listRcPart:
-            if part.typ == 13 and part.p.E()>matchMuonMinEnergy:
-                ang = self.angle(part)
-                if ang < minAngle or minAngle == -1.:
-                    minAngle = ang
-                    rcMuonNumber = part.num
-        if minAngle < matchMuonMaxAngle:
-            return rcMuonNumber
-        else:
-            return -1
-
-    def photonRecovery(self, listRcPart):
-        for photon in listRcPart:
-            if photon.typ == 22:
-                thetaDifference = photon.dtheta(self)
-                phiDifference = photon.dphi(self)
-                if abs(thetaDifference) < dtheta1:
-                    if abs(phiDifference) < dphi1:
-                        self.p += photon.p
-                    else:
-                        if abs(thetaDifference) < dtheta2:
-                            if phiDifference > dphi2Min and phiDifference < dphi2Max:
-                                self.p += photon.p
-
 ### JET CLASS ###
 
 class Jet:
 
-    def __init__ (self,num,mass,cha,px,py,pz,e):
+    def __init__ (self,num,mass,cha,px,py,pz,e,status):
         self.num = num
         self.mass = mass
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
-
-    def cosTheta(self):
-        return self.p.CosTheta()
-
-    def angle(self,part2):
-        return self.p.Angle(part2.p.Vect())
+        self.status = status
 
     def energy(self):
         return self.p.E()
-
+    
     def px(self):
         return self.p.Px()
-
+    
     def py(self):
         return self.p.Py()
-
+    
     def pz(self):
         return self.p.Pz()
+    
+    def theta(self):
+        return self.p.Theta()
+    
+    def cosTheta(self):
+        return self.p.CosTheta()
+    
+    def phi(self):
+        return self.p.Phi()
+    
+    def dtheta(self, part):
+        return self.p.Theta() - part.p.Theta()
+    
+    def dphi(self, part):
+        phiDifference = self.phi()-part.phi()
+        if phiDifference > numpy.pi:
+            phiDifference -= 2*numpy.pi
+        else:
+            if phiDifference < -numpy.pi:
+                phiDifference += 2*numpy.pi
+        return phiDifference
+    
+    def angle(self,part2):
+        return self.p.Angle(part2.p.Vect())
+    
+    def cos(self,part2):
+        ang = self.p.Angle(part2.p.Vect())
+        return numpy.cos(ang)
 
 
 
@@ -221,33 +239,56 @@ class Jet:
 
 class TaggedJet:
 
-    def __init__ (self,num,mass,cha,px,py,pz,e,btag,ctag):
+    def __init__ (self,num,mass,cha,px,py,pz,e,btag,ctag,status):
         self.num = num
         self.mass = mass
         self.cha = cha
         self.p = TLorentzVector(px,py,pz,e)
         self.btag = btag
         self.ctag = ctag
-
-    def cosTheta(self):
-        return self.p.CosTheta()
-
-    def angle(self,part2):
-        return self.p.Angle(part2.p.Vect())
+        self.status = status
 
     def energy(self):
         return self.p.E()
-
+    
     def px(self):
         return self.p.Px()
-
+    
     def py(self):
         return self.p.Py()
-
+    
     def pz(self):
         return self.p.Pz()
+    
+    def theta(self):
+        return self.p.Theta()
+    
+    def cosTheta(self):
+        return self.p.CosTheta()
+    
+    def phi(self):
+        return self.p.Phi()
+    
+    def dtheta(self, part):
+        return self.p.Theta() - part.p.Theta()
+    
+    def dphi(self, part):
+        phiDifference = self.phi()-part.phi()
+        if phiDifference > numpy.pi:
+            phiDifference -= 2*numpy.pi
+        else:
+            if phiDifference < -numpy.pi:
+                phiDifference += 2*numpy.pi
+        return phiDifference
+    
+    def angle(self,part):
+        return self.p.Angle(part.p.Vect())
+    
+    def cos(self,part):
+        ang = self.p.Angle(part.p.Vect())
+        return numpy.cos(ang)
 
-
+# FUNCTIONS DEFINITION
 
 def Distance(a,b):
     dist = numpy.sqrt((a.p.E()-b.p.E())**2 + (a.p.Px()-b.p.Px())**2 + (a.p.Py()-b.p.Py())**2 + (a.p.Pz()-b.p.Pz())**2)
