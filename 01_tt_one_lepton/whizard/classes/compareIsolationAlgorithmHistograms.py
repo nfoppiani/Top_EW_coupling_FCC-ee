@@ -5,7 +5,7 @@ from particleClass import *
 
 generatedMuons=69397.
 
-rcMuonFile=TFile("./../tree/negMuonsRcTreeTry100files.root","OPEN")
+rcMuonFile=TFile("./../tree/negMuonsRcTreeTryAllfiles.root","OPEN")
 rcMuonTree = rcMuonFile.Get("negMuonsRC")
 
 savingFile =TFile("./../plot/compareIsolationAlgorithm.root","RECREATE")

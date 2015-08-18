@@ -177,9 +177,9 @@ By trying this script with electron only 99 events I found that the reconstructe
 
 \textbf{Screen and running processes in background}
 
-If you want to launch a command from a LxPlus shell and you don't want the command to be stopped when you close the connection you can use two ways:
-
 \begin{itemize}
 \item run in background: if you run the command by adding \& at the end it will run in background. When this will finish you will get a string "[process number] Done".
 \item using Screen: if you use screen (see the glossary) you can in parallel a lot of processes. If you disconnect you won't have these screens available unless you reconnect to the same computer (the number of the computer is written near lxplus in the shell). So you need to reconnect by using ssh -XY myname@lxplus1234.cern.ch 
 \end{itemize}
+
+If you want to launch a command from a LxPlus shell and you don't want the command to be stopped when you close the connection you can use a trick: open a screen from lxplus, connect to lxplus from the screen and then run the command.

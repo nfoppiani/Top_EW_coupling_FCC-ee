@@ -1,0 +1,9 @@
+\section{Week 05}
+
+\subsection{17/08/2015}
+
+With Patrick we understand that the ideal maximum angle to make the cut is $4.5^o$, that let us to obtain a more pure subsample of good muons. In addition we improved the bremstralung recovery in this way: we add all the photons in a circle of radius... %aggiungere spiegazione e immagini
+
+Actually we found out another problem: after the recovery there are still lot of muons which have a large energy difference from the montecarlo. This could be due to the final state radiation, we'll talk with Patrick to understand how to solve this problem.
+
+We also improve the isolation algorithm that minimize the Pt with respect to the closest jet to avoid the following problem: sometimes happens that a single muon is put in a jet without other particles. We want not to consider this jet in the calculation. We try to remove from this calculation a jet if the invariant mass of the difference of the jet minus the muon is smaller than 10 GeV. The problem is that, with this algorithm, we miss the muons coming from the b quark decays with high energy with respect to the other particles inside the jet. So, we decided to remove only the jet with charge equal to -1, with an invariant mass with respect to the muon smaller the 10 GeV and with an energy difference

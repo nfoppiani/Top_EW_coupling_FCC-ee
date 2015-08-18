@@ -21,14 +21,13 @@ pTMax=4.
 energyMin=numpy.array([1.5,2.0,2.5,2.8,3.,3.5,4.,5.,6.,7.])
 angleMax=0.35
 
+matched=numpy.zeros(len(energyMin))
+nonMatched=numpy.zeros(len(energyMin))
 
+efficiency=numpy.zeros(len(energyMin))
+purity=numpy.zeros(len(energyMin))
+prod=numpy.zeros(len(energyMin))
 
-matched=numpy.array([0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])
-nonMatched=numpy.array([0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])
-
-efficiency=numpy.array([0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])
-purity=numpy.array([0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])
-prod=numpy.array([0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])
 for i in range(len(energyMin)):
     matchString= "(rcEnergyInCone<{energyMini} || rcPtToClosestJet>{pTMax} || rcAngleClosestCharge>{angleMax}) && rcMuMatch==1"
     matched[i]=rcMuonTree.GetEntries(matchString.format(pTMax=pTMax,angleMax=angleMax,energyMini=energyMin[i]))
