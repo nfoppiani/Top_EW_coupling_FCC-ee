@@ -2,18 +2,6 @@ from ROOT import TFile, TLorentzVector, TH1F, TH2F, TChain
 import numpy
 from particleClass import *
 
-dtheta1Degrees = 0.8
-dphi1Degrees = 0.8
-dtheta2Degrees = 0.4
-dphi2DegreesMax = 4.0
-dphi2DegreesMin = -0.4
-
-dtheta1 = numpy.radians(dtheta1Degrees)
-dphi1 = numpy.radians(dphi1Degrees)
-dtheta2 = numpy.radians(dtheta2Degrees)
-dphi2Max = numpy.radians(dphi2DegreesMax)
-dphi2Min = numpy.radians(dphi2DegreesMin)
-
 tree = TChain("MyLCTuple")
 tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
 #tree.Add('./../whizard_negMuTau_yyxylv/000/yyxylv_o_*.root')
@@ -24,12 +12,14 @@ j = 0
 for event in tree:
     if tree.mcpdg[10]==13:
         
-        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
-    
+        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10],1)
+        rcMuons = []
         rcParticles = []
         for i in range(len(tree.rctyp)):
-            p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+            p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i],1)
             rcParticles.append(p)
+            if p.typ == 13:
+                rcMuons.append(p)
     
         rcJets = []
         for i in range(len(tree.jene)):
@@ -40,21 +30,9 @@ for event in tree:
         if matchNum != -1:
             matchedMuon = rcParticles[matchNum]
 
-        for photon in rcParticles:
-            if photon.typ == 22:
-                thetaDifference = photon.dtheta(matchedMuon)
-                phiDifference = photon.dphi(matchedMuon)
-                if abs(thetaDifference) < dtheta1:
-                    if abs(phiDifference) < dphi1:
-                        matchedMuon.p += photon.p
-#                        print
-#                        print 'recovered! ', matchedMuon.energy()-photon.energy(), ' to ', matchedMuon.energy()
-                    else:
-                        if abs(thetaDifference) < dtheta2:
-                            if phiDifference > dphi2Min and phiDifference < dphi2Max:
-                                matchedMuon.p += photon.p
-#                                print
-#                                print 'recovered!', matchedMuon.energy()-photon.energy(), ' to ', matchedMuon.energy()
+        for muon in rcMuons:
+            muon.photonsRecovery(rcParticles)
+            rcParticles[muon.num] = muon
 
         for i in range(len(rcJets)):
             angle = rcJets[i].angle(mcMuon)

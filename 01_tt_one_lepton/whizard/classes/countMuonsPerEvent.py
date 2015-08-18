@@ -21,12 +21,12 @@ sMoreThan3Angle = THStack("moreThan3Angle","Angle between RC muons and MC W-deca
 for event in tree:
     if tree.mcpdg[10]==13:          # selects muons events (rejects tau events)
         count = 0                   # counts the RC muons in the event
-        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
+        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10],1)
         
         rcMuons = []
         for i in range(len(tree.rctyp)):
             if tree.rctyp[i] == 13:
-                p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i])
+                p = Particle(i, tree.rctyp[i],tree.rccha[i],tree.rcmox[i],tree.rcmoy[i],tree.rcmoz[i],tree.rcene[i],1)
                 rcMuons.append(p)
                 count += 1
         
