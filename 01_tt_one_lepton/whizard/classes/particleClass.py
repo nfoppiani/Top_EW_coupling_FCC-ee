@@ -12,11 +12,11 @@ matchMuonMinEnergy= 10.
 # SEARCH PARAMETERS
 
 closestChargeMinEnergy = 0.
-energyInConeAngleDegree = 20.
+energyInConeAngleDegree = 15.
 
 # PHOTONS RECOVERY PARAMETERS
 
-photonsRecoveryAngularRadiusDegrees = 8.
+photonsRecoveryAngularRadiusDegrees = 7.5
 
 ##########################
 ### RADIANS CONVERSION ###
@@ -104,6 +104,18 @@ class Particle:
                     photon.status = 0
         return
 
+    def photonsRecoveryPreselection(self, ang, energyCut, rcPartList):
+        energy = 0
+        for part in rcPartList:
+            if part.typ != 22 and self.angle(part) < numpy.radians(ang) and self.num != part.num and part.status:
+                energy += part.p.E()
+        if energy <= energyCut:
+            for photon in listRcPart:
+                if photon.typ == 22 and photon.status:
+                    if self.angle(photon) < photonsRecoveryAngularRadius:
+                        self.p += photon.p
+                        photon.status = 0
+        return
 
 ### ISOLATION VARIABLES ###
 
@@ -163,7 +175,7 @@ class Particle:
     def energyInConeWithoutPhotons(self,rcList):
         energy = 0
         for part in rcList:
-            if part.typ != 22 and self.angle(part) < energyInConeAngle and self.num != part.num:
+            if part.typ != 22 and self.angle(part) < energyInConeAngle and self.num != part.num and part.status:
                 energy += part.p.E()
         return energy
 
@@ -289,6 +301,6 @@ def Distance(a,b):
 def InvariantMass(a,b):
     mass = (a.energy()-b.energy())**2-(a.px()-b.px())**2-(a.py()-b.py())**2-(a.pz()-b.pz())**2
     if mass >= 0:
-        return numpy.sqrt()
+        return numpy.sqrt(mass)
     else:
         return -numpy.sqrt(-mass)

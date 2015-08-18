@@ -4,9 +4,9 @@ from particleClass import *
 
 tree = TChain("MyLCTuple")
 
-tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
-#tree.Add('./../whizard_negMuTau_yyxylv/000/yyxylv_o_*.root')
-#tree.Add('./../whizard_negMuTau_yyxylv/001/yyxylv_o_*.root')
+#tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_*.root')
+tree.Add('./../whizard_negMuTau_yyxylv/000/yyxylv_o_*.root')
+tree.Add('./../whizard_negMuTau_yyxylv/001/yyxylv_o_*.root')
 
 dthetaDegrees = 15.
 dphiDegrees = 25.
@@ -14,21 +14,19 @@ dphiDegrees = 25.
 dtheta = numpy.radians(dthetaDegrees)
 dphi = numpy.radians(dphiDegrees)
 
-hEnergyDifference = TH1F("energyDifference","Energy matched - energy montecarlo",500,-60.,60.)
+hEnergyDifference = TH1F("energyDifference","Energy matched - energy montecarlo",1000,-100.,100.)
 hAngle = TH1F("angle","Angle matched-montecarlo",90,0.,4.5)
 hDistance = TH1F("distance","Distance between matched and montecarlo muon",300,0.,100.)
 hPhotonDistributionW = TH2F("photonDistributionW", "Emitted photons distribution", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
 hPhotonDistributionNotW = TH2F("photonDistributionNotW", "Emitted photons distribution", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
 hPhotonDistributionWEnergy = TH2F("photonDistributionWPhoton", "Emitted photons distribution weighted on the photons energy", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
 hPhotonDistributionNotWEnergy = TH2F("photonDistributionNotWPhotonEnergy", "Emitted photons distribution weighted on the photons energy", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
-hPhotonDistributionWMuonEnergy = TH2F("photonDistributionWMuonEnergy", "Emitted photons distribution weighted on the muons energy", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
-hPhotonDistributionNotWMuonEnergy = TH2F("photonDistributionNotWMuonEnergy", "Emitted photons distribution weighted on the muons energy", 1000,dthetaDegrees, dthetaDegrees, 500, -dphiDegrees, dphiDegrees)
-hPhotonsIn7DegreesWMuons = TH2F("photonsIn7DegreesWMuon", "Number of photons in a 7 degrees cone", 21, 0., 20.)
-hPhotonsIn7DegreesNotWMuons = TH2F("photonsIn7DegreesNotWMuon", "Number of photons in a 7 degrees cone", 21, 0., 20.)
-hPhotonsIn8DegreesWMuons = TH2F("photonsIn8DegreesWMuon", "Number of photons in a 8 degrees cone", 21, 0., 20.)
-hPhotonsIn8DegreesNotWMuons = TH2F("photonsIn8DegreesNotWMuon", "Number of photons in a 8 degrees cone", 21, 0., 20.)
-hPhotonsIn9DegreesWMuons = TH2F("photonsIn9DegreesWMuon", "Number of photons in a 9 degrees cone", 21, 0., 20.)
-hPhotonsIn9DegreesNotWMuons = TH2F("photonsIn9DegreesNotWMuon", "Number of photons in a 9 degrees cone", 21, 0., 20.)
+hPhotonsIn7DegreesWMuons = TH1F("photonsIn7DegreesWMuon", "Number of photons in a 7 degrees cone", 21, 0., 20.)
+hPhotonsIn7DegreesNotWMuons = TH1F("photonsIn7DegreesNotWMuon", "Number of photons in a 7 degrees cone", 21, 0., 20.)
+hPhotonsIn8DegreesWMuons = TH1F("photonsIn8DegreesWMuon", "Number of photons in a 8 degrees cone", 21, 0., 20.)
+hPhotonsIn8DegreesNotWMuons = TH1F("photonsIn8DegreesNotWMuon", "Number of photons in a 8 degrees cone", 21, 0., 20.)
+hPhotonsIn9DegreesWMuons = TH1F("photonsIn9DegreesWMuon", "Number of photons in a 9 degrees cone", 21, 0., 20.)
+hPhotonsIn9DegreesNotWMuons = TH1F("photonsIn9DegreesNotWMuon", "Number of photons in a 9 degrees cone", 21, 0., 20.)
 
 k = 0
 
@@ -67,7 +65,6 @@ for event in tree:
                         if abs(phiDifference) < dphi:
                             hPhotonDistributionW.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference))
                             hPhotonDistributionWEnergy.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference), photon.energy())
-                            hPhotonDistributionWMuonEnergy.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference), matchedMuon.energy())
                 angle = photon.angle(matchedMuon)
                 if angle < numpy.radians(9):
                     count9 += 1
@@ -92,7 +89,6 @@ for event in tree:
                             if abs(phiDifference) < dphi:
                                 hPhotonDistributionNotW.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference))
                                 hPhotonDistributionNotWEnergy.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference), photon.energy())
-                                hPhotonDistributionNotWMuonEnergy.Fill(numpy.degrees(thetaDifference), numpy.degrees(phiDifference), muon.energy())
                     angle = photon.angle(muon)
                     if angle < numpy.radians(9):
                         count9 += 1
@@ -113,8 +109,6 @@ hPhotonDistributionW.Write()
 hPhotonDistributionNotW.Write()
 hPhotonDistributionWEnergy.Write()
 hPhotonDistributionNotWEnergy.Write()
-hPhotonDistributionWMuonEnergy.Write()
-hPhotonDistributionNotWMuonEnergy.Write()
 hPhotonsIn7DegreesWMuons.Write()
 hPhotonsIn7DegreesNotWMuons.Write()
 hPhotonsIn8DegreesWMuons.Write()

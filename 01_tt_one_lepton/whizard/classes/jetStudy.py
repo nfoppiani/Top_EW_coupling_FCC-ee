@@ -23,7 +23,7 @@ for event in tree:
     
         rcJets = []
         for i in range(len(tree.jene)):
-            p = TaggedJet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i], tree.btag[i], tree.ctag[i])
+            p = TaggedJet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i], tree.btag[i], tree.ctag[i],1)
             rcJets.append(p)
 
         matchNum = mcMuon.matchMuon(rcParticles)

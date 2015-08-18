@@ -13,7 +13,7 @@ j = 0
 for event in tree:
     if tree.mcpdg[10]==13:
         print 'EVENT ', j
-        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10])
+        mcMuon = Particle(10,tree.mcpdg[10],tree.mccha[10],tree.mcmox[10],tree.mcmoy[10],tree.mcmoz[10],tree.mcene[10],1)
         
 #        rcMuons = []
 #        k = 0
@@ -25,7 +25,7 @@ for event in tree:
 
         rcJets = []
         for i in range(len(tree.jene)):
-            p = TaggedJet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i], tree.btag[i], tree.ctag[i])
+            p = TaggedJet(i,tree.jmas[i],tree.jcha[i],tree.jmox[i],tree.jmoy[i],tree.jmoz[i],tree.jene[i], tree.btag[i], tree.ctag[i],1)
             rcJets.append(p)
 
         print 'number\tcha\tene\t\tmox\t\tmoy\t\tmoz\t\tbtag\t\tctag\t\tangle'
