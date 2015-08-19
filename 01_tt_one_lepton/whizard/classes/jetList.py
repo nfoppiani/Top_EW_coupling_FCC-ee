@@ -6,7 +6,7 @@ import numpy
 from particleClass import *
 
 tree = TChain("MyLCTuple")
-tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_9*.root')
+tree.Add('./../ntuple/negMuTau_ntuple/yyxylv_o_10.root')
 
 j = 0
 

@@ -16,7 +16,7 @@ energyInConeAngleDegree = 15.
 
 # PHOTONS RECOVERY PARAMETERS
 
-photonsRecoveryAngularRadiusDegrees = 7.5
+photonsRecoveryAngularRadiusDegrees = 8.0
 
 ##########################
 ### RADIANS CONVERSION ###
